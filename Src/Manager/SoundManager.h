@@ -1,0 +1,117 @@
+#pragma once
+
+#include<map>
+#include<string>
+
+class SoundManager
+{
+public:
+
+	enum class BGM_TYPE
+	{
+		TITLE					//タイトル
+		,SELECT					//セレクト
+		,BATTLE_FIRST_HALF		//バトル前半
+		,BATTLE_SECOND_HALF		//バトル後半
+		,RESULT					//リザルト
+		,MAX
+	};
+
+	enum class SE_TYPE
+	{
+		CLICK		//決定
+		,CANCEL		//キャンセル
+		,FALL		//落下
+		,ATTACK		//攻撃
+		,TILEBREAK	//床破壊
+		,CURTAIN	//舞台幕
+		,MAX
+	};
+
+	//メンバー関数
+	//-------------------------
+
+	//サウンドの初期化
+	void SoundInit(void);
+
+	//BGMのパスの初期化
+	void BGMInit(void);
+
+	/// <summary>
+	/// BGMのロード
+	/// </summary>
+	/// <param name="_bgm">BGMの種類</param>
+	void BGMLoad(BGM_TYPE _bgm);
+
+	//SEのパスの初期化
+	void SEInit(void);
+
+	/// <summary>
+	/// SEのロード	
+	/// </summary>
+	/// <param name="_bgm">SEの種類</param>
+	void SELoad(SE_TYPE _se);
+
+	/// <summary>
+	/// BGMの再生
+	/// </summary>
+	/// <param name="_bgm">BGMの種類</param>
+	/// <param name="_playType">再生形式</param>
+	/// <param name="_volumePar">音量(%表記)</param>
+	/// <param name="_topPositionFlag">最初から再生を始めるか (true:最初から)</param>
+	void PlayBGM(BGM_TYPE _bgm, int _playType, int _volumePar = 100, bool _topPositionFlag = true);
+
+	/// <summary>
+	/// SEの再生
+	/// </summary>
+	/// <param name="_se">SEの種類</param>
+	/// <param name="_playType">再生形式</param>
+	/// <param name="_volumePar">音量(%表記)</param>
+	/// <param name="_topPositionFlag">最初から再生を始めるか (true:最初から)</param>
+	void PlaySE(SE_TYPE _se, int _playType, int _volumePar = 100, bool _topPositionFlag = true);
+
+	/// <summary>
+	/// BGMが再生中かどうかを返す
+	/// </summary>
+	/// <param name="_bgm">BGMの種類</param>
+	/// <returns>true:再生中</returns>
+	bool CheckBGMPlay(BGM_TYPE _bgm);
+
+	/// <summary>
+	/// SEが再生中かどうかを返す
+	/// </summary>
+	/// <param name="_se">SEの種類</param>
+	/// <returns>true:再生中</returns>
+	bool CheckSEPlay(SE_TYPE _se);
+
+	/// <summary>
+	/// BGMを止める
+	/// </summary>
+	/// <param name="_bgm">止めるBGM</param>
+	void StopBGM(BGM_TYPE _bgm);
+
+	/// <summary>
+	/// SEを止める
+	/// </summary>
+	/// <param name="_se">止めるSE</param>
+	void StopSE(SE_TYPE _se);
+
+	//サウンドの解放
+	void SoundRelease(void);
+
+private:
+
+	//メンバー変数
+	//--------------------------
+
+	//サウンドのパス
+	std::map<BGM_TYPE, std::string> bgmPass_;	//BGMのパス
+
+	std::map<SE_TYPE, std::string> sePass_;		//SEのパス
+
+	//サウンドのハンドル
+	std::map<BGM_TYPE,int> bgm_;	//BGMハンドル
+
+	std::map<SE_TYPE, int> se_;		//SEハンドル
+};
+
