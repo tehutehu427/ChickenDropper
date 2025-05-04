@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include"../Utility/Utility.h"
+#include "../Manager/Resource.h"
+#include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SoundManager.h"
 #include "../Manager/SceneManager.h"
@@ -17,6 +19,9 @@ SceneSelect::~SceneSelect()
 
 bool SceneSelect::Init(void)
 {
+	//インスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//サウンドのインスタンス
 	sound_ = new SoundManager();
 	sound_->SoundInit();
@@ -30,45 +35,50 @@ bool SceneSelect::Init(void)
 	sound_->PlayBGM(SoundManager::BGM_TYPE::SELECT, DX_PLAYTYPE_LOOP);
 
 	//画像の読み込み
-	bgImages_[BACKGROUND_TYPE::BACK] = LoadGraph((Application::PATH_IMAGE + "SelectBack.png").c_str());
-	bgImages_[BACKGROUND_TYPE::SKY] = LoadGraph((Application::PATH_IMAGE + "SelectBackSky.png").c_str());
-	bgImages_[BACKGROUND_TYPE::CLOUD] = LoadGraph((Application::PATH_IMAGE + "SelectBackCloud.png").c_str());
+
+	//背景系
+	bgImages_[BACKGROUND_TYPE::BACK] = res.Load(ResourceManager::SRC::SELECT_BACK).handleId_;
+	bgImages_[BACKGROUND_TYPE::SKY] = res.Load(ResourceManager::SRC::SELECT_SKY).handleId_;
+	bgImages_[BACKGROUND_TYPE::CLOUD] = res.Load(ResourceManager::SRC::SELECT_CLOUD).handleId_;
 	cloudPos_ = { 0.0f,0.0f };
 
-	bpImages_[CommonData::BATTLE_PATTERN::P1C1] = LoadGraph((Application::PATH_IMAGE + "BattleP1C1.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P1C2] = LoadGraph((Application::PATH_IMAGE + "BattleP1C2.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P1C3] = LoadGraph((Application::PATH_IMAGE + "BattleP1C3.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P2] = LoadGraph((Application::PATH_IMAGE + "BattleP2.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P2C1] = LoadGraph((Application::PATH_IMAGE + "BattleP2C1.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P2C2] = LoadGraph((Application::PATH_IMAGE + "BattleP2C2.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P3] = LoadGraph((Application::PATH_IMAGE + "BattleP3.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P3C1] = LoadGraph((Application::PATH_IMAGE + "BattleP3C1.png").c_str());
-	bpImages_[CommonData::BATTLE_PATTERN::P4] = LoadGraph((Application::PATH_IMAGE + "BattleP4.png").c_str());
+	//対戦人数
+	bpImages_[CommonData::BATTLE_PATTERN::P1C1] = res.Load(ResourceManager::SRC::BATTLE_P1C1).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P1C2] = res.Load(ResourceManager::SRC::BATTLE_P1C2).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P1C3] = res.Load(ResourceManager::SRC::BATTLE_P1C3).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P2] = res.Load(ResourceManager::SRC::BATTLE_P2).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P2C1] = res.Load(ResourceManager::SRC::BATTLE_P2C1).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P2C2] = res.Load(ResourceManager::SRC::BATTLE_P2C2).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P3] = res.Load(ResourceManager::SRC::BATTLE_P3).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P3C1] = res.Load(ResourceManager::SRC::BATTLE_P3C1).handleId_;
+	bpImages_[CommonData::BATTLE_PATTERN::P4] = res.Load(ResourceManager::SRC::BATTLE_P4).handleId_;
+	
+	//矢印
+	arrowImage_ = res.Load(ResourceManager::SRC::ARROW).handleId_;;
 
-	arrowImage_ = LoadGraph((Application::PATH_IMAGE + "arrow.png").c_str());
+	//パッド数確認
+	padNumImage_ = res.Load(ResourceManager::SRC::PAD_NUM).handleId_;
 
-	padNumImage_ = LoadGraph((Application::PATH_IMAGE + "PadNum.png").c_str());
+	//難易度
+	diffImages_[CommonData::DIFFICULTY::EASY] = res.Load(ResourceManager::SRC::EASY).handleId_;
+	diffImages_[CommonData::DIFFICULTY::NORMAL] = res.Load(ResourceManager::SRC::NORMAL).handleId_;
+	diffImages_[CommonData::DIFFICULTY::HARD] = res.Load(ResourceManager::SRC::HARD).handleId_;
 
-	diffImages_[CommonData::DIFFICULTY::EASY] = LoadGraph((Application::PATH_IMAGE + "difficultyEasy.png").c_str());
-	diffImages_[CommonData::DIFFICULTY::NORMAL] = LoadGraph((Application::PATH_IMAGE + "difficultyNormal.png").c_str());
-	diffImages_[CommonData::DIFFICULTY::HARD] = LoadGraph((Application::PATH_IMAGE + "difficultyHard.png").c_str());
+	//ルール
+	ruleImages_[CommonData::RULE::TIME] = res.Load(ResourceManager::SRC::RULE_SCORE).handleId_;;
+	ruleImages_[CommonData::RULE::LIFE] = res.Load(ResourceManager::SRC::RULE_LIFE).handleId_;;
+	ruleImages_[CommonData::RULE::BREAK_TILE] = res.Load(ResourceManager::SRC::RULE_TILE).handleId_;
 
-
-	ruleImages_[CommonData::RULE::TIME] = LoadGraph((Application::PATH_IMAGE + "RuleScore.png").c_str());
-	ruleImages_[CommonData::RULE::LIFE] = LoadGraph((Application::PATH_IMAGE + "RuleLife.png").c_str());
-	ruleImages_[CommonData::RULE::BREAK_TILE] = LoadGraph((Application::PATH_IMAGE + "RuleTileBreak.png").c_str());
-
-	ruleExplainImages_[CommonData::RULE::TIME] = LoadGraph((Application::PATH_IMAGE + "RuleScoreExplain.png").c_str());
-	ruleExplainImages_[CommonData::RULE::LIFE] = LoadGraph((Application::PATH_IMAGE + "RuleLifeExplain.png").c_str());
-	ruleExplainImages_[CommonData::RULE::BREAK_TILE] = LoadGraph((Application::PATH_IMAGE + "RuleTileBreakExplain.png").c_str());
-
-	tutorialImage_ = LoadGraph((Application::PATH_IMAGE + "Tutorial.png").c_str());
+	//ルール説明
+	ruleExplainImages_[CommonData::RULE::TIME] = res.Load(ResourceManager::SRC::SCORE_EXPLAIN).handleId_;
+	ruleExplainImages_[CommonData::RULE::LIFE] = res.Load(ResourceManager::SRC::LIFE_EXPLAIN).handleId_;
+	ruleExplainImages_[CommonData::RULE::BREAK_TILE] = res.Load(ResourceManager::SRC::TILE_EXPLAIN).handleId_;
 
 	//モデルの読み込み
-	pModel_[static_cast<int>(CommonData::TYPE::P1) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenBlue.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P2) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenRed.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P3) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenGreen.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P4) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenYellow.mv1").c_str());
+	pModel_[static_cast<int>(CommonData::TYPE::P1) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_BLUE);
+	pModel_[static_cast<int>(CommonData::TYPE::P2) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_RED);
+	pModel_[static_cast<int>(CommonData::TYPE::P3) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_GREEN);
+	pModel_[static_cast<int>(CommonData::TYPE::P4) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_YELLOW);
 
 	//変数の初期化
 	//-----------------------
@@ -193,35 +203,6 @@ bool SceneSelect::Release(void)
 	sound_->SoundRelease();
 	delete sound_;
 	sound_ = nullptr;
-
-	//画像の解放
-	for (int bg = 0; bg < static_cast<int>(BACKGROUND_TYPE::MAX); bg++)
-	{
-		DeleteGraph(bgImages_[static_cast<BACKGROUND_TYPE>(bg)]);
-	}
-
-	for (int bp = 0; bp < static_cast<int>(CommonData::BATTLE_PATTERN::MAX); bp++)
-	{
-		DeleteGraph(bpImages_[static_cast<CommonData::BATTLE_PATTERN>(bp)]);
-	}
-
-	DeleteGraph(arrowImage_);
-	
-	DeleteGraph(padNumImage_);
-
-	for(int rule = 0;rule<static_cast<int>(CommonData::RULE::BREAK_TILE);rule++)
-	{
-		DeleteGraph(ruleImages_[static_cast<CommonData::RULE>(rule)]);
-		DeleteGraph(ruleExplainImages_[static_cast<CommonData::RULE>(rule)]);
-	}
-
-	DeleteGraph(tutorialImage_);
-
-	//モデルの解放
-	for (int pl = 0; pl < static_cast<int>(CommonData::TYPE::P4); pl++)
-	{
-		MV1DeleteModel(pModel_[pl]);
-	}
 
 	//フォントデータ解放
 	DeleteFontToHandle(fontHandle_);

@@ -45,11 +45,11 @@ public:
 	static constexpr float DELTA_TIME = 1.0f / DEFAULT_FPS;		//デルタタイム
 
 	//色
-	static constexpr int COLOR_WHITE = 0xffffff;	//白
 	static constexpr int COLOR_RED = 0xff0000;		//赤
 	static constexpr int COLOR_GREEN = 0x00ff00;	//緑
 	static constexpr int COLOR_BLUE = 0x0000ff;		//青
 	static constexpr int COLOR_YELLOW = 0xffff00;	//黄
+	static constexpr int COLOR_WHITE = 0xffffff;	//白
 	static constexpr int COLOR_BLACK = 0x000000;	//黒
 	static constexpr int COLOR_GRAY = 0xaaaaaa;		//灰
 

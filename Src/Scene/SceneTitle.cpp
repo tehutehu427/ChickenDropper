@@ -10,7 +10,16 @@
 #include"../Object/Grid.h"
 #include"SceneTitle.h"
 
- //デストラクタ
+SceneTitle::SceneTitle()
+{
+	sound_ = nullptr;
+	bgImage_ = -1;
+	cloudImage_ = -1;
+	cloudPos_ = { 0.0f,0.0f };
+	logoImage_ = -1;
+}
+
+//デストラクタ
 SceneTitle::~SceneTitle(void)
 {
 
@@ -119,11 +128,6 @@ bool SceneTitle::Release(void)
 	sound_->SoundRelease();
 	delete sound_;
 	sound_ = nullptr;
-
-	//タイトル画像の解放
-	DeleteGraph(bgImage_);
-	DeleteGraph(cloudImage_);
-	DeleteGraph(logoImage_);
 
 	return true;
 }

@@ -54,6 +54,101 @@ void ResourceManager::InitSelect(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//セレクト背景
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "SelectBack.png");
+	resourcesMap_.emplace(SRC::SELECT_BACK, res);
+
+	//セレクト空
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "SelectBackSky.png");
+	resourcesMap_.emplace(SRC::SELECT_SKY, res);
+
+	//セレクト用雲
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "SelectBackCloud.png");
+	resourcesMap_.emplace(SRC::SELECT_CLOUD, res);
+	
+	//プレイヤー1人 CPU1人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP1C1.png");
+	resourcesMap_.emplace(SRC::BATTLE_P1C1, res);
+	
+	//プレイヤー1人 CPU2人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP1C2.png");
+	resourcesMap_.emplace(SRC::BATTLE_P1C2, res);
+	
+	//プレイヤー1人 CPU3人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP1C3.png");
+	resourcesMap_.emplace(SRC::BATTLE_P1C3, res);
+
+	//プレイヤー2人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP2.png");
+	resourcesMap_.emplace(SRC::BATTLE_P2, res);
+
+	//プレイヤー2人 CPU1人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP2C1.png");
+	resourcesMap_.emplace(SRC::BATTLE_P2C1, res);
+
+	//プレイヤー2人 CPU2人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP2C2.png");
+	resourcesMap_.emplace(SRC::BATTLE_P2C2, res);
+
+	//プレイヤー3人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP3.png");
+	resourcesMap_.emplace(SRC::BATTLE_P3, res);
+
+	//プレイヤー3人 CPU1人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP3C1.png");
+	resourcesMap_.emplace(SRC::BATTLE_P3C1, res);
+
+	//プレイヤー4人
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "BattleP4.png");
+	resourcesMap_.emplace(SRC::BATTLE_P4, res);
+
+	//矢印
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Arrow.png");
+	resourcesMap_.emplace(SRC::ARROW, res);
+
+	//パッド数
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "PadNum.png");
+	resourcesMap_.emplace(SRC::PAD_NUM, res);
+
+	//難易度 簡単
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "DifficultyEasy.png");
+	resourcesMap_.emplace(SRC::EASY, res);
+
+	//難易度 普通
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "DifficultyNormal.png");
+	resourcesMap_.emplace(SRC::NORMAL, res);
+
+	//難易度 難しい
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "DifficultyHard.png");
+	resourcesMap_.emplace(SRC::HARD, res);
+
+	//スコア制
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleScore.png");
+	resourcesMap_.emplace(SRC::RULE_SCORE, res);
+
+	//ライフ制
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleLife.png");
+	resourcesMap_.emplace(SRC::RULE_LIFE, res);
+
+	//タイル破壊制
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleTileBreak.png");
+	resourcesMap_.emplace(SRC::RULE_TILE, res);
+
+	//スコア制説明
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleScoreExplain.png");
+	resourcesMap_.emplace(SRC::SCORE_EXPLAIN, res);
+
+	//ライフ制説明
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleLifeExplain.png");
+	resourcesMap_.emplace(SRC::LIFE_EXPLAIN, res);
+
+	//タイル破壊制説明
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "RuleTileBreakExplain.png");
+	resourcesMap_.emplace(SRC::TILE_EXPLAIN, res);
+
+	//プレイヤー
+	ResourcePlayer();
 }
 
 void ResourceManager::InitGame(void)
@@ -66,7 +161,6 @@ void ResourceManager::InitGame(void)
 	Resource res;
 
 	ResourcePlayer();
-	ResourceEnemy();
 }
 
 void ResourceManager::InitResult(void)
@@ -79,8 +173,6 @@ void ResourceManager::InitResult(void)
 	Resource res;
 }
 
-//プレイヤー
-//*************************************************************************************************************
 void ResourceManager::ResourcePlayer(void)
 {
 	//*********************************************
@@ -88,18 +180,22 @@ void ResourceManager::ResourcePlayer(void)
 	//*********************************************
 
 	Resource res;
-}
 
-//敵
-//*************************************************************************************************************
-void ResourceManager::ResourceEnemy(void)
-{
-	//*********************************************
-	// 敵が使うリソース
-	//*********************************************
+	//ニワトリ青
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "ChickenBlue.mv1");
+	resourcesMap_.emplace(SRC::CHICKEN_BLUE, res);
 
-	Resource res;
+	//ニワトリ赤
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "ChickenRed.mv1");
+	resourcesMap_.emplace(SRC::CHICKEN_RED, res);
 
+	//ニワトリ緑
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "ChickenGreen.mv1");
+	resourcesMap_.emplace(SRC::CHICKEN_GREEN, res);
+
+	//ニワトリ黄
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "ChickenYellow.mv1");
+	resourcesMap_.emplace(SRC::CHICKEN_YELLOW, res);
 }
 
 void ResourceManager::Release(void)

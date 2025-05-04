@@ -201,9 +201,6 @@ private:
 	//ルール説明の画像
 	std::map<CommonData::RULE,int> ruleExplainImages_;	
 
-	//チュートリアル用画像
-	int tutorialImage_;
-
 	//画像の位置
 	Vector2F imgsPos_;					
 

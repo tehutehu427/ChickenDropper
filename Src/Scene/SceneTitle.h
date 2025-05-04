@@ -28,7 +28,7 @@ public:
 	//-------------------
 
 	//コンストラクタ
-	SceneTitle() = default;
+	SceneTitle();
 
 	//デストラクタ
 	~SceneTitle()override;
