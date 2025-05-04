@@ -1,7 +1,7 @@
 #pragma once
 
 #include<DxLib.h>
-#include"../../Utility/NodyUtility.h"
+#include"../../Utility/Utility.h"
 
 class SceneGame;
 class Player;
@@ -25,9 +25,9 @@ public:
 	static constexpr int MAX_NUM = 3;						//アイテムの出現最大数
 
 	static constexpr int APPEAR_INTERVAL_SEC = 20;												//出現間隔(秒)
-	static constexpr float APPEAR_INTERVAL = APPEAR_INTERVAL_SEC * NodyUtility::DEFAULT_FPS;	//出現間隔
+	static constexpr float APPEAR_INTERVAL = APPEAR_INTERVAL_SEC * Utility::DEFAULT_FPS;	//出現間隔
 
-	static constexpr float EFFECT_TIME = 5.0f * NodyUtility::DEFAULT_FPS;				//効果時間
+	static constexpr float EFFECT_TIME = 5.0f * Utility::DEFAULT_FPS;				//効果時間
 	
 	//メンバー関数
 	//----------------------------

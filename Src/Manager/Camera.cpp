@@ -1,12 +1,12 @@
 #include<DxLib.h>
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"Camera.h"
 
 //デフォルトコンストラクタ
 Camera::Camera(void)
 {
-	pos_ = NodyUtility::VECTOR_ZERO;
-	angles_ = NodyUtility::VECTOR_ZERO;
+	pos_ = Utility::VECTOR_ZERO;
+	angles_ = Utility::VECTOR_ZERO;
 }
 
 //デストラクタ
@@ -19,10 +19,10 @@ Camera::~Camera(void)
 bool Camera::Init(void)
 {
 	//カメラの位置
-	pos_ = NodyUtility::VECTOR_ZERO;
+	pos_ = Utility::VECTOR_ZERO;
 
 	//カメラの角度
-	angles_ = { NodyUtility::Deg2RadF(60.0f), 0.0f,0.0f};
+	angles_ = { Utility::Deg2RadF(60.0f), 0.0f,0.0f};
 
 	return true;
 }
@@ -64,6 +64,6 @@ bool Camera::Release(void)
 void Camera::SetCamerawork(VECTOR _pos, VECTOR _angles)
 {
 	pos_ = _pos;
-	angles_ = { NodyUtility::Deg2RadF(_angles.x) ,NodyUtility::Deg2RadF(_angles.y)  ,NodyUtility::Deg2RadF(_angles.z) };
+	angles_ = { Utility::Deg2RadF(_angles.x) ,Utility::Deg2RadF(_angles.y)  ,Utility::Deg2RadF(_angles.z) };
 }
 

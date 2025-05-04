@@ -1,5 +1,7 @@
 //#pragma once
 
+#include<DxLib.h>
+
 //クラスの前方宣言
 class Camera;
 class Fader;
@@ -26,6 +28,18 @@ public:
 	//最初のシーン
 	static constexpr SCENE_ID FIRST_SCENE = SCENE_ID::TITLE;	
 
+	//セレクトシーンのカメラワーク
+	static constexpr VECTOR SELECT_CAMERA_POS = { 0.0f, 0.0f, -300.0f };
+	static constexpr VECTOR SELECT_CAMERA_ANGLE = { 0.0f, 0.0f, 0.0f };
+
+	//ゲームシーンのカメラワーク
+	static constexpr VECTOR GAME_CAMERA_POS = { 0.0f, 450.0f, -300.0f };
+	static constexpr VECTOR GAME_CAMERA_ANGLE = { 60.0f, 0.0f, 0.0f };
+
+	//リザルトシーンのカメラワーク
+	static constexpr VECTOR RESULT_CAMERA_POS = { 0.0f, 100.0f, -200.0f };
+	static constexpr VECTOR RESULT_CAMERA_ANGLE = { 30.0f, 0.0f, 0.0f };
+
 	//メンバー関数
 	//-------------------
 	
@@ -38,8 +52,8 @@ public:
 	void Update(void);		
 	//描画処理
 	void Draw(void);		
-	//解放処理
-	bool Release(void);		
+	//インスタンスの破棄
+	void Destroy(void);
 
 	//シーン切り替えを依頼する関数
 	void ChangeScene(SCENE_ID nextID, bool isToFade);
@@ -95,9 +109,4 @@ private:
 
 	//コピーコンストラクタを利用できないようにする
 	SceneManager(const SceneManager& ins);
-
-	//インスタンスの破棄
-	void Destroy(void);
-
-
 };

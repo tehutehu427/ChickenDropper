@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Resource.cpp" />
+    <ClCompile Include="Src\Manager\ResourceManager.cpp" />
     <ClCompile Include="Src\Manager\SoundManager.cpp" />
     <ClCompile Include="Src\Common\Easing.cpp" />
     <ClCompile Include="Src\Manager\EffectManager.cpp" />
@@ -164,7 +166,7 @@
     <ClCompile Include="Src\Object\Grid.cpp" />
     <ClCompile Include="Src\Manager\InputManager.cpp" />
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\Utility\NodyUtility.cpp" />
+    <ClCompile Include="Src\Utility\Utility.cpp" />
     <ClCompile Include="Src\Object\Player.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Scene\SceneGame.cpp" />
@@ -176,6 +178,8 @@
     <ClCompile Include="Src\Common\Vector2F.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Resource.h" />
+    <ClInclude Include="Src\Manager\ResourceManager.h" />
     <ClInclude Include="Src\Manager\SoundManager.h" />
     <ClInclude Include="Src\Common\Easing.h" />
     <ClInclude Include="Src\Manager\EffectManager.h" />
@@ -194,7 +198,7 @@
     <ClInclude Include="Src\Common\Fader.h" />
     <ClInclude Include="Src\Object\Grid.h" />
     <ClInclude Include="Src\Manager\InputManager.h" />
-    <ClInclude Include="Src\Utility\NodyUtility.h" />
+    <ClInclude Include="Src\Utility\Utility.h" />
     <ClInclude Include="Src\Object\Player.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
     <ClInclude Include="Src\Scene\SceneGame.h" />

@@ -63,8 +63,9 @@ public:
 	
 	//初期化処理
 	bool Init(void);	
-	//解放処理
-	bool Release(void);	
+
+	//インスタンスの破棄
+	void Destroy(void);
 
 	//プレイヤーの数を返す
 	TYPE GetPlayerNum(void);						
@@ -189,9 +190,6 @@ private:
 
 	//コピーコンストラクタを利用できないようにする
 	CommonData(const CommonData& ins);
-
-	//インスタンスの破棄
-	void Destroy(void);
 
 	//静的なインスタンス格納領域
 	static CommonData* instance_;

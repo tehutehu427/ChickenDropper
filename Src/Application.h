@@ -23,6 +23,8 @@ public:
 	//フレームレート関係
 	static constexpr int ONE_SEC_TO_FRAME = 1000;		//1秒をミリ秒変換
 	static constexpr int DRAW_FPS_SHIFT_POS_X = -110;	//フレームレート描画用
+	static constexpr int FPS_FONT_SIZE = 20;			//フォントの大きさ
+	static constexpr int FPS_FONT_TICKNESS = 8;			//フォントの太さ
 
 	//データパス
 	static const std::string PATH_IMAGE;	//画像のパス

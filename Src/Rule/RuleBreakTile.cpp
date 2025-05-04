@@ -84,7 +84,7 @@ void RuleBreakTile::Update(void)
 void RuleBreakTile::Draw(void)
 {
 	//色
-	unsigned int color = NodyUtility::COLOR_WHITE;
+	unsigned int color = Utility::COLOR_WHITE;
 
 	//ステータス欄の基本位置
 	statePos_ = { STATE_POS_X,STATE_POS_Y };

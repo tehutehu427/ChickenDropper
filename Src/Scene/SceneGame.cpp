@@ -79,7 +79,7 @@ void SceneGame::Update(void)
 			effect_->EffectPlay(EffectManager::EFF_TYPE::START
 				, VSub(player->GetPos()
 				, { 0.0f,Player::RADIUS,0.0f })
-				, VScale(NodyUtility::VECTOR_ONE, 35.0f), NodyUtility::VECTOR_ZERO);
+				, VScale(Utility::VECTOR_ONE, 35.0f), Utility::VECTOR_ZERO);
 		}
 
 		break;
@@ -346,11 +346,11 @@ void SceneGame::SetAtkCnt(int ix, int iz, float _cnt)
 }
 
 
-bool SceneGame::IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
+bool SceneGame::IsCollisionStageEnd(VECTOR _pos, Utility::DIR_3D _dir)
 {
 	switch (_dir)
 	{
-	case NodyUtility::DIR_3D::FRONT:
+	case Utility::DIR_3D::FRONT:
 		//前側の端の移動制限
 		if (_pos.z >= Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z)
 		{
@@ -358,7 +358,7 @@ bool SceneGame::IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 		}
 		break;
 
-	case NodyUtility::DIR_3D::RIGHT:
+	case Utility::DIR_3D::RIGHT:
 		//右端の移動制限
 		if (_pos.x >= Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X)
 		{
@@ -366,7 +366,7 @@ bool SceneGame::IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 		}
 		break;
 
-	case NodyUtility::DIR_3D::BACK:
+	case Utility::DIR_3D::BACK:
 		//後ろ側の端の移動制限
 		if (_pos.z <= -Stage::STAGE_HSIZE_Z + Stage::TILE_HSIZE_Z)
 		{
@@ -374,7 +374,7 @@ bool SceneGame::IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 		}
 		break;
 
-	case NodyUtility::DIR_3D::LEFT:
+	case Utility::DIR_3D::LEFT:
 		//左端の移動制限
 		if (_pos.x <= -Stage::STAGE_HSIZE_X + Stage::TILE_HSIZE_X)
 		{
@@ -386,10 +386,10 @@ bool SceneGame::IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
+bool SceneGame::IsNextTileBroken(VECTOR _pos, Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
-	NodyUtility::DIR_3D dir = _dir;
+	Utility::DIR_3D dir = _dir;
 
 	//プレイヤーのタイルによる移動制限
 	//-------------------------------------------------------------
@@ -403,7 +403,7 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
 			{
 				switch (_dir)
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					//前
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) + 1)
 						== Stage::TILE_STATE::BROKEN)
@@ -412,7 +412,7 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					//右
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) + 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::BROKEN)
@@ -421,7 +421,7 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					//後ろ
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) - 1)
 						== Stage::TILE_STATE::BROKEN)
@@ -430,7 +430,7 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					//左
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) - 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::BROKEN)
@@ -445,10 +445,10 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir)
+bool SceneGame::IsNextTileAttack(VECTOR _pos, Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
-	NodyUtility::DIR_3D dir = _dir;
+	Utility::DIR_3D dir = _dir;
 
 	//プレイヤーのタイルによる移動制限
 	//-------------------------------------------------------------
@@ -462,7 +462,7 @@ bool SceneGame::IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir)
 			{
 				switch (_dir)
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					//前
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) + 1)
 						== Stage::TILE_STATE::ATTACK)
@@ -471,7 +471,7 @@ bool SceneGame::IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					//右
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) + 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::ATTACK)
@@ -480,7 +480,7 @@ bool SceneGame::IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					//後ろ
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) - 1)
 						== Stage::TILE_STATE::ATTACK)
@@ -489,7 +489,7 @@ bool SceneGame::IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					//左
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) - 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::ATTACK)
@@ -525,10 +525,10 @@ bool SceneGame::IsThisTileAttack(VECTOR _pos)
 	return false;
 }
 
-bool SceneGame::IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
+bool SceneGame::IsNextTilePreEnd(VECTOR _pos, Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
-	NodyUtility::DIR_3D dir = _dir;
+	Utility::DIR_3D dir = _dir;
 
 	//プレイヤーのタイルによる移動制限
 	//-------------------------------------------------------------
@@ -542,7 +542,7 @@ bool SceneGame::IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 			{
 				switch (_dir)
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					//前
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) + 1)
 						== Stage::TILE_STATE::PREEND)
@@ -551,7 +551,7 @@ bool SceneGame::IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					//右
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) + 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::PREEND)
@@ -560,7 +560,7 @@ bool SceneGame::IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					//後ろ
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) - 1)
 						== Stage::TILE_STATE::PREEND)
@@ -569,7 +569,7 @@ bool SceneGame::IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					//左
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) - 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::PREEND)
@@ -605,10 +605,10 @@ bool SceneGame::IsThisTilePreEnd(VECTOR _pos)
 	return false;
 }
 
-bool SceneGame::IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
+bool SceneGame::IsNextTileEnd(VECTOR _pos, Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
-	NodyUtility::DIR_3D dir = _dir;
+	Utility::DIR_3D dir = _dir;
 
 	//プレイヤーのタイルによる移動制限
 	//-------------------------------------------------------------
@@ -622,7 +622,7 @@ bool SceneGame::IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 			{
 				switch (_dir)
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					//前
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) + 1)
 						== Stage::TILE_STATE::END)
@@ -631,7 +631,7 @@ bool SceneGame::IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					//右
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) + 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::END)
@@ -640,7 +640,7 @@ bool SceneGame::IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					//後ろ
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x), Pos2TileAddZ(_pos.z) - 1)
 						== Stage::TILE_STATE::END)
@@ -649,7 +649,7 @@ bool SceneGame::IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir)
 					}
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					//左
 					if (stage_->GetTileState(Pos2TileAddX(_pos.x) - 1, Pos2TileAddZ(_pos.z))
 						== Stage::TILE_STATE::END)
@@ -896,7 +896,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 				{
 					switch (player->GetDir())
 					{
-					case NodyUtility::DIR_3D::FRONT:
+					case Utility::DIR_3D::FRONT:
 						if (static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1 >= Stage::TILE_NUM)
 						{
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
@@ -909,7 +909,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 						}
 						break;
 
-					case NodyUtility::DIR_3D::RIGHT:
+					case Utility::DIR_3D::RIGHT:
 						if (static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) + 1 >= Stage::TILE_NUM)
 						{
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
@@ -922,7 +922,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 						}
 						break;
 
-					case NodyUtility::DIR_3D::BACK:
+					case Utility::DIR_3D::BACK:
 						if (static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1 <= -1)
 						{
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
@@ -935,7 +935,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 						}
 						break;
 
-					case NodyUtility::DIR_3D::LEFT:
+					case Utility::DIR_3D::LEFT:
 						if (static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) - 1 <= -1)
 						{
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
@@ -983,7 +983,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 	}
 }
 
-bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _num)
+bool SceneGame::HitP2P(VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _num)
 {
 	//参照プレイヤーの位置
 	auto myPos = _pos;
@@ -1017,7 +1017,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 			{
 				switch (player->GetDir())
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					//端より先は参照しない
 					if (player->GetPos().z + Stage::TILE_SIZE_Z < Stage::STAGE_HSIZE_Z + Stage::TILE_HSIZE_Z)
 					{
@@ -1033,7 +1033,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 					}
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					//端より先は参照しない
 					if (player->GetPos().x + Stage::TILE_SIZE_X < Stage::STAGE_HSIZE_X + Stage::TILE_HSIZE_X)
 					{
@@ -1049,7 +1049,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 					}
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					//端より先は参照しない
 					if (player->GetPos().z - Stage::TILE_SIZE_Z > -Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z)
 					{
@@ -1065,7 +1065,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 					}
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					//端より先は参照しない
 					if (player->GetPos().x - Stage::TILE_SIZE_X > -Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X)
 					{
@@ -1112,7 +1112,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 		//参照プレイヤーの動きたい位置を求める
 		switch (myDir)
 		{
-		case NodyUtility::DIR_3D::FRONT:			
+		case Utility::DIR_3D::FRONT:			
 			
 				myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1.0f)]
 					[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
@@ -1120,7 +1120,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 			
 			break;
 
-		case NodyUtility::DIR_3D::RIGHT:	
+		case Utility::DIR_3D::RIGHT:	
 			
 				myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 					[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) + 1.0f)]
@@ -1128,7 +1128,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 			
 			break;
 
-		case NodyUtility::DIR_3D::BACK:
+		case Utility::DIR_3D::BACK:
 			
 				myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1.0f)]
 					[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
@@ -1136,7 +1136,7 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 			
 			break;
 
-		case NodyUtility::DIR_3D::LEFT:
+		case Utility::DIR_3D::LEFT:
 			
 				myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 					[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) - 1.0f)]
@@ -1167,10 +1167,10 @@ bool SceneGame::HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _
 
 }
 
-NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
+Utility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 {
 	//返す方向
-	NodyUtility::DIR_3D dir;
+	Utility::DIR_3D dir;
 
 	//自分の位置
 	auto myPos = _pos;
@@ -1212,12 +1212,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 			if (dirVector.x > 0)
 			{
 				//右
-				dir = NodyUtility::DIR_3D::RIGHT;
+				dir = Utility::DIR_3D::RIGHT;
 			}
 			else
 			{
 				//左
-				dir = NodyUtility::DIR_3D::LEFT;
+				dir = Utility::DIR_3D::LEFT;
 			}
 		}
 		else
@@ -1226,12 +1226,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 			if (dirVector.z > 0)
 			{
 				//前
-				dir = NodyUtility::DIR_3D::FRONT;
+				dir = Utility::DIR_3D::FRONT;
 			}
 			else
 			{
 				//後
-				dir = NodyUtility::DIR_3D::BACK;
+				dir = Utility::DIR_3D::BACK;
 			}
 		}
 	}
@@ -1244,12 +1244,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 			if (dirVector.x > 0)
 			{
 				//右
-				dir = NodyUtility::DIR_3D::RIGHT;
+				dir = Utility::DIR_3D::RIGHT;
 			}
 			else
 			{
 				//左
-				dir = NodyUtility::DIR_3D::LEFT;
+				dir = Utility::DIR_3D::LEFT;
 			}
 
 			//行先が壊れているなら上下方向から近づく
@@ -1258,12 +1258,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 				if (dirVector.z > 0)
 				{
 					//前
-					dir = NodyUtility::DIR_3D::FRONT;
+					dir = Utility::DIR_3D::FRONT;
 				}
 				else
 				{
 					//後
-					dir = NodyUtility::DIR_3D::BACK;
+					dir = Utility::DIR_3D::BACK;
 				}
 			}
 		}
@@ -1273,12 +1273,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 			if (dirVector.z > 0)
 			{
 				//前
-				dir = NodyUtility::DIR_3D::FRONT;
+				dir = Utility::DIR_3D::FRONT;
 			}
 			else
 			{
 				//後
-				dir = NodyUtility::DIR_3D::BACK;
+				dir = Utility::DIR_3D::BACK;
 			}
 
 			//行先が壊れているなら左右方向から近づく
@@ -1287,12 +1287,12 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 				if (dirVector.x > 0)
 				{
 					//右
-					dir = NodyUtility::DIR_3D::RIGHT;
+					dir = Utility::DIR_3D::RIGHT;
 				}
 				else
 				{
 					//左
-					dir = NodyUtility::DIR_3D::LEFT;
+					dir = Utility::DIR_3D::LEFT;
 				}
 			}
 		}
@@ -1301,7 +1301,7 @@ NodyUtility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 	return dir;
 }
 
-bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility::DIR_3D _dir)
+bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, Utility::DIR_3D _dir)
 {
 	//自分の位置
 	auto myPos = _pos;
@@ -1311,7 +1311,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility:
 	auto dir = _dir;
 
 	//対象プレイヤーへの方向ベクトル
-	VECTOR dirVector = NodyUtility::VECTOR_ZERO;
+	VECTOR dirVector = Utility::VECTOR_ZERO;
 
 	for (auto player : player_)
 	{
@@ -1345,7 +1345,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility:
 			if (dirVector.x > 0)
 			{
 				//右
-				if (dir == NodyUtility::DIR_3D::RIGHT)
+				if (dir == Utility::DIR_3D::RIGHT)
 				{
 					return true;
 				}
@@ -1353,7 +1353,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility:
 			else
 			{
 				//左
-				if (dir == NodyUtility::DIR_3D::LEFT)
+				if (dir == Utility::DIR_3D::LEFT)
 				{
 					return true;
 				}
@@ -1365,7 +1365,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility:
 			if (dirVector.z > 0)
 			{
 				//前
-				if (dir == NodyUtility::DIR_3D::FRONT)
+				if (dir == Utility::DIR_3D::FRONT)
 				{
 					return true;
 				}
@@ -1373,7 +1373,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility:
 			else
 			{
 				//後
-				if (dir == NodyUtility::DIR_3D::BACK)
+				if (dir == Utility::DIR_3D::BACK)
 				{
 					return true;
 				}
@@ -1571,25 +1571,25 @@ void SceneGame::GenerateItem(ItemBase* _item)
 						{
 							switch (player->GetDir())
 							{
-							case NodyUtility::DIR_3D::FRONT:
+							case Utility::DIR_3D::FRONT:
 
 								tileNum[tz + 1][tx] = false;
 
 								break;
 
-							case NodyUtility::DIR_3D::RIGHT:
+							case Utility::DIR_3D::RIGHT:
 
 								tileNum[tz][tx + 1] = false;
 
 								break;
 
-							case NodyUtility::DIR_3D::BACK:
+							case Utility::DIR_3D::BACK:
 
 								tileNum[tz - 1][tx] = false;
 
 								break;
 
-							case NodyUtility::DIR_3D::LEFT:
+							case Utility::DIR_3D::LEFT:
 
 								tileNum[tz][tx - 1] = false;
 

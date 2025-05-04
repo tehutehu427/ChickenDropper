@@ -2,7 +2,7 @@
 
 #include<vector>
 #include"../Common/CommonData.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"SceneBase.h"
 
 //クラスの前方宣言
@@ -86,7 +86,7 @@ public:
 	/// <param name="_pos">調べたいプレイヤーの座標</param>
 	/// <param name="_dir">調べたいプレイヤーの方向</param>
 	/// <returns>衝突したらtrue</returns>
-	bool IsCollisionStageEnd(VECTOR _pos, NodyUtility::DIR_3D _dir);
+	bool IsCollisionStageEnd(VECTOR _pos, Utility::DIR_3D _dir);
 
 	/// <summary>
 	/// 隣のタイルが壊れているかを確かめる
@@ -94,7 +94,7 @@ public:
 	/// <param name="_pos">参照するプレイヤーのpos</param>
 	/// <param name="_dir">参照するプレイヤーのdir</param>
 	/// <returns>壊れていたらtrue</returns>
-	bool IsNextTileBroken(VECTOR _pos, NodyUtility::DIR_3D _dir);
+	bool IsNextTileBroken(VECTOR _pos, Utility::DIR_3D _dir);
 
 	/// <summary>
 	/// 隣のタイルが攻撃状態かを確かめる
@@ -102,7 +102,7 @@ public:
 	/// <param name="_pos">参照するプレイヤーのpos</param>
 	/// <param name="_dir">参照するプレイヤーのdir</param>
 	/// <returns>攻撃状態ならtrue</returns>
-	bool IsNextTileAttack(VECTOR _pos, NodyUtility::DIR_3D _dir);
+	bool IsNextTileAttack(VECTOR _pos, Utility::DIR_3D _dir);
 
 	/// <summary>
 	/// 今立っているのタイルが攻撃状態かを確かめる
@@ -117,7 +117,7 @@ public:
 	/// <param name="_pos">参照するプレイヤーのpos</param>
 	/// <param name="_dir">参照するプレイヤーのdir</param>
 	/// <returns>攻撃状態ならtrue</returns>
-	bool IsNextTilePreEnd(VECTOR _pos, NodyUtility::DIR_3D _dir);
+	bool IsNextTilePreEnd(VECTOR _pos, Utility::DIR_3D _dir);
 
 	/// <summary>
 	/// 今立っているのタイルが攻撃状態かを確かめる
@@ -132,7 +132,7 @@ public:
 	/// <param name="_pos">参照するプレイヤーのpos</param>
 	/// <param name="_dir">参照するプレイヤーのdir</param>
 	/// <returns>攻撃状態ならtrue</returns>
-	bool IsNextTileEnd(VECTOR _pos, NodyUtility::DIR_3D _dir);
+	bool IsNextTileEnd(VECTOR _pos, Utility::DIR_3D _dir);
 	
 	//プレイヤーのポインタを返す
 	std::vector<Player*> GetPlayer(void);
@@ -190,7 +190,7 @@ public:
 	/// <param name="_dir">参照プレイヤーのdir</param>
 	/// <param name="_num">参照プレイヤーのcharaNum</param>
 	/// <returns>衝突したらtrue</returns>
-	bool HitP2P(VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _num);
+	bool HitP2P(VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _num);
 
 	/// <summary>
 	/// 狙うプレイヤーを決める(CPU用)
@@ -198,7 +198,7 @@ public:
 	/// <param name="_pos">参照プレイヤーのpos</param>
 	/// <param name="_num">参照プレイヤーのcharaNum</param>
 	/// <returns>狙うプレイヤーへの方向</returns>
-	NodyUtility::DIR_3D AimPlayer(VECTOR _pos ,CommonData::TYPE _num);
+	Utility::DIR_3D AimPlayer(VECTOR _pos ,CommonData::TYPE _num);
 	
 	/// <summary>
 	/// 狙ったプレイヤーが攻撃できるかを求める(CPU用)
@@ -207,7 +207,7 @@ public:
 	/// <param name="_num">参照プレイヤーのcharaNum</param>
 	/// <param name="_dir">参照プレイヤーのdir</param>
 	/// <returns>攻撃できるならtrue</returns>
-	bool AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, NodyUtility::DIR_3D _dir);
+	bool AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, Utility::DIR_3D _dir);
 
 	/// <summary>
 	/// 特定プレイヤーのタイルをすぐに壊す処理

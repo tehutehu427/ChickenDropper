@@ -1,5 +1,5 @@
 #include <DxLib.h>
-#include "../Utility/NodyUtility.h"
+#include "../Utility/Utility.h"
 #include "../Application.h"
 #include "Fader.h"
 
@@ -86,7 +86,7 @@ void Fader::Draw(void)
 			0, 0,
 			Application::SCREEN_SIZE_X,
 			Application::SCREEN_SIZE_Y,
-			NodyUtility::COLOR_BLACK, true);
+			Utility::COLOR_BLACK, true);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		break;
 	}

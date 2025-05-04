@@ -1,6 +1,7 @@
 #include<DxLib.h>
 #include<EffekseerForDXLib.h>
-#include"Utility/NodyUtility.h"
+#include"Utility/Utility.h"
+#include"Manager/ResourceManager.h"
 #include"Manager/InputManager.h"
 #include"Manager/EffectManager.h"
 #include"Manager/SceneManager.h"
@@ -51,13 +52,16 @@ bool Application::Init(void)
 
 	//インスタンスの用意
 	//------------------------
-	//コモンデータのインスタンス生成(シングルトン化)
+	//リソースマネージャーのインスタンス生成
+	ResourceManager::CreateInstance();
+
+	//コモンデータのインスタンス生成
 	CommonData::CreateInstance();
 
-	//シーンマネージャのインスタンス生成(シングルトン化)
+	//シーンマネージャのインスタンス生成
 	SceneManager::CreateInstance();
 
-	//インプットマネージャのインスタンス生成(シングルトン化)
+	//インプットマネージャのインスタンス生成
 	InputManager::CreateInstance();
 
 	return true;
@@ -93,7 +97,7 @@ void Application::Run(void)
 
 			//ゲームのメイン処理
 			//-------------------------
-			//シーンマネージャの更新処理(シングルトン化)
+			//シーンマネージャの更新処理
 			SceneManager::GetInstance().Update();
 
 			//描画処理
@@ -101,13 +105,13 @@ void Application::Run(void)
 			SetDrawScreen(DX_SCREEN_BACK);	//描画する画面を裏の画面に設定
 			ClearDrawScreen();				//描画する画面の内容を消去
 
-			//シーンマネージャの描画処理(シングルトン化)
+			//シーンマネージャの描画処理
 			SceneManager::GetInstance().Draw();
 
-			//キー状態の取得処理(シングルトン化)
+			//キー状態の取得処理
 			InputManager::GetInstance().StepInput();
 
-			//コントローラーの入力状態の取得処理(シングルトン化)
+			//コントローラーの入力状態の取得処理
 			InputManager::GetInstance().StepPadInput();
 
 
@@ -127,23 +131,29 @@ void Application::Run(void)
 bool Application::Release(void)
 {
 	//キーマネージャの解放処理
-	InputManager::GetInstance().InputRelease();
+	InputManager::GetInstance().Destroy();
 
 	//管理マネージャの解放処理
 	//--------------------------------
-	//シーンマネージャの解放処理(シングルトン化)
-	SceneManager::GetInstance().Release();
+	//シーンマネージャの解放処理
+	SceneManager::GetInstance().Destroy();
 
 	//コモンデータの解放処理
-	CommonData::GetInstance().Release();
+	CommonData::GetInstance().Destroy();
 
-	Destroy();			//インスタンスの破棄
+	//リソースマネージャの解放処理
+	ResourceManager::GetInstance().Destroy();
+
+	//インスタンスの破棄
+	Destroy();			
 
 	//システムの終了
 	//----------------------
-	DxLib_End();		//DXライブラリの終了
+	//DXライブラリの終了
+	DxLib_End();		
 
-	return true;		//ゲーム終了
+	//ゲーム終了
+	return true;		
 }
 
 //シングルトン化
@@ -157,6 +167,7 @@ void Application::CreateInstance(void)
 		instance_ = new Application();
 	}
 
+	//初期化
 	instance_->Init();
 }
 
@@ -170,8 +181,10 @@ Application& Application::GetInstance(void)
 //インスタンスの破棄
 void Application::Destroy(void)
 {
-	delete instance_;		//インスタンスの削除
-	instance_ = nullptr;	//インスタンスの格納領域を初期化
+	//インスタンスの削除
+	delete instance_;		
+	//インスタンスの格納領域を初期化
+	instance_ = nullptr;	
 
 	//DxLib終了
 	DxLib_End();
@@ -205,21 +218,20 @@ void Application::CalcFrameRate()
 void Application::DrawFrameRate()
 {
 	int fontHandle;
-	int fontSize = 20;
-	int fontTickness = 8;
 
 	//フォント作成
-	fontHandle = CreateFontToHandle(NULL, fontSize, fontTickness, NULL);
+	fontHandle = CreateFontToHandle(NULL, FPS_FONT_SIZE, FPS_FONT_TICKNESS, NULL);
 
 	if (InputManager::GetInstance().IsKeyPush(KEY_INPUT_TAB))
 	{
-		//フレームレートを描画する
+		//フレームレート描画の切り替え
 		isDrawFrameRate_ = isDrawFrameRate_ ? false : true;
 	}
 
+	//フレームレート描画の有無
 	if (isDrawFrameRate_)
 	{
-		DrawFormatStringToHandle(SCREEN_SIZE_X + DRAW_FPS_SHIFT_POS_X, 2, NodyUtility::COLOR_YELLOW, fontHandle, "FPS[%.2f]", frameRate_);
+		DrawFormatStringToHandle(SCREEN_SIZE_X + DRAW_FPS_SHIFT_POS_X, 2, Utility::COLOR_YELLOW, fontHandle, "FPS[%.2f]", frameRate_);
 	}
 
 	//フォント解放

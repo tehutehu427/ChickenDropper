@@ -95,6 +95,12 @@ public:
 	//メンバー関数
 	//-------------------------------
 
+	//コンストラクタ
+	SceneSelect();
+
+	//デストラクタ
+	~SceneSelect()override;
+
 	//初期化処理
 	bool Init(void) override;		
 	//更新処理

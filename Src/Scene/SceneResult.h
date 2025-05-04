@@ -63,7 +63,7 @@ private:
 
 	static constexpr float CURTAIN_SPEED = 1.0f;		//舞台幕の移動量
 
-	static constexpr float CURTAIN_FEEDBACK_TIME = NodyUtility::DEFAULT_FPS * 5.0f;	//舞台幕のフィードバックするまでの時間
+	static constexpr float CURTAIN_FEEDBACK_TIME = Utility::DEFAULT_FPS * 5.0f;	//舞台幕のフィードバックするまでの時間
 
 	//インスタンス
 	//---------------

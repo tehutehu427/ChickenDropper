@@ -1,27 +1,28 @@
 #include<DxLib.h>
 #include"../Application.h"
+#include"../Utility/Utility.h"
 #include"../Common/CommonData.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Manager/InputManager.h"
 #include"../Manager/SoundManager.h"
 #include"../Manager/SceneManager.h"
 #include"../Object/Grid.h"
 #include"SceneTitle.h"
 
-//コンストラクタ
-//SceneTitle::SceneTitle(void)
-//{
-//	bgImage_ = 0;
-//}
+ //デストラクタ
+SceneTitle::~SceneTitle(void)
+{
 
-// デストラクタ
-//SceneTitle::~SceneTitle(void)
-//{
-//
-//}
+}
 
 //初期化処理
 bool SceneTitle::Init(void)
 {
+	//インスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+	CommonData& common = CommonData::GetInstance();
+
 	//サウンドの初期化
 	sound_ = new SoundManager();
 	sound_->SoundInit();
@@ -34,16 +35,17 @@ bool SceneTitle::Init(void)
 	sound_->PlayBGM(SoundManager::BGM_TYPE::TITLE, DX_PLAYTYPE_BACK);
 
 	//順位の配列を削除しておく
-	CommonData::GetInstance().DeleteArray();
+	common.DeleteArray();
 
 	//背景のグラフィック登録
-	bgImage_ = LoadGraph((Application::PATH_IMAGE + "TitleBack.png").c_str());
-	cloudImage_ = LoadGraph((Application::PATH_IMAGE + "cloud.png").c_str());
-
-	cloudPos_ = { 0.0f,Application::SCREEN_SIZE_Y / 2 };
+	bgImage_ = res.Load(ResourceManager::SRC::TITLE_BACK).handleId_;
+	cloudImage_ = res.Load(ResourceManager::SRC::CLOUD).handleId_;
 
 	//タイトルロゴのグラフィック登録
-	logoImage_ = LoadGraph((Application::PATH_IMAGE + "TitleLogo.png").c_str());
+	logoImage_ = res.Load(ResourceManager::SRC::TITLE_LOGO).handleId_;
+
+	//雲の位置
+	cloudPos_ = { 0.0f,Application::SCREEN_SIZE_Y / 2 };
 
 	return true;
 }
@@ -51,7 +53,10 @@ bool SceneTitle::Init(void)
 //更新処理
 void SceneTitle::Update(void)
 {
-	if (InputManager::GetInstance().IsJoypadKeyPush(DX_INPUT_KEY_PAD1,PAD_INPUT_1) == 1)
+	//インスタンス取得
+	InputManager& input = InputManager::GetInstance();
+
+	if (input.IsJoypadKeyPush(DX_INPUT_KEY_PAD1,PAD_INPUT_1) == 1)
 	{
 		sound_->PlaySE(SoundManager::SE_TYPE::CLICK,DX_PLAYTYPE_BACK, CLICK_VOLUME);
 
@@ -63,6 +68,7 @@ void SceneTitle::Update(void)
 	cloudPos_.x--;
 	if (cloudPos_.x < -Application::SCREEN_SIZE_X)
 	{
+		//初期位置に戻す
 		cloudPos_.x = 0;
 	}
 }
@@ -71,10 +77,11 @@ void SceneTitle::Update(void)
 void SceneTitle::Draw(void)
 {
 	//フォント
-	int fontSize = 45;
-	int fontTick = 5;
-	auto font = CreateFontToHandle(NULL, fontSize, fontTick, DX_FONTTYPE_EDGE);
-	unsigned int color = 0;
+	int font = CreateFontToHandle(NULL, FONT_SIZE, FONT_TICKNESS, DX_FONTTYPE_EDGE);
+	unsigned int color;
+
+	//フォントの色
+	color = ((static_cast<int>(cloudPos_.x) / FONT_BLINKING_INTERVAL) % 2 == 0) ? Utility::COLOR_WHITE : Utility::COLOR_GRAY;
 
 	//背景画像
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1.0, 0.0, bgImage_, true,false);
@@ -94,10 +101,7 @@ void SceneTitle::Draw(void)
 	//ロゴ
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 3, 1.0, 0.0, logoImage_, true);
 
-	//フォントの色
-	color = ((static_cast<int>(cloudPos_.x) / 20) % 2 == 0) ? 0xffffff : 0xaaaaaa;
-
-	//文字
+	//文字(パッド接続によって変わる)
 	DrawFormatStringToHandle(Application::SCREEN_SIZE_X / 2 - CHAR_POS_X
 		, Application::SCREEN_SIZE_Y / 2 + CHAR_POS_Y
 		, color

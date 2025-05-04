@@ -8,7 +8,7 @@
 class Vector2;
 class Vector2F;
 
-class NodyUtility
+class Utility
 {
 public:
 	//óÒãìå^
@@ -51,6 +51,7 @@ public:
 	static constexpr int COLOR_BLUE = 0x0000ff;		//ê¬
 	static constexpr int COLOR_YELLOW = 0xffff00;	//â©
 	static constexpr int COLOR_BLACK = 0x000000;	//çï
+	static constexpr int COLOR_GRAY = 0xaaaaaa;		//äD
 
 	//ä÷êî
 	//----------------------------------------------------

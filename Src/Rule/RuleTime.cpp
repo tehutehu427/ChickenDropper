@@ -85,7 +85,7 @@ void RuleTime::Update(void)
 void RuleTime::Draw(void)
 {
 	//êF
-	unsigned int color = NodyUtility::COLOR_WHITE;
+	unsigned int color = Utility::COLOR_WHITE;
 
 	DrawFormatStringToHandle(
 		Application::SCREEN_SIZE_X / 2 - timeFontSize_ * TIME_SIZE_PER

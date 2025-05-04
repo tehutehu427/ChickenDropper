@@ -2,7 +2,7 @@
 
 #include<DxLib.h>
 #include"../Common/CommonData.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 
 class SceneGame;
 class EffectManager;
@@ -165,7 +165,7 @@ public:
 	void SetPos(VECTOR _setPos);		
 
 	//プレイヤーの方向を返す
-	NodyUtility::DIR_3D GetDir(void);	
+	Utility::DIR_3D GetDir(void);	
 
 	//プレイヤーが歩いているかを返す
 	bool GetIsWalk(void);
@@ -251,7 +251,7 @@ private:
 	VECTOR scale_;						//プレイヤーの大きさ
 	VECTOR rot_;						//プレイヤーの回転
 
-	NodyUtility::DIR_3D dir_;			//プレイヤーの向き
+	Utility::DIR_3D dir_;			//プレイヤーの向き
 
 	STATE state_;						//プレイヤーの状態
 
@@ -315,7 +315,7 @@ private:
 	/// </summary>
 	/// <param name="_dir">最初の参照方向</param>
 	/// <returns>移動する方向</returns>
-	NodyUtility::DIR_3D CPUMoveChack(NodyUtility::DIR_3D _dir);
+	Utility::DIR_3D CPUMoveChack(Utility::DIR_3D _dir);
 
 	//状態ごとの更新処理
 	void UpdateState(void);

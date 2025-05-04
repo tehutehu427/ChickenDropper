@@ -50,7 +50,7 @@ public:
 	static constexpr int NARROW_INFO_SIZE_Y = 200;
 
 	//”ÍˆÍk¬Œx‚Ìo‚Ä‚¢‚éŠÔ
-	static constexpr float NARROW_INFO_TIME = NodyUtility::DEFAULT_FPS * 5.0f;
+	static constexpr float NARROW_INFO_TIME = Utility::DEFAULT_FPS * 5.0f;
 
 	//ƒƒ“ƒo[ŠÖ”
 	//-------------------------

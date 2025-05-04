@@ -1,6 +1,6 @@
 #include<DxLib.h>
 #include"../Application.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"../Manager/SoundManager.h"
 #include"../Common/CommonData.h"
 #include"../Scene/SceneGame.h"
@@ -15,7 +15,7 @@ Stage::Stage(void)
 	{
 		for (int tx = 0; tx < TILE_NUM; tx++)
 		{
-			pos_[tz][tx] = NodyUtility::VECTOR_ZERO;
+			pos_[tz][tx] = Utility::VECTOR_ZERO;
 			tileState_[tz][tx] = TILE_STATE::NORMAL;
 			tileSwapTime_[tz][tx] = 0;
 			attackPlayer_[tz][tx] = CommonData::TYPE::NONE;
@@ -442,20 +442,20 @@ void Stage::NarrowStage(void)
 	{
 		switch (endMoveDir_)
 		{
-		case NodyUtility::DIR_3D::FRONT:
-			endMoveDir_ = NodyUtility::DIR_3D::LEFT;
+		case Utility::DIR_3D::FRONT:
+			endMoveDir_ = Utility::DIR_3D::LEFT;
 			break;
 
-		case NodyUtility::DIR_3D::RIGHT:
-			endMoveDir_ = NodyUtility::DIR_3D::FRONT;
+		case Utility::DIR_3D::RIGHT:
+			endMoveDir_ = Utility::DIR_3D::FRONT;
 			break;
 
-		case NodyUtility::DIR_3D::BACK:
-			endMoveDir_ = NodyUtility::DIR_3D::RIGHT;
+		case Utility::DIR_3D::BACK:
+			endMoveDir_ = Utility::DIR_3D::RIGHT;
 			break;
 
-		case NodyUtility::DIR_3D::LEFT:
-			endMoveDir_ = NodyUtility::DIR_3D::BACK;
+		case Utility::DIR_3D::LEFT:
+			endMoveDir_ = Utility::DIR_3D::BACK;
 			break;
 		}
 
@@ -467,19 +467,19 @@ void Stage::NarrowStage(void)
 
 	switch (endMoveDir_)
 	{
-	case NodyUtility::DIR_3D::FRONT:
+	case Utility::DIR_3D::FRONT:
 		endTileNumZ_++;
 		break;
 	
-	case NodyUtility::DIR_3D::RIGHT:
+	case Utility::DIR_3D::RIGHT:
 		endTileNumX_++;
 		break;
 	
-	case NodyUtility::DIR_3D::BACK:
+	case Utility::DIR_3D::BACK:
 		endTileNumZ_--;
 		break;
 	
-	case NodyUtility::DIR_3D::LEFT:
+	case Utility::DIR_3D::LEFT:
 		endTileNumX_--;
 		break;
 	}

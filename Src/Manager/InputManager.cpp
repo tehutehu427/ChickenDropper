@@ -302,13 +302,6 @@ InputManager::KEEP_FUNCTION InputManager::HowLongJoypadKeyKeep(int _padNum, int 
 	}
 }
 
-//解放処理
-void InputManager::InputRelease(void)
-{
-	//インスタンスの破棄
-	Destroy();
-}
-
 //シングルトン化
 //--------------------------
 //外部から静的にインスタンスの生成をする

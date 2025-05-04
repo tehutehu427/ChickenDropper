@@ -6,6 +6,8 @@
 #include"../Scene/SceneSelect.h"
 #include"../Scene/SceneGame.h"
 #include"../Scene/SceneResult.h"
+#include"Resource.h"
+#include"ResourceManager.h"
 #include"SceneManager.h"
 
 //シングルトン化
@@ -66,7 +68,7 @@ bool SceneManager::Init(void)
 void SceneManager::Init3D(void)
 {
 	//背景色設定
-	SetBackgroundColor(0, 139, 139);
+	SetBackgroundColor(0, 0, 0);
 
 	//Zバッファを有効にする
 	SetUseZBuffer3D(true);
@@ -134,28 +136,6 @@ void SceneManager::Draw(void)
 	fader_->Draw();
 }
 
-//解放処理
-bool SceneManager::Release(void)
-{
-	//シーンの解放
-	ReleaseScene(sceneID_);
-
-	//カメラの解放
-	camera_->Release();
-	delete camera_;
-	camera_ = nullptr;
-
-	//フェードの解放
-	delete fader_;
-	fader_ = nullptr;
-
-	//シングルトン化
-	//--------------------------
-	Destroy();		//インスタンスの破棄
-
-	return true;
-}
-
 //シーン切り替えを依頼する関数
 //isToFadeがtrueならばフェードアウト
 void SceneManager::ChangeScene(SCENE_ID nextID, bool isToFade)
@@ -180,6 +160,9 @@ void SceneManager::ChangeScene(SCENE_ID nextID, bool isToFade)
 //シーン切り替える
 void SceneManager::DoChangeScene(void)
 {
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//現在のシーン(sceneID_)を解放する
 	ReleaseScene(sceneID_);
 
@@ -192,28 +175,51 @@ void SceneManager::DoChangeScene(void)
 	switch (sceneID_)
 	{
 	case SceneManager::SCENE_ID::TITLE:
+		//タイトル用リソース取得
+		res.InitTitle();
+
+		//タイトルシーンのインスタンス生成
 		scene_ = new SceneTitle();
-		camera_->SetCamerawork(VGet(0.0f, 450.0f, -350.0f), VGet(60.0f, 0.0f, 0.0f));
 		break;
 
 	case SceneManager::SCENE_ID::SELECT:
+		//セレクトシーン用リソース取得
+		res.InitSelect();
+
+		//セレクトシーンのインスタンス生成
 		scene_ = new SceneSelect();
-		camera_->SetCamerawork(VGet(0.0f, 0.0f, -300.0f), VGet(0.0f, 0.0f, 0.0f));
+
+		//セレクトシーン用のカメラワーク設定
+		camera_->SetCamerawork(SELECT_CAMERA_POS, SELECT_CAMERA_ANGLE);
 		break;
 
 	case SceneManager::SCENE_ID::GAME:
+		//ゲームシーン用リソース取得
+		res.InitGame();
+
+		//ゲームシーンのインスタンス
 		scene_ = new SceneGame();
-		camera_->SetCamerawork(VGet(0.0f, 450.0f, -300.0f), VGet(60.0f, 0.0f, 0.0f));
+
+		//ゲームシーン用のカメラワーク設定
+		camera_->SetCamerawork(GAME_CAMERA_POS, GAME_CAMERA_ANGLE);
 		break;
 
 	case SceneManager::SCENE_ID::RESULT:
+		//リザルトシーン用リソース取得
+		res.InitResult();
+
+		//リザルトシーンのインスタンス
 		scene_ = new SceneResult();
-		camera_->SetCamerawork(VGet(0.0f, 100.0f, -200.0f), VGet(30.0f, 0.0f, 0.0f));
+
+		//リザルトシーン用のカメラワーク設定
+		camera_->SetCamerawork(RESULT_CAMERA_POS, RESULT_CAMERA_ANGLE);
 		break;
 
 	default:
 		break;
 	}
+	
+	//対応シーンの初期化
 	scene_->Init();
 
 	//シーンの繊維が終了したので、次のシーンをクリアする
@@ -292,6 +298,19 @@ SceneManager& SceneManager::GetInstance(void)
 //インスタンスの破棄
 void SceneManager::Destroy(void)
 {
+	//シーンの解放
+	ReleaseScene(sceneID_);
+
+	//カメラの解放
+	camera_->Release();
+	delete camera_;
+	camera_ = nullptr;
+
+	//フェードの解放
+	delete fader_;
+	fader_ = nullptr;
+
+	//インスタンスの削除
 	delete instance_;
 	instance_ = nullptr;
 }

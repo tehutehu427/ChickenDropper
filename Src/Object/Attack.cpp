@@ -1,6 +1,6 @@
 #include<DxLib.h>
 #include"../Manager/InputManager.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"../Scene/SceneGame.h"
 #include"Player.h"
 #include"Attack.h"
@@ -11,8 +11,8 @@ Attack::Attack(void)
 	sceneGame_ = nullptr;
 	player_ = nullptr;
 	images_ = 0;
-	pos_ = NodyUtility::VECTOR_ZERO;
-	dir_ = NodyUtility::DIR_3D::FRONT;
+	pos_ = Utility::VECTOR_ZERO;
+	dir_ = Utility::DIR_3D::FRONT;
 	isAlive_ = false;
 	speed_ = 0.0f;
 	atkCnt_ = 0.0f;
@@ -25,7 +25,7 @@ Attack::~Attack(void)
 }
 
 //èâä˙âªèàóù
-bool Attack::Init(SceneGame* parent, Player* parPlayer, VECTOR _pos, NodyUtility::DIR_3D _dir, CommonData::TYPE _charaNum)
+bool Attack::Init(SceneGame* parent, Player* parPlayer, VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _charaNum)
 {
 	sceneGame_ = parent;
 	player_ = parPlayer;
@@ -58,19 +58,19 @@ void Attack::Update(void)
 	//---------------------------------------
 	switch (dir_)
 	{
-	case NodyUtility::DIR_3D::FRONT:
+	case Utility::DIR_3D::FRONT:
 		pos_.z += speed_;
 		break;
 
-	case NodyUtility::DIR_3D::RIGHT:
+	case Utility::DIR_3D::RIGHT:
 		pos_.x += speed_;
 		break;
 
-	case NodyUtility::DIR_3D::BACK:
+	case Utility::DIR_3D::BACK:
 		pos_.z -= speed_;
 		break;
 
-	case NodyUtility::DIR_3D::LEFT:
+	case Utility::DIR_3D::LEFT:
 		pos_.x -= speed_;
 		break;
 
@@ -81,19 +81,19 @@ void Attack::Update(void)
 	VECTOR loaclPos;
 	switch (dir_)
 	{
-	case NodyUtility::DIR_3D::FRONT:
+	case Utility::DIR_3D::FRONT:
 		loaclPos = VSub(pos_, { 0.0f,0.0f,sceneGame_->GetTileSizeZ() / 2 });
 		break;
 
-	case NodyUtility::DIR_3D::RIGHT:
+	case Utility::DIR_3D::RIGHT:
 		loaclPos = VSub(pos_, { sceneGame_->GetTileSizeX() / 2,0.0f,0.0f });
 		break;
 
-	case NodyUtility::DIR_3D::BACK:
+	case Utility::DIR_3D::BACK:
 		loaclPos = VAdd(pos_, { 0.0f,0.0f,sceneGame_->GetTileSizeZ() / 2 });
 		break;
 
-	case NodyUtility::DIR_3D::LEFT:
+	case Utility::DIR_3D::LEFT:
 		loaclPos = VAdd(pos_, { sceneGame_->GetTileSizeX() / 2,0.0f,0.0f });
 		break;
 	}
@@ -134,19 +134,19 @@ void Attack::Draw(void)
 		switch (charaNum_)
 		{
 		case CommonData::TYPE::P1:
-			color = NodyUtility::COLOR_BLUE;
+			color = Utility::COLOR_BLUE;
 			break;
 
 		case CommonData::TYPE::P2:
-			color = NodyUtility::COLOR_RED;
+			color = Utility::COLOR_RED;
 			break;
 
 		case CommonData::TYPE::P3:
-			color = NodyUtility::COLOR_GREEN;
+			color = Utility::COLOR_GREEN;
 			break;
 
 		case CommonData::TYPE::P4:
-			color = NodyUtility::COLOR_YELLOW;
+			color = Utility::COLOR_YELLOW;
 			break;
 		}
 	}
@@ -184,13 +184,13 @@ void Attack::SetIsAlive(bool _isAlive)
 }
 
 //çUåÇÇÃï˚å¸Çï‘Ç∑
-NodyUtility::DIR_3D Attack::GetAttackDir(void)
+Utility::DIR_3D Attack::GetAttackDir(void)
 {
 	return dir_;
 }
 
 //çUåÇÇÃï˚å¸ê›íË
-void Attack::SetAttackDir(NodyUtility::DIR_3D _setDir)
+void Attack::SetAttackDir(Utility::DIR_3D _setDir)
 {
 	dir_ = _setDir;
 }
@@ -208,6 +208,6 @@ float Attack::GetAtkCnt(void)
 
 void Attack::Destroy(void)
 {
-	pos_ = NodyUtility::VECTOR_ZERO;
+	pos_ = Utility::VECTOR_ZERO;
 	isAlive_ = false;
 }

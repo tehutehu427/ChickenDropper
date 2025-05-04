@@ -17,12 +17,21 @@ public:
 	//決定音
 	static constexpr int CLICK_VOLUME = 70;
 
-	//文字の位置用
-	static constexpr int CHAR_POS_X = 300;	//文字のX移動用
-	static constexpr int CHAR_POS_Y = 200;	//文字のY移動用
+	//文字
+	static constexpr int CHAR_POS_X = 300;				//文字のX移動用
+	static constexpr int CHAR_POS_Y = 200;				//文字のY移動用
+	static constexpr int FONT_SIZE = 45;				//フォントの大きさ
+	static constexpr int FONT_TICKNESS = 5;				//フォントの太さ
+	static constexpr int FONT_BLINKING_INTERVAL = 20;	//フォントの点滅間隔
 
 	//メンバー関数
 	//-------------------
+
+	//コンストラクタ
+	SceneTitle() = default;
+
+	//デストラクタ
+	~SceneTitle()override;
 
 	//初期化処理
 	bool Init(void) override;		

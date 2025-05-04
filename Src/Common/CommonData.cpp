@@ -19,13 +19,6 @@ bool CommonData::Init(void)
 	return true;
 }
 
-bool CommonData::Release(void)
-{
-	Destroy();			//インスタンスの破棄
-
-	return true;
-}
-
 //プレイヤーの数を返す
 CommonData::TYPE CommonData::GetPlayerNum(void)
 {

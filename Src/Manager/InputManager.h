@@ -61,8 +61,8 @@ public:
 	//何フレーム押し続けられたか(コントローラー)
 	KEEP_FUNCTION HowLongJoypadKeyKeep(int _padNum, int _keyCode, int _keepTime);
 
-	//解放処理
-	void InputRelease(void);
+	//インスタンスの削除
+	void Destroy(void);
 
 	//シングルトン化
 	//----------------------------
@@ -97,9 +97,4 @@ private:
 
 	//静的なインスタンス格納領域
 	static InputManager* instance_;
-
-	//シングルトン化
-	//--------------------------------
-
-	void Destroy(void);
 };

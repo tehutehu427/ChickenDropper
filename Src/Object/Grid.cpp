@@ -1,5 +1,5 @@
 #include<Dxlib.h>
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"Grid.h"
 
 //デフォルトコンストラクタ
@@ -36,8 +36,8 @@ void Grid::Draw(void)
 	{
 		sPos.z = gx * TERM;
 		ePos.z = gx * TERM;
-		DrawLine3D(sPos, ePos, NodyUtility::COLOR_RED);
-		DrawSphere3D(ePos, 15.0f, 10, NodyUtility::COLOR_RED, NodyUtility::COLOR_RED, true);
+		DrawLine3D(sPos, ePos, Utility::COLOR_RED);
+		DrawSphere3D(ePos, 15.0f, 10, Utility::COLOR_RED, Utility::COLOR_RED, true);
 	}
 
 	//Zグリッド線
@@ -47,8 +47,8 @@ void Grid::Draw(void)
 	{
 		sPos.x = gz * TERM;
 		ePos.x = gz * TERM;
-		DrawLine3D(sPos, ePos, NodyUtility::COLOR_BLUE);
-		DrawSphere3D(ePos, 15.0f, 10, NodyUtility::COLOR_BLUE, NodyUtility::COLOR_BLUE, true);
+		DrawLine3D(sPos, ePos, Utility::COLOR_BLUE);
+		DrawSphere3D(ePos, 15.0f, 10, Utility::COLOR_BLUE, Utility::COLOR_BLUE, true);
 	}
 }
 

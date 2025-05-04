@@ -1,11 +1,19 @@
 #include <DxLib.h>
 #include "../Application.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SoundManager.h"
 #include "../Manager/SceneManager.h"
 #include "../Common/CommonData.h"
 #include "SceneSelect.h"
+
+SceneSelect::SceneSelect()
+{
+}
+
+SceneSelect::~SceneSelect()
+{
+}
 
 bool SceneSelect::Init(void)
 {
@@ -72,9 +80,9 @@ bool SceneSelect::Init(void)
 	arrowSize_ = ARROW_DEFAULT_SIZE;
 	step_ = 0.0f;
 
-	pScl_ = VScale(NodyUtility::VECTOR_ONE,2.0f);
-	pRot_ = NodyUtility::VECTOR_ZERO;
-	pPos_ = NodyUtility::VECTOR_ZERO;
+	pScl_ = VScale(Utility::VECTOR_ONE,2.0f);
+	pRot_ = Utility::VECTOR_ZERO;
+	pPos_ = Utility::VECTOR_ZERO;
 	stepAnim_ = 0.0f;
 
 	if (GetJoypadNum() >= 1)
@@ -145,10 +153,10 @@ void SceneSelect::Update(void)
 	}
 
 	//時間進行
-	step_ += NodyUtility::DELTA_TIME;
+	step_ += Utility::DELTA_TIME;
 
 	//矢印の大きさ
-	arrowSize_ = ARROW_DEFAULT_SIZE + NodyUtility::Deg2RadF(sinf(step_ * ARROW_CHANGE_SIZE_SPEED) * ARROW_CHANGE_SIZE);
+	arrowSize_ = ARROW_DEFAULT_SIZE + Utility::Deg2RadF(sinf(step_ * ARROW_CHANGE_SIZE_SPEED) * ARROW_CHANGE_SIZE);
 
 	//項目ごとの更新
 	itemUpdate_[selectItem_]();
@@ -224,7 +232,7 @@ bool SceneSelect::Release(void)
 
 void SceneSelect::CursorDraw(int _sizeX, int _sizeY)
 {
-	if (static_cast<int>(step_ * NodyUtility::DEFAULT_FPS / 20) % 2 == 0)
+	if (static_cast<int>(step_ * Utility::DEFAULT_FPS / 20) % 2 == 0)
 	{
 		DrawBox(cursorPos_.x - CURSOR_SIZE - _sizeX / 2
 			, cursorPos_.y - CURSOR_SIZE - _sizeY / 2
@@ -402,7 +410,7 @@ void SceneSelect::CheckPadUpdate(void)
 	//-------------------------------------------
 
 	//アニメーション時間の進行
-	stepAnim_ += (speedAnim_ * NodyUtility::DELTA_TIME);
+	stepAnim_ += (speedAnim_ * Utility::DELTA_TIME);
 	if (stepAnim_ > animTotalTime_[selectPadNum_ - 1])
 	{
 		//ループ再生
@@ -721,7 +729,7 @@ void SceneSelect::BattlePatternDraw(void)
 	//対戦人数
 	DrawFormatStringToHandle(Application::SCREEN_SIZE_X / 2 - (BOARD_SIZE_X / 2 - BATTLE_NUM_SIZE_X / 1.5) - BATTLE_PAT_SHIFT_POS_X
 		, Application::SCREEN_SIZE_Y - BOARD_SIZE_Y / 2 - BOARD_HEIGHT - BATTLE_PAT_SHIFT_POS_Y
-		, NodyUtility::COLOR_BLACK
+		, Utility::COLOR_BLACK
 		, padFont_
 		, " 対戦人数\nPlayer ×%d\n CPU ×%d"
 		, playerNum_
@@ -738,7 +746,7 @@ void SceneSelect::BattlePatternDraw(void)
 	//コントローラーの接続数
 	DrawFormatStringToHandle(Application::SCREEN_SIZE_X / 2 + (BOARD_SIZE_X / 2 - BATTLE_NUM_SIZE_X / 1.5) - PADNUM_SHIFT_POS_X
 		, Application::SCREEN_SIZE_Y - BOARD_SIZE_Y / 2 - BOARD_HEIGHT - PADNUM_SHIFT_POS_Y
-		, NodyUtility::COLOR_BLACK
+		, Utility::COLOR_BLACK
 		, padFont_
 		, "接続されている\nコントローラー\n   現在%d台"
 		, GetJoypadNum());
@@ -766,7 +774,7 @@ void SceneSelect::CheckPadDraw(void)
 	//フォント
 	int fontSize = 70;
 	fontHandle_ = CreateFontToHandle(NULL, fontSize, 3, DX_FONTTYPE_EDGE);
-	int color = NodyUtility::COLOR_WHITE;
+	int color = Utility::COLOR_WHITE;
 
 	switch (selectPadNum_)
 	{

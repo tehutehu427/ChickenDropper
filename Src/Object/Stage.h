@@ -1,6 +1,6 @@
 //#pragma once
 
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"../Common/Vector2F.h"
 #include"../Common/CommonData.h"
 
@@ -67,7 +67,7 @@ public:
 	static constexpr float STAGE_HSIZE_Z = STAGE_SIZE_Z / 2;		//ステージの縦サイズの半分
 	
 	static constexpr int STAGE_NARROW_RANGE = 2;														//ステージ縮小範囲
-	static constexpr NodyUtility::DIR_3D STAGE_NARROW_DIR = NodyUtility::DIR_3D::RIGHT;					//ステージ縮小開始方向
+	static constexpr Utility::DIR_3D STAGE_NARROW_DIR = Utility::DIR_3D::RIGHT;					//ステージ縮小開始方向
 
 	//メンバー関数
 	//-------------------
@@ -186,7 +186,7 @@ private:
 
 	int endTileNumX_;					//END状態にするタイルのX番号
 	int endTileNumZ_;					//END状態にするタイルのZ番号
-	NodyUtility::DIR_3D endMoveDir_;	//END状態にしていく方向
+	Utility::DIR_3D endMoveDir_;	//END状態にしていく方向
 
 	int endTileNum_;					//消したタイルの数
 	int stageNarrowRange_;				//ステージ縮小カウンタ

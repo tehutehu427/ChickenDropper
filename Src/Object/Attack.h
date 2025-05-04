@@ -1,7 +1,7 @@
 //#pragma once
 
 #include"../Common/CommonData.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 
 class SceneGame;
 class Player;
@@ -34,7 +34,7 @@ public:
 	bool Init(SceneGame* parent
 			, Player* parPlayer
 			, VECTOR _pos
-			, NodyUtility::DIR_3D _dir
+			, Utility::DIR_3D _dir
 			, CommonData::TYPE _charaNum);
 
 	//更新処理
@@ -57,9 +57,9 @@ public:
 	void SetIsAlive(bool _isAttack);
 
 	//攻撃の方向を返す
-	NodyUtility::DIR_3D GetAttackDir(void);				
+	Utility::DIR_3D GetAttackDir(void);				
 	//攻撃の方向設定
-	void SetAttackDir(NodyUtility::DIR_3D _setDir);		
+	void SetAttackDir(Utility::DIR_3D _setDir);		
 
 	//攻撃のプレイヤー番号を返す
 	CommonData::TYPE GetCharaNum(void);
@@ -83,7 +83,7 @@ private:
 	
 	VECTOR pos_;				//攻撃の座標
 
-	NodyUtility::DIR_3D dir_;	//攻撃の向き
+	Utility::DIR_3D dir_;	//攻撃の向き
 
 	CommonData::TYPE charaNum_;	//親プレイヤー番号
 

@@ -1,5 +1,5 @@
 #include"../Application.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"..//Common/Easing.h"
 #include"../Manager/InputManager.h"
 #include"../Manager/SoundManager.h"
@@ -37,9 +37,9 @@ bool SceneResult::Init(void)
 	pModel_[static_cast<int>(CommonData::TYPE::P3) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenGreen.mv1").c_str());
 	pModel_[static_cast<int>(CommonData::TYPE::P4) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenYellow.mv1").c_str());
 
-	pScl_ = VScale(NodyUtility::VECTOR_ONE, P_SCALE);
-	pRot_ = NodyUtility::VECTOR_ZERO;
-	pPos_[0] = NodyUtility::VECTOR_ZERO;
+	pScl_ = VScale(Utility::VECTOR_ONE, P_SCALE);
+	pRot_ = Utility::VECTOR_ZERO;
+	pPos_[0] = Utility::VECTOR_ZERO;
 	pPos_[0].x -= PL_DIS * 1.5f;
 
 	for (int p = 0; p < static_cast<int>(CommonData::GetInstance().GetPlayerNum()) + static_cast<int>(CommonData::GetInstance().GetCPUNum()); p++)
@@ -144,7 +144,7 @@ void SceneResult::Update(void)
 		//-------------------------------------------
 
 		//アニメーション時間の進行
-		stepAnim_[pl] += (speedAnim_[pl] * NodyUtility::DELTA_TIME);
+		stepAnim_[pl] += (speedAnim_[pl] * Utility::DELTA_TIME);
 		if (stepAnim_[pl] > animTotalTime_[pl])
 		{
 			//ループ再生

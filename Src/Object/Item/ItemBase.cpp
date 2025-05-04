@@ -1,4 +1,4 @@
-#include"../../Utility/NodyUtility.h"
+#include"../../Utility/Utility.h"
 #include"../Player.h"
 #include "ItemBase.h"
 
@@ -7,15 +7,15 @@ ItemBase::ItemBase(SceneGame* parent)
 	sceneGame_ = parent;
 
 	model_ = -1;
-	pos_ = NodyUtility::VECTOR_ZERO;
-	rot_ = NodyUtility::VECTOR_ZERO;
-	scale_ = NodyUtility::VECTOR_ONE;
+	pos_ = Utility::VECTOR_ZERO;
+	rot_ = Utility::VECTOR_ZERO;
+	scale_ = Utility::VECTOR_ONE;
 	isAlive_ = false;
 	isEffective_ = false;
 	effectTime_ = 0.0f;
 	itemType_ = ITEM_TYPE::HAMMER;
 	follow_ = nullptr;
-	color_ = NodyUtility::COLOR_WHITE;
+	color_ = Utility::COLOR_WHITE;
 }
 
 ItemBase::~ItemBase()
@@ -26,8 +26,8 @@ void ItemBase::Init(VECTOR _pos)
 {
 	//ïœêîèâä˙âª
 	pos_ = _pos;
-	rot_ = NodyUtility::VECTOR_ZERO;
-	scale_ = NodyUtility::VECTOR_ONE;
+	rot_ = Utility::VECTOR_ZERO;
+	scale_ = Utility::VECTOR_ONE;
 	isAlive_ = true;
 	isEffective_ = false;
 	effectTime_ = 0.0f;

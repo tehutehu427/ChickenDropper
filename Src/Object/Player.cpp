@@ -1,6 +1,6 @@
 #include<DxLib.h>
 #include"../Application.h"
-#include"../Utility/NodyUtility.h"
+#include"../Utility/Utility.h"
 #include"../Manager/InputManager.h"
 #include"../Manager/EffectManager.h"
 #include"../Manager/SoundManager.h"
@@ -16,10 +16,10 @@ Player::Player(void)
 	effect_ = nullptr;
 	se_ = nullptr;
 	model_ = 0;
-	pos_ = NodyUtility::VECTOR_ZERO;
-	rot_ = NodyUtility::VECTOR_ZERO;
-	scale_ = NodyUtility::VECTOR_ONE;
-	dir_ = NodyUtility::DIR_3D::BACK;
+	pos_ = Utility::VECTOR_ZERO;
+	rot_ = Utility::VECTOR_ZERO;
+	scale_ = Utility::VECTOR_ONE;
+	dir_ = Utility::DIR_3D::BACK;
 	state_ = STATE::NORMAL;
 	speed_ = 0.0f;
 	killScore_ = 0;
@@ -78,8 +78,8 @@ bool Player::Init(SceneGame* parent, VECTOR _pos, CommonData::TYPE _charaNum)
 	//------------------------------------------	
 	
 	pos_ = _pos;
-	scale_ = NodyUtility::VECTOR_ONE;
-	rot_ = NodyUtility::VECTOR_ZERO;
+	scale_ = Utility::VECTOR_ONE;
+	rot_ = Utility::VECTOR_ZERO;
 	state_ = STATE::NORMAL;
 	speed_ = SPEED_NORMAL;
 	killScore_ = 0;
@@ -312,11 +312,11 @@ void Player::MovePlayer(void)
 		if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_UP) && (ins.IsJoypadKeyDown(padNum_, keepButtonType) || keyboardKeep))
 		{
 			//方向変更のみ
-			dir_ = NodyUtility::DIR_3D::FRONT;
+			dir_ = Utility::DIR_3D::FRONT;
 		}
 		else if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_UP) && !isWalk_)
 		{
-			dir_ = NodyUtility::DIR_3D::FRONT;
+			dir_ = Utility::DIR_3D::FRONT;
 
 			//移動先のタイルが壊れていない　かつ　移動先にプレイヤーがいない　かつ　端ではない
 			if (!sceneGame_->IsNextTileBroken(pos_, dir_) 
@@ -338,11 +338,11 @@ void Player::MovePlayer(void)
 		if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_RIGHT) && !isWalk_ && (ins.IsJoypadKeyDown(padNum_, keepButtonType) || keyboardKeep))
 		{
 			//方向変更のみ
-			dir_ = NodyUtility::DIR_3D::RIGHT;
+			dir_ = Utility::DIR_3D::RIGHT;
 		}
 		else if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_RIGHT) && !isWalk_)
 		{
-			dir_ = NodyUtility::DIR_3D::RIGHT;
+			dir_ = Utility::DIR_3D::RIGHT;
 			//移動先のタイルが壊れていない　かつ　移動先にプレイヤーがいない　かつ　端ではない
 			if (!sceneGame_->IsNextTileBroken(pos_, dir_) 
 				&& !sceneGame_->IsNextTileEnd(pos_, dir_)
@@ -362,11 +362,11 @@ void Player::MovePlayer(void)
 		//Rキーを押しながらだと方向転換
 		if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_DOWN) && !isWalk_ && (ins.IsJoypadKeyDown(padNum_, keepButtonType) || keyboardKeep))
 		{
-			dir_ = NodyUtility::DIR_3D::BACK;
+			dir_ = Utility::DIR_3D::BACK;
 		}
 		else if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_DOWN) && !isWalk_)
 		{
-			dir_ = NodyUtility::DIR_3D::BACK;
+			dir_ = Utility::DIR_3D::BACK;
 			//移動先のタイルが壊れていない　かつ　移動先にプレイヤーがいない　かつ　端ではない
 			if (!sceneGame_->IsNextTileBroken(pos_, dir_) 
 				&& !sceneGame_->IsNextTileEnd(pos_, dir_) 
@@ -386,11 +386,11 @@ void Player::MovePlayer(void)
 		//Rキーを押しながらだと方向転換
 		if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_LEFT) && !isWalk_ && (ins.IsJoypadKeyDown(padNum_, keepButtonType) || keyboardKeep))
 		{
-			dir_ = NodyUtility::DIR_3D::LEFT;
+			dir_ = Utility::DIR_3D::LEFT;
 		}
 		else if (ins.IsJoypadKeyDown(padNum_, PAD_INPUT_LEFT) && !isWalk_)
 		{
-			dir_ = NodyUtility::DIR_3D::LEFT;
+			dir_ = Utility::DIR_3D::LEFT;
 			//移動先のタイルが壊れていない　かつ　移動先にプレイヤーがいない　かつ　端ではない
 			if (!sceneGame_->IsNextTileBroken(pos_, dir_) 
 				&& !sceneGame_->IsNextTileEnd(pos_, dir_) 
@@ -414,19 +414,19 @@ void Player::MovePlayer(void)
 			//真ん中にいない間移動する
 			switch (dir_)
 			{
-			case NodyUtility::DIR_3D::FRONT:
+			case Utility::DIR_3D::FRONT:
 				pos_.z += speed_;
 				break;
 
-			case NodyUtility::DIR_3D::RIGHT:
+			case Utility::DIR_3D::RIGHT:
 				pos_.x += speed_;
 				break;
 
-			case NodyUtility::DIR_3D::BACK:
+			case Utility::DIR_3D::BACK:
 				pos_.z -= speed_;
 				break;
 
-			case NodyUtility::DIR_3D::LEFT:
+			case Utility::DIR_3D::LEFT:
 				pos_.x -= speed_;
 				break;
 
@@ -500,25 +500,25 @@ void Player::MoveCPU(void)
 				
 				switch (dir_)
 				{
-				case NodyUtility::DIR_3D::FRONT:
+				case Utility::DIR_3D::FRONT:
 					pos_.z += speed_;
 					break;
 
-				case NodyUtility::DIR_3D::RIGHT:
+				case Utility::DIR_3D::RIGHT:
 					pos_.x += speed_;
 					break;
 
-				case NodyUtility::DIR_3D::BACK:
+				case Utility::DIR_3D::BACK:
 					pos_.z -= speed_;
 					break;
 
-				case NodyUtility::DIR_3D::LEFT:
+				case Utility::DIR_3D::LEFT:
 					pos_.x -= speed_;
 					break;
 				}
 
 				//動くことが可能なら
-				if (dir_ != NodyUtility::DIR_3D::MAX)
+				if (dir_ != Utility::DIR_3D::MAX)
 				{
 					//歩いた判定
 					isWalk_ = true;
@@ -547,19 +547,19 @@ void Player::MoveCPU(void)
 			//真ん中にいない間移動する
 			switch (dir_)
 			{
-			case NodyUtility::DIR_3D::FRONT:
+			case Utility::DIR_3D::FRONT:
 				pos_.z += speed_;
 				break;
 
-			case NodyUtility::DIR_3D::RIGHT:
+			case Utility::DIR_3D::RIGHT:
 				pos_.x += speed_;
 				break;
 
-			case NodyUtility::DIR_3D::BACK:
+			case Utility::DIR_3D::BACK:
 				pos_.z -= speed_;
 				break;
 
-			case NodyUtility::DIR_3D::LEFT:
+			case Utility::DIR_3D::LEFT:
 				pos_.x -= speed_;
 				break;
 
@@ -579,19 +579,19 @@ void Player::ProcessRot(void)
 {
 	switch (dir_)
 	{
-	case NodyUtility::DIR_3D::FRONT:
+	case Utility::DIR_3D::FRONT:
 		rot_.y = DX_PI_F / 180.0f * (0.0f + 180.0f);
 		break;
 
-	case NodyUtility::DIR_3D::RIGHT:
+	case Utility::DIR_3D::RIGHT:
 		rot_.y = DX_PI_F / 180.0f * (90.0f + 180.0f);
 		break;
 
-	case NodyUtility::DIR_3D::BACK:
+	case Utility::DIR_3D::BACK:
 		rot_.y = DX_PI_F / 180.0f * (180.0f + 180.0f);
 		break;
 
-	case NodyUtility::DIR_3D::LEFT:
+	case Utility::DIR_3D::LEFT:
 		rot_.y = DX_PI_F / 180.0f * (270.0f + 180.0f);
 		break;
 	}
@@ -646,7 +646,7 @@ void Player::Damage(int _damage)
 	}
 
 	//復活エフェクト
-	effect_->EffectPlay(EffectManager::EFF_TYPE::REVIVAL, pos_, { 8.0f,8.0f,8.0f }, NodyUtility::VECTOR_ZERO);
+	effect_->EffectPlay(EffectManager::EFF_TYPE::REVIVAL, pos_, { 8.0f,8.0f,8.0f }, Utility::VECTOR_ZERO);
 
 	//プレイヤー番号の再表示
 	numViewTime_ = 0.0f;
@@ -756,22 +756,22 @@ void Player::GenerateAttack(void)
 		//攻撃を始める
 		switch (dir_)
 		{
-		case NodyUtility::DIR_3D::FRONT:
+		case Utility::DIR_3D::FRONT:
 			//一マス先に攻撃を生成する
 			attack->Init(sceneGame_, this, VAdd(pos_, VGet(0.0f, 0.0f, sceneGame_->GetTileSizeZ())), dir_, charaNum_);
 			break;
 
-		case NodyUtility::DIR_3D::RIGHT:
+		case Utility::DIR_3D::RIGHT:
 			//一マス先に攻撃を生成する
 			attack->Init(sceneGame_, this, VAdd(pos_, VGet(sceneGame_->GetTileSizeX(), 0.0f, 0.0f)), dir_, charaNum_);
 			break;
 
-		case NodyUtility::DIR_3D::BACK:
+		case Utility::DIR_3D::BACK:
 			//一マス先に攻撃を生成する
 			attack->Init(sceneGame_, this, VSub(pos_, VGet(0.0f, 0.0f, sceneGame_->GetTileSizeZ())), dir_, charaNum_);
 			break;
 
-		case NodyUtility::DIR_3D::LEFT:
+		case Utility::DIR_3D::LEFT:
 			//一マス先に攻撃を生成する
 			attack->Init(sceneGame_, this, VSub(pos_, VGet(sceneGame_->GetTileSizeX(), 0.0f, 0.0f)), dir_, charaNum_);
 			break;
@@ -827,7 +827,7 @@ void Player::SetPos(VECTOR _setPos)
 }
 
 //プレイヤーの方向を返す
-NodyUtility::DIR_3D Player::GetDir(void)
+Utility::DIR_3D Player::GetDir(void)
 {
 	return dir_;
 }
@@ -987,10 +987,10 @@ void Player::RunMoveInterval(void)
 }
 
 //CPUの移動判断
-NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
+Utility::DIR_3D Player::CPUMoveChack(Utility::DIR_3D _dir)
 {
 	//ランダムで方向を決める
-	NodyUtility::DIR_3D dir = _dir;
+	Utility::DIR_3D dir = _dir;
 
 	//動ける方向がなかったら
 	if (!isMoveFront_ && !isMoveRight_ && !isMoveBack_ && !isMoveLeft_)
@@ -1000,19 +1000,19 @@ NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
 		{
 			switch (dir)
 			{
-			case NodyUtility::DIR_3D::FRONT:
+			case Utility::DIR_3D::FRONT:
 				isMoveFront_ = true;
 				break;
 
-			case NodyUtility::DIR_3D::RIGHT:
+			case Utility::DIR_3D::RIGHT:
 				isMoveRight_ = true;
 				break;
 			
-			case NodyUtility::DIR_3D::BACK:
+			case Utility::DIR_3D::BACK:
 				isMoveBack_ = true;
 				break;
 			
-			case NodyUtility::DIR_3D::LEFT:
+			case Utility::DIR_3D::LEFT:
 				isMoveLeft_ = true;
 				break;
 			}
@@ -1023,19 +1023,19 @@ NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
 		{
 			switch (dir)
 			{
-			case NodyUtility::DIR_3D::FRONT:
+			case Utility::DIR_3D::FRONT:
 				isMoveFront_ = false;
 				break;
 
-			case NodyUtility::DIR_3D::RIGHT:
+			case Utility::DIR_3D::RIGHT:
 				isMoveRight_ = false;
 				break;
 
-			case NodyUtility::DIR_3D::BACK:
+			case Utility::DIR_3D::BACK:
 				isMoveBack_ = false;
 				break;
 
-			case NodyUtility::DIR_3D::LEFT:
+			case Utility::DIR_3D::LEFT:
 				isMoveLeft_ = false;
 				break;
 			}
@@ -1047,19 +1047,19 @@ NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
 			//端の移動制限
 			switch (dir)
 			{
-			case NodyUtility::DIR_3D::FRONT:
+			case Utility::DIR_3D::FRONT:
 				isMoveFront_ = false;
 
 				break;
-			case NodyUtility::DIR_3D::RIGHT:
+			case Utility::DIR_3D::RIGHT:
 				isMoveRight_ = false;
 
 				break;
-			case NodyUtility::DIR_3D::BACK:
+			case Utility::DIR_3D::BACK:
 				isMoveBack_ = false;
 
 				break;
-			case NodyUtility::DIR_3D::LEFT:
+			case Utility::DIR_3D::LEFT:
 				isMoveLeft_ = false;
 
 				break;
@@ -1075,18 +1075,18 @@ NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
 			isMoveLeft_ = true;
 
 			//動かない
-			return NodyUtility::DIR_3D::MAX;
+			return Utility::DIR_3D::MAX;
 		}
 		else
 		{
 			//方向の決めなおし
-			while (!isMoveFront_ && dir == NodyUtility::DIR_3D::FRONT
-				|| !isMoveRight_ && dir == NodyUtility::DIR_3D::RIGHT
-				|| !isMoveBack_ && dir == NodyUtility::DIR_3D::BACK
-				|| !isMoveLeft_ && dir == NodyUtility::DIR_3D::LEFT)
+			while (!isMoveFront_ && dir == Utility::DIR_3D::FRONT
+				|| !isMoveRight_ && dir == Utility::DIR_3D::RIGHT
+				|| !isMoveBack_ && dir == Utility::DIR_3D::BACK
+				|| !isMoveLeft_ && dir == Utility::DIR_3D::LEFT)
 			{
 				//空いている方向で決めなおす
-				dir = static_cast<NodyUtility::DIR_3D>(GetRand(static_cast<int>(NodyUtility::DIR_3D::LEFT)));
+				dir = static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT)));
 			}
 
 			//方向の確定
@@ -1105,27 +1105,27 @@ NodyUtility::DIR_3D Player::CPUMoveChack(NodyUtility::DIR_3D _dir)
 	{
 		switch (dir)
 		{
-		case NodyUtility::DIR_3D::FRONT:
+		case Utility::DIR_3D::FRONT:
 			isMoveFront_ = false;
-			return CPUMoveChack(static_cast<NodyUtility::DIR_3D>(GetRand(static_cast<int>(NodyUtility::DIR_3D::LEFT))));
+			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
 
 			break;
 
-		case NodyUtility::DIR_3D::RIGHT:
+		case Utility::DIR_3D::RIGHT:
 			isMoveRight_ = false;
-			return CPUMoveChack(static_cast<NodyUtility::DIR_3D>(GetRand(static_cast<int>(NodyUtility::DIR_3D::LEFT))));
+			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
 
 			break;
 
-		case NodyUtility::DIR_3D::BACK:
+		case Utility::DIR_3D::BACK:
 			isMoveBack_ = false;
-			return CPUMoveChack(static_cast<NodyUtility::DIR_3D>(GetRand(static_cast<int>(NodyUtility::DIR_3D::LEFT))));
+			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
 
 			break;
 
-		case NodyUtility::DIR_3D::LEFT:
+		case Utility::DIR_3D::LEFT:
 			isMoveLeft_ = false;
-			return CPUMoveChack(static_cast<NodyUtility::DIR_3D>(GetRand(static_cast<int>(NodyUtility::DIR_3D::LEFT))));
+			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
 
 			break;
 		}
@@ -1222,7 +1222,7 @@ void Player::Animation(void)
 	//-------------------------------------------
 
 	//アニメーション時間の進行
-	stepAnim_ += (speedAnim_ * NodyUtility::DELTA_TIME);
+	stepAnim_ += (speedAnim_ * Utility::DELTA_TIME);
 	if (stepAnim_ > animTotalTime_)
 	{
 		//ループ再生
