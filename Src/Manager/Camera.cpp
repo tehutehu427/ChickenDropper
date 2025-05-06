@@ -61,7 +61,7 @@ bool Camera::Release(void)
 	return true;
 }
 
-void Camera::SetCamerawork(VECTOR _pos, VECTOR _angles)
+void Camera::SetCamerawork(const VECTOR _pos, const VECTOR _angles)
 {
 	pos_ = _pos;
 	angles_ = { Utility::Deg2RadF(_angles.x) ,Utility::Deg2RadF(_angles.y)  ,Utility::Deg2RadF(_angles.z) };

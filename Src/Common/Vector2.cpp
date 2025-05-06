@@ -22,7 +22,7 @@ Vector2::~Vector2(void)
 }
 
 //Vector2‚ðVector2FŒ^‚É•ÏŠ·
-Vector2F Vector2::ToVector2F()
+Vector2F Vector2::ToVector2F()const
 {
 	Vector2F ret;
 	ret.x = static_cast<float>(x);

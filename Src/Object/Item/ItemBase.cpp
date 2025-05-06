@@ -91,32 +91,32 @@ void ItemBase::EffectEnd(void)
 	DeleteItem();
 }
 
-VECTOR ItemBase::GetPos(void)
+const VECTOR ItemBase::GetPos(void)
 {
 	return pos_;
 }
 
-bool ItemBase::GetIsAlive(void)
+const bool ItemBase::GetIsAlive(void)
 {
 	return isAlive_;
 }
 
-bool ItemBase::GetIsEffective(void)
+const bool ItemBase::GetIsEffective(void)
 {
 	return isEffective_;
 }
 
-void ItemBase::SetIsEffective(bool _isEffective)
+void ItemBase::SetIsEffective(const bool _isEffective)
 {
 	isEffective_ = _isEffective;
 }
 
-ItemBase::ITEM_TYPE ItemBase::GetItemType(void)
+const ItemBase::ITEM_TYPE ItemBase::GetItemType(void)
 {
 	return itemType_;
 }
 
-Player* ItemBase::GetFollow(void)
+const Player* ItemBase::GetFollow(void)
 {
 	return follow_;
 }

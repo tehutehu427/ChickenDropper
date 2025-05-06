@@ -18,7 +18,7 @@ public:
 	~Vector2F(void);
 
 	//Vector2FŒ^‚©‚çVector2Œ^‚É•ÏX
-	Vector2 ToVector2(void);
+	Vector2 ToVector2(void)const;
 
 	//ƒƒ“ƒo[•Ï”
 	float x;

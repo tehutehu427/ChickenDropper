@@ -5,7 +5,7 @@
 #include"Utility.h"
 
 //文字列分割の機能
-std::vector <std::string> Utility::Split(std::string& line, char delimiter)
+std::vector <std::string> Utility::Split(const std::string& line, const char delimiter)
 {
 	//動的配列の戻り値格納領域の確保
 	std::vector<std::string> result;
@@ -30,14 +30,14 @@ std::vector <std::string> Utility::Split(std::string& line, char delimiter)
 }
 
 //四捨五入用の関数(float)
-int Utility::Round(float value)
+const int Utility::Round(const float value)
 {
 	return static_cast <int>(roundf(value));
 }
 
 //オーバーロード関数(引数と戻り値を変更している関数)
 //四捨五入用の関数(Vector2)
-Vector2 Utility::Round(Vector2F value)
+const Vector2 Utility::Round(const Vector2F value)
 {
 	Vector2 ret;
 	ret.x = static_cast<int>(round(value.x));
@@ -45,12 +45,12 @@ Vector2 Utility::Round(Vector2F value)
 	return ret;
 }
 
-float Utility::Deg2RadF(const float _deg)
+const float Utility::Deg2RadF(const float _deg)
 {
 	return _deg * DEG2RAD;
 }
 
-float Utility::Rad2DegF(const float _rad)
+const float Utility::Rad2DegF(const float _rad)
 {
 	return _rad * RAD2DEG;
 }

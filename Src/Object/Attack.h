@@ -33,9 +33,9 @@ public:
 	/// <returns></returns>
 	bool Init(SceneGame* parent
 			, Player* parPlayer
-			, VECTOR _pos
-			, Utility::DIR_3D _dir
-			, CommonData::TYPE _charaNum);
+			, const VECTOR _pos
+			, const Utility::DIR_3D _dir
+			, const CommonData::TYPE _charaNum);
 
 	//XVˆ—
 	void Update(void);							
@@ -47,25 +47,25 @@ public:
 	bool Release(void);							
 
 	//UŒ‚‚ÌŒ»İÀ•W‚ğ•Ô‚·
-	VECTOR GetPos(void);				
+	const VECTOR GetPos(void);
 	//UŒ‚‚ÌÀ•W‚ğŒˆ‚ß‚é
-	void SetPos(VECTOR _setPos);		
+	void SetPos(const VECTOR _setPos);
 
 	//UŒ‚‚Ì¶‘¶”»’è‚ğ•Ô‚·
-	bool GetIsAlive(void);				
+	const bool GetIsAlive(void);
 	//UŒ‚‚Ì¶‘¶”»’è‚ğİ’è
-	void SetIsAlive(bool _isAttack);
+	void SetIsAlive(const bool _isAttack);
 
 	//UŒ‚‚Ì•ûŒü‚ğ•Ô‚·
-	Utility::DIR_3D GetAttackDir(void);				
+	const Utility::DIR_3D GetAttackDir(void);
 	//UŒ‚‚Ì•ûŒüİ’è
-	void SetAttackDir(Utility::DIR_3D _setDir);		
+	void SetAttackDir(const Utility::DIR_3D _setDir);
 
 	//UŒ‚‚ÌƒvƒŒƒCƒ„[”Ô†‚ğ•Ô‚·
-	CommonData::TYPE GetCharaNum(void);
+	const CommonData::TYPE GetCharaNum(void);
 
 	//UŒ‚Å’†‚ÌŒo‰ßŠÔ‚ğ•Ô‚·
-	float GetAtkCnt(void);			
+	const float GetAtkCnt(void);
 
 	//UŒ‚‚Ìíœ
 	void Destroy(void);

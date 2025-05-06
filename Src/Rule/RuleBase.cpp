@@ -83,7 +83,7 @@ bool RuleBase::Release(void)
 	return true;
 }
 
-bool RuleBase::GetIsNarrowStage(void)
+const bool RuleBase::GetIsNarrowStage(void)
 {
 	return isNarrowStage_;
 }

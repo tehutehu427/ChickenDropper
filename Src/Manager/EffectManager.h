@@ -39,19 +39,19 @@ public:
 	/// <param name="_pos">再生する座標</param>
 	/// <param name="_scale">再生する時の大きさ</param>
 	/// <param name="_rot">再生する時の回転</param>
-	void EffectPlay(EFF_TYPE _effect, VECTOR _pos, VECTOR _scale,VECTOR _rot);
+	void EffectPlay(const EFF_TYPE _effect, const VECTOR _pos, const VECTOR _scale, const VECTOR _rot);
 
 	//エフェクトの停止
-	void EffectStop(EFF_TYPE _effect);
+	void EffectStop(const EFF_TYPE _effect);
 
 	//エフェクトの座標変化
-	void EffectChangePos(EFF_TYPE _effect, VECTOR _pos);
+	void EffectChangePos(const EFF_TYPE _effect, const VECTOR _pos);
 
 	//エフェクトの大きさ変化
-	void EffectChangeScl(EFF_TYPE _effect, VECTOR _scl);
+	void EffectChangeScl(const EFF_TYPE _effect, const VECTOR _scl);
 	
 	//エフェクトの回転変化
-	void EffectChangeRot(EFF_TYPE _effect, VECTOR _rot);
+	void EffectChangeRot(const EFF_TYPE _effect, const VECTOR _rot);
 
 private:
 

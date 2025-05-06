@@ -15,10 +15,16 @@ public:
 	static constexpr float TERM = 50.0f;
 
 	//ü‚Ì”
-	static const int NUM = static_cast<int>(LEN / TERM);
+	static constexpr int NUM = static_cast<int>(LEN / TERM);
 
 	//ü‚Ì”‚Ì”¼•ª
-	static const int HNUM = NUM / 2;
+	static constexpr int HNUM = NUM / 2;
+
+	//‹…‚Ì”¼Œa
+	static constexpr float RADIUS = 15.0f;
+
+	//‹…‚Ì–Ê”
+	static constexpr int DIV_NUM = 10;
 
 	//ƒƒ“ƒo[ŠÖ”
 	//--------------------------

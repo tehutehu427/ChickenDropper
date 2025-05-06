@@ -211,7 +211,7 @@ bool SceneSelect::Release(void)
 	return true;
 }
 
-void SceneSelect::CursorDraw(int _sizeX, int _sizeY)
+void SceneSelect::CursorDraw(const int _sizeX, const int _sizeY)
 {
 	if (static_cast<int>(step_ * Utility::DEFAULT_FPS / 20) % 2 == 0)
 	{
@@ -753,32 +753,33 @@ void SceneSelect::BattlePatternDraw(void)
 void SceneSelect::CheckPadDraw(void)
 {
 	//フォント
-	int fontSize = 70;
-	fontHandle_ = CreateFontToHandle(NULL, fontSize, 3, DX_FONTTYPE_EDGE);
+	fontHandle_ = CreateFontToHandle(NULL, PADNUM_FONT_SIZE, PADNUM_FONT_TICKNESS, DX_FONTTYPE_EDGE);
 	int color = Utility::COLOR_WHITE;
 
 	switch (selectPadNum_)
 	{
-	case 1:
-		color = 0x0000ff;
+	case static_cast<int>(CommonData::TYPE::P1):
+		color = Utility::COLOR_BLUE;
 		break;
 
-	case 2:
-		color = 0xff0000;
+	case static_cast<int>(CommonData::TYPE::P2):
+		color = Utility::COLOR_RED;
 		break;
 
-	case 3:
-		color = 0x00ff00;
+	case static_cast<int>(CommonData::TYPE::P3):
+		color = Utility::COLOR_GREEN;
 		break;
 
-	case 4:
-		color = 0xffff00;
+	case static_cast<int>(CommonData::TYPE::P4):
+		color = Utility::COLOR_YELLOW;
 		break;
 	}
 
+	//プレイヤー描画
 	MV1DrawModel(pModel_[selectPadNum_ - 1]);
 
-	DrawFormatStringFToHandle(fontSize * 5.5f, Application::SCREEN_SIZE_Y / (3.0f / 2.0f) - fontSize, color, fontHandle_, "     P%d Press A!!", selectPadNum_);
+	//文字描画
+	DrawFormatStringFToHandle(STRING_POS_X, STRING_POS_Y - PADNUM_FONT_SIZE, color, fontHandle_, "     P%d Press A!!", selectPadNum_);
 }
 
 void SceneSelect::DifficultyDraw(void)
@@ -789,7 +790,7 @@ void SceneSelect::DifficultyDraw(void)
 	//フォント
 	int fontSize = 30;
 	fontHandle_ = CreateFontToHandle(NULL, fontSize, 3, DX_FONTTYPE_EDGE);
-	int color = 0xffffff;
+	int color = Utility::COLOR_WHITE;
 
 	switch (selectPattern_)
 	{
@@ -798,15 +799,15 @@ void SceneSelect::DifficultyDraw(void)
 	case CommonData::BATTLE_PATTERN::P1C3:
 		if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C1)))
 		{
-			color = 0xff0000;
+			color = Utility::COLOR_RED;
 		}
 		else if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C2)))
 		{
-			color = 0x00ff00;
+			color = Utility::COLOR_GREEN;
 		}
 		else if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C3)))
 		{
-			color = 0xffff00;
+			color = Utility::COLOR_YELLOW;
 		}
 
 		break;
@@ -815,11 +816,11 @@ void SceneSelect::DifficultyDraw(void)
 	case CommonData::BATTLE_PATTERN::P2C2:
 		if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C1)))
 		{
-			color = 0x00ff00;
+			color = Utility::COLOR_GREEN;
 		}
 		else if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C2)))
 		{
-			color = 0xffff00;
+			color = Utility::COLOR_YELLOW;
 		}
 
 		break;
@@ -827,7 +828,7 @@ void SceneSelect::DifficultyDraw(void)
 	case CommonData::BATTLE_PATTERN::P3C1:
 		if (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_) == (static_cast<int>(CommonData::CPU_NUM::C1)))
 		{
-			color = 0xffff00;
+			color = Utility::COLOR_YELLOW;
 		}
 
 		break;
@@ -842,15 +843,15 @@ void SceneSelect::DifficultyDraw(void)
 		, true);
 
 	//対戦人数
-	DrawFormatStringToHandle(Application::SCREEN_SIZE_X / 2 - (BOARD_SIZE_X / 2 - BATTLE_NUM_SIZE_X / 1.5) - DIFFICULTY_SHIFT_SIZE_X
-		, Application::SCREEN_SIZE_Y - BOARD_SIZE_Y / 2 - BOARD_HEIGHT - DIFFICULTY_SHIFT_SIZE_Y
+	DrawFormatStringToHandle(Application::SCREEN_SIZE_X / 2 - BATTLE_RELATIVE_POS_X - DIFFICULTY_SHIFT_POS_X
+		, Application::SCREEN_SIZE_Y - BOARD_SIZE_Y / 2 - BOARD_HEIGHT - DIFFICULTY_SHIFT_POS_Y
 		, color
 		, fontHandle_
 		, "プレイヤー%dの強さを\n 選択してください"
 		, static_cast<int>(playerNum_) + (static_cast<int>(cpuNum_) + 1 - (static_cast<int>(cpuNum_) - compareCpuNum_)));
 
 	//右矢印画像
-	DrawRotaGraph(imgsPos_.x + (BOARD_SIZE_X / 2 - BATTLE_NUM_SIZE_X / 1.5) - ARROW_SHIFT_POS_X
+	DrawRotaGraph(imgsPos_.x + BATTLE_RELATIVE_POS_X - ARROW_SHIFT_POS_X
 		, imgsPos_.y + ARROW_SHIFT_POS_Y
 		, arrowSize_
 		, 0.0
@@ -858,7 +859,7 @@ void SceneSelect::DifficultyDraw(void)
 		, true);
 
 	//左矢印画像
-	DrawRotaGraph(imgsPos_.x - (BOARD_SIZE_X / 2 - BATTLE_NUM_SIZE_X / 1.5) + ARROW_SHIFT_POS_X
+	DrawRotaGraph(imgsPos_.x - BATTLE_RELATIVE_POS_X + ARROW_SHIFT_POS_X
 		, imgsPos_.y + ARROW_SHIFT_POS_Y
 		, arrowSize_
 		, 0.0

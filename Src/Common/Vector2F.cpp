@@ -23,7 +23,7 @@ Vector2F::~Vector2F(void)
 }
 
 //Vector2Få^Ç©ÇÁVector2å^Ç…ïœçX
-Vector2 Vector2F::ToVector2(void)
+Vector2 Vector2F::ToVector2(void)const
 {
 	Vector2 ret;
 	ret.x = static_cast<int>(roundf(x));

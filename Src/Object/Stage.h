@@ -66,8 +66,8 @@ public:
 	static constexpr float STAGE_HSIZE_X = STAGE_SIZE_X / 2;		//ステージの横サイズの半分
 	static constexpr float STAGE_HSIZE_Z = STAGE_SIZE_Z / 2;		//ステージの縦サイズの半分
 	
-	static constexpr int STAGE_NARROW_RANGE = 2;														//ステージ縮小範囲
-	static constexpr Utility::DIR_3D STAGE_NARROW_DIR = Utility::DIR_3D::RIGHT;					//ステージ縮小開始方向
+	static constexpr int STAGE_NARROW_RANGE = 2;										//ステージ縮小範囲
+	static constexpr Utility::DIR_3D STAGE_NARROW_DIR = Utility::DIR_3D::RIGHT;			//ステージ縮小開始方向
 
 	//メンバー関数
 	//-------------------
@@ -92,7 +92,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <param name="_stateSwap">変化させる状態</param>
-	void TileSwap(int ix,int iz , TILE_STATE _stateSwap);
+	void TileSwap(const int const ix,int iz , const TILE_STATE _stateSwap);
 
 	/// <summary>
 	/// 攻撃したプレイヤーの番号をタイルに与える
@@ -100,7 +100,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <param name="_charaNum">攻撃したプレイヤー</param>
-	void TileAttackPlayer(int ix, int iz, CommonData::TYPE _charaNum);
+	void TileAttackPlayer(const int ix, const int iz, const CommonData::TYPE _charaNum);
 
 	/// <summary>
 	/// そのタイルを攻撃したプレイヤーの番号を返す
@@ -108,7 +108,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <returns>攻撃したプレイヤーの番号</returns>
-	CommonData::TYPE GetTileAttackPlayer(int ix, int iz);
+	const CommonData::TYPE GetTileAttackPlayer(const int ix, const int iz);
 
 	/// <summary>
 	/// 攻撃時間を返す
@@ -116,7 +116,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <returns></returns>
-	float GetAtkCnt(int ix, int iz);					
+	const float GetAtkCnt(const int ix, const int iz);
 
 	/// <summary>
 	/// 攻撃時間を与える
@@ -124,10 +124,10 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <param name="_cnt">与える時間</param>
-	void SetAtkCnt(int ix, int iz, float _cnt);			
+	void SetAtkCnt(const int ix, const int iz, const float _cnt);
 	
 	//1ラインのタイル数を返す
-	int GetTileHNum(void);				
+	const int GetTileHNum(void);
 
 	/// <summary>
 	/// タイルの座標を返す
@@ -135,7 +135,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <returns></returns>
-	VECTOR GetPos(int ix, int iz);		
+	const VECTOR GetPos(const int ix, const int iz);
 	
 	/// <summary>
 	/// タイルの状態を返す
@@ -143,7 +143,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <returns></returns>
-	TILE_STATE GetTileState(int ix, int iz);		
+	const TILE_STATE GetTileState(const int ix, const int iz);
 
 	/// <summary>
 	/// タイルの番地をboolで返す
@@ -151,7 +151,7 @@ public:
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
 	/// <returns>その番地をtrueで返す</returns>
-	bool GetTileAdd(int ix, int iz);
+	const bool GetTileAdd(const int ix, const int iz);
 
 private:
 	//ポインタ

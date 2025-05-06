@@ -45,7 +45,7 @@ void InputManager::StepInput(void)
 }
 
 //単純に押されているか
-bool InputManager::IsKeyDown(int _keyCode)
+const bool InputManager::IsKeyDown(const int _keyCode)
 {
 	//現フレで押されている(前フレは関係ない)
 	if (currentKeyBuf_[_keyCode] == 1)
@@ -57,7 +57,7 @@ bool InputManager::IsKeyDown(int _keyCode)
 }
 
 //たった今押されたか
-bool InputManager::IsKeyPush(int _keyCode)
+const bool InputManager::IsKeyPush(const int _keyCode)
 {
 	//前フレで押されていない　かつ　現フレで押されている
 	if (preKeyBuf_[_keyCode] == 0 && currentKeyBuf_[_keyCode] == 1)
@@ -70,7 +70,7 @@ bool InputManager::IsKeyPush(int _keyCode)
 }
 
 //押し続けられているか
-bool InputManager::IsKeyKeep(int _keyCode)
+const bool InputManager::IsKeyKeep(const int _keyCode)
 {
 	//前フレで押されている　かつ　現フレで押されている
 	if (preKeyBuf_[_keyCode] == 1 && currentKeyBuf_[_keyCode] == 1)
@@ -83,7 +83,7 @@ bool InputManager::IsKeyKeep(int _keyCode)
 }
 
 //たった今離されたか
-bool InputManager::IsKeyRelease(int _keyCode)
+const bool InputManager::IsKeyRelease(const int _keyCode)
 {
 	//前フレで押されている　かつ　現フレで押されていない
 	if (preKeyBuf_[_keyCode] == 1 && currentKeyBuf_[_keyCode] == 0)
@@ -143,7 +143,7 @@ void InputManager::StepPadInput(void)
 }
 
 //単純に押されているか(コントローラー)
-bool InputManager::IsJoypadKeyDown(int _padNum, int _keyCode)
+const bool InputManager::IsJoypadKeyDown(const int _padNum, const int _keyCode)
 {
 	//コントローラーの番号合わせ用
 	int padNumber;
@@ -171,7 +171,7 @@ bool InputManager::IsJoypadKeyDown(int _padNum, int _keyCode)
 }
 
 //たった今押されたか(コントローラー)
-bool InputManager::IsJoypadKeyPush(int _padNum, int _keyCode)
+const bool InputManager::IsJoypadKeyPush(const int _padNum, const int _keyCode)
 {
 	//コントローラーの番号合わせ用
 	int padNumber;
@@ -199,7 +199,7 @@ bool InputManager::IsJoypadKeyPush(int _padNum, int _keyCode)
 }
 
 //押し続けられているか(コントローラー)
-bool InputManager::IsJoypadKeyKeep(int _padNum, int _keyCode)
+const bool InputManager::IsJoypadKeyKeep(const int _padNum, const int _keyCode)
 {
 	//コントローラーの番号合わせ用
 	int padNumber;
@@ -227,7 +227,7 @@ bool InputManager::IsJoypadKeyKeep(int _padNum, int _keyCode)
 }
 
 //たった今離されたか(コントローラー)
-bool InputManager::IsJoypadKeyRelease(int _padNum, int _keyCode)
+const bool InputManager::IsJoypadKeyRelease(const int _padNum, const int _keyCode)
 {
 	//コントローラーの番号合わせ用
 	int padNumber;
@@ -254,7 +254,7 @@ bool InputManager::IsJoypadKeyRelease(int _padNum, int _keyCode)
 	return false;
 }
 
-InputManager::KEEP_FUNCTION InputManager::HowLongJoypadKeyKeep(int _padNum, int _keyCode, int _keepTime)
+const InputManager::KEEP_FUNCTION InputManager::HowLongJoypadKeyKeep(const int _padNum, const int _keyCode, const int _keepTime)
 {
 	//コントローラーの番号合わせ用
 	int padNumber;

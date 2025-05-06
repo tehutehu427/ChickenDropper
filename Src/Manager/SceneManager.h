@@ -56,7 +56,7 @@ public:
 	void Destroy(void);
 
 	//シーン切り替えを依頼する関数
-	void ChangeScene(SCENE_ID nextID, bool isToFade);
+	void ChangeScene(const SCENE_ID nextID, const bool isToFade);
 
 	//シングルトン化
 	//----------------------------
@@ -97,7 +97,7 @@ private:
 	//フェード実施用関数
 	void Fade(void);						
 	//指定したシーンの解放用
-	void ReleaseScene(SCENE_ID iSceneID);	
+	void ReleaseScene(void);
 
 	//シングルトン化
 	//----------------------------

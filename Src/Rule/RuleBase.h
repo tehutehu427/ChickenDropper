@@ -74,7 +74,7 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>k¬‚Ì—LŒø”»’è(true:k¬‚·‚é)</returns>
-	bool GetIsNarrowStage(void);
+	const bool GetIsNarrowStage(void);
 
 protected:
 	//ƒƒ“ƒo[•Ï”

@@ -98,7 +98,7 @@ public:
 	/// <param name="_pos">初期位置</param>
 	/// <param name="_charaNum">プレイヤー番号</param>
 	/// <returns></returns>
-	bool Init(SceneGame* parent, VECTOR _pos, CommonData::TYPE _charaNum);	
+	bool Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _charaNum);
 
 	//更新処理
 	void Update(void);			
@@ -120,22 +120,22 @@ public:
 	/// ダメージ処理の準備
 	/// </summary>
 	/// <param name="_charaNum">攻撃してきたプレイヤーの番号</param>
-	void PreDamage(CommonData::TYPE _charaNum);
+	void PreDamage(const CommonData::TYPE _charaNum);
 
 	/// <summary>
 	/// ダメージ制御
 	/// </summary>
 	/// <param name="_damage">与えるダメージ又は下げるスコアの量</param>
-	void Damage(int _damage);
+	void Damage(const int _damage);
 
 	/// <summary>
 	/// 加点の処理
 	/// </summary>
 	/// <param name="_score">加点するスコア</param>
-	void TakeScore(int _score);
+	void TakeScore(const int _score);
 
 	//現在の得点を返す
-	int GetScore(void);
+	const int GetScore(void);
 
 	//攻撃の制御(プレイヤー)
 	void ProcessAttackPlayer(void);
@@ -147,73 +147,73 @@ public:
 	Attack* GetValidAttack(void);		
 
 	//プレイヤーの状態を返す
-	STATE GetState(void);
+	const STATE GetState(void);
 
 	/// <summary>
 	/// プレイヤーの状態変更
 	/// </summary>
 	/// <param name="_state">変更したい状態</param>
-	void ChangeState(STATE _state);
+	void ChangeState(const STATE _state);
 
 	//プレイヤーの現在座標を返す
-	VECTOR GetPos(void);				
+	const VECTOR GetPos(void);
 
 	/// <summary>
 	/// プレイヤーの座標を与える
 	/// </summary>
 	/// <param name="_setPos">与えたいpos</param>
-	void SetPos(VECTOR _setPos);		
+	void SetPos(const VECTOR _setPos);
 
 	//プレイヤーの方向を返す
-	Utility::DIR_3D GetDir(void);	
+	const Utility::DIR_3D GetDir(void);
 
 	//プレイヤーが歩いているかを返す
-	bool GetIsWalk(void);
+	const bool GetIsWalk(void);
 
 	//プレイヤーの体力を返す
-	int GetLife(void);
+	const int GetLife(void);
 
 	//プレイヤーのやられた時間を返す
-	int GetDeadTime(void);
+	const int GetDeadTime(void);
 
 	//プレイヤーのやられた時間を与える(GetNowCountを与える)
 	void SetDeadTime(void);
 
 	//プレイヤーの壊したタイルの数を返す
-	int GetBrokeTileNum(void);
+	const int GetBrokeTileNum(void);
 
 	//プレイヤーの壊したタイルの数を増やす
 	void IncreaseBrokeTileNum(void);
 
 	//プレイヤーの順位を返す
-	int GetRank(void);
+	const int GetRank(void);
 
 	//プレイヤーの順位を決める
-	void SetRank(int _rank);
+	void SetRank(const int _rank);
 
 	/// <summary>
 	/// プレイヤーのアニメーション番号を返す
 	/// </summary>
 	/// <returns>参照プレイヤーのアニメーション番号</returns>
-	ANIM_NUM GetAnimNum(void);
+	const ANIM_NUM GetAnimNum(void);
 
 	//アニメーション番号変更
-	void ChangeAnim(ANIM_NUM _animNo);
+	void ChangeAnim(const ANIM_NUM _animNo);
 
 	//プレイヤーの無敵時間を返す
-	float GetInvincible(void);			
+	const float GetInvincible(void);
 
 	//プレイヤーか敵かを返す
-	CHARA_JUDGE GetCharaJudge(void);
+	const CHARA_JUDGE GetCharaJudge(void);
 
 	/// <summary>
 	/// プレイヤーか敵かを与える
 	/// </summary>
 	/// <param name="_type">与えるタイプ</param>
-	void SetCharaJudge(CHARA_JUDGE _type);	
+	void SetCharaJudge(const CHARA_JUDGE _type);
 
 	//プレイヤー番号を返す
-	CommonData::TYPE GetCharaNum(void);
+	const CommonData::TYPE GetCharaNum(void);
 
 	//攻撃のポインタを返す
 	std::vector<Attack*> GetAttack(void);	
@@ -222,13 +222,13 @@ public:
 	/// 難易度を設定
 	/// </summary>
 	/// <param name="_diff">設定する難易度</param>
-	void SetDifficulty(CommonData::DIFFICULTY _diff);
+	void SetDifficulty(const CommonData::DIFFICULTY _diff);
 
 	/// <summary>
 	/// プレイヤーの速度を決める
 	/// </summary>
 	/// <param name="_speed">速度</param>
-	void SetSpeed(float _speed);
+	void SetSpeed(const float _speed);
 
 	void RunMoveInterval(void);
 
@@ -315,7 +315,7 @@ private:
 	/// </summary>
 	/// <param name="_dir">最初の参照方向</param>
 	/// <returns>移動する方向</returns>
-	Utility::DIR_3D CPUMoveChack(Utility::DIR_3D _dir);
+	const Utility::DIR_3D CPUMoveChack(const Utility::DIR_3D _dir);
 
 	//状態ごとの更新処理
 	void UpdateState(void);

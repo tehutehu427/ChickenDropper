@@ -295,58 +295,58 @@ bool SceneGame::Release(void)
 	return true;
 }
 
-int SceneGame::GetTileNum(void)
+const int SceneGame::GetTileNum(void)
 {
 	return Stage::TILE_NUM;
 }
 
-int SceneGame::GetTileHNum(void)
+const int SceneGame::GetTileHNum(void)
 {
 	return stage_->GetTileHNum();
 }
 
-float SceneGame::GetTileSizeX(void)
+const float SceneGame::GetTileSizeX(void)
 {
 	return Stage::TILE_SIZE_X;
 }
 
-float SceneGame::GetTileSizeZ(void)
+const float SceneGame::GetTileSizeZ(void)
 {
 	return Stage::TILE_SIZE_Z;
 }
 
-float SceneGame::GetStageHSizeX(void)
+const float SceneGame::GetStageHSizeX(void)
 {
 	return Stage::STAGE_HSIZE_X;
 }
 
-float SceneGame::GetStageHSizeZ(void)
+const float SceneGame::GetStageHSizeZ(void)
 {
 	return Stage::STAGE_HSIZE_Z;
 }
 
-SceneGame::GAME_STATE SceneGame::GetGameState(void)
+const SceneGame::GAME_STATE SceneGame::GetGameState(void)
 {
 	return gameState_;
 }
 
-void SceneGame::ChangeGameState(GAME_STATE _state)
+void SceneGame::ChangeGameState(const GAME_STATE _state)
 {
 	gameState_ = _state;
 }
 
-float SceneGame::GetAtkCnt(int ix, int iz)
+const float SceneGame::GetAtkCnt(const int ix, const int iz)
 {
 	return stage_->GetAtkCnt(ix, iz);
 }
 
-void SceneGame::SetAtkCnt(int ix, int iz, float _cnt)
+void SceneGame::SetAtkCnt(const int ix, const int iz, const float _cnt)
 {
 	stage_->SetAtkCnt(ix, iz, _cnt);
 }
 
 
-bool SceneGame::IsCollisionStageEnd(VECTOR _pos, Utility::DIR_3D _dir)
+const bool SceneGame::IsCollisionStageEnd(const VECTOR _pos, const Utility::DIR_3D _dir)
 {
 	switch (_dir)
 	{
@@ -386,7 +386,7 @@ bool SceneGame::IsCollisionStageEnd(VECTOR _pos, Utility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsNextTileBroken(VECTOR _pos, Utility::DIR_3D _dir)
+const bool SceneGame::IsNextTileBroken(const VECTOR _pos, const Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
 	Utility::DIR_3D dir = _dir;
@@ -445,7 +445,7 @@ bool SceneGame::IsNextTileBroken(VECTOR _pos, Utility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsNextTileAttack(VECTOR _pos, Utility::DIR_3D _dir)
+const bool SceneGame::IsNextTileAttack(const VECTOR _pos, const Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
 	Utility::DIR_3D dir = _dir;
@@ -504,7 +504,7 @@ bool SceneGame::IsNextTileAttack(VECTOR _pos, Utility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsThisTileAttack(VECTOR _pos)
+const bool SceneGame::IsThisTileAttack(const VECTOR _pos)
 {
 	VECTOR pos = _pos;
 
@@ -525,7 +525,7 @@ bool SceneGame::IsThisTileAttack(VECTOR _pos)
 	return false;
 }
 
-bool SceneGame::IsNextTilePreEnd(VECTOR _pos, Utility::DIR_3D _dir)
+const bool SceneGame::IsNextTilePreEnd(const VECTOR _pos, const Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
 	Utility::DIR_3D dir = _dir;
@@ -584,7 +584,7 @@ bool SceneGame::IsNextTilePreEnd(VECTOR _pos, Utility::DIR_3D _dir)
 	return false;
 }
 
-bool SceneGame::IsThisTilePreEnd(VECTOR _pos)
+const bool SceneGame::IsThisTilePreEnd(const VECTOR _pos)
 {
 	VECTOR pos = _pos;
 
@@ -605,7 +605,7 @@ bool SceneGame::IsThisTilePreEnd(VECTOR _pos)
 	return false;
 }
 
-bool SceneGame::IsNextTileEnd(VECTOR _pos, Utility::DIR_3D _dir)
+const bool SceneGame::IsNextTileEnd(const VECTOR _pos, const Utility::DIR_3D _dir)
 {
 	VECTOR pos = _pos;
 	Utility::DIR_3D dir = _dir;
@@ -669,12 +669,12 @@ std::vector<Player*> SceneGame::GetPlayer(void)
 	return player_;
 }
 
-int SceneGame::GetPlayerScore(Player* _player)
+const int SceneGame::GetPlayerScore(Player* _player)
 {
 	return _player->GetScore();
 }
 
-void SceneGame::TakeScore(CommonData::TYPE _charaNum)
+void SceneGame::TakeScore(const CommonData::TYPE _charaNum)
 {
 	//攻撃してきた相手がいないなら
 	if (_charaNum == CommonData::TYPE::NONE)
@@ -692,17 +692,17 @@ void SceneGame::TakeScore(CommonData::TYPE _charaNum)
 	}
 }
 
-int SceneGame::GetLife(Player* _player)
+const int SceneGame::GetLife(Player* _player)
 {
 	return _player->GetLife();
 }
 
-int SceneGame::GetBrokeTileNum(Player* _player)
+const int SceneGame::GetBrokeTileNum(Player* _player)
 {
 	return _player->GetBrokeTileNum();
 }
 
-void SceneGame::IncreaseBrokeTileNum(CommonData::TYPE _charaNum)
+void SceneGame::IncreaseBrokeTileNum(const CommonData::TYPE _charaNum)
 {
 	//プレイヤー番号に対応した配列番号
 	int playerNum = static_cast<int>(_charaNum) - 1;
@@ -710,7 +710,7 @@ void SceneGame::IncreaseBrokeTileNum(CommonData::TYPE _charaNum)
 	player_[playerNum]->IncreaseBrokeTileNum();
 }
 
-CommonData::TYPE SceneGame::GetCharaNum(Player* _player)
+const CommonData::TYPE SceneGame::GetCharaNum(Player* _player)
 {
 	return _player->GetCharaNum();
 }
@@ -983,7 +983,7 @@ void SceneGame::ReviavalPlayer(Player* _player)
 	}
 }
 
-bool SceneGame::HitP2P(VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _num)
+const bool SceneGame::HitP2P(const VECTOR _pos, const Utility::DIR_3D _dir, const CommonData::TYPE _num)
 {
 	//参照プレイヤーの位置
 	auto myPos = _pos;
@@ -1167,7 +1167,7 @@ bool SceneGame::HitP2P(VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _num)
 
 }
 
-Utility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
+const Utility::DIR_3D SceneGame::AimPlayer(const VECTOR _pos, const CommonData::TYPE _num)
 {
 	//返す方向
 	Utility::DIR_3D dir;
@@ -1301,7 +1301,7 @@ Utility::DIR_3D SceneGame::AimPlayer(VECTOR _pos, CommonData::TYPE _num)
 	return dir;
 }
 
-bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, Utility::DIR_3D _dir)
+const bool SceneGame::AimPlayerAttack(const VECTOR _pos, const CommonData::TYPE _num, const Utility::DIR_3D _dir)
 {
 	//自分の位置
 	auto myPos = _pos;
@@ -1384,7 +1384,7 @@ bool SceneGame::AimPlayerAttack(VECTOR _pos, CommonData::TYPE _num, Utility::DIR
 	return false;
 }
 
-void SceneGame::TileNowBreak(CommonData::TYPE _charaNum)
+void SceneGame::TileNowBreak(const CommonData::TYPE _charaNum)
 {
 	for (int tz = 0; tz < Stage::TILE_NUM; tz++)
 	{
@@ -1399,27 +1399,27 @@ void SceneGame::TileNowBreak(CommonData::TYPE _charaNum)
 	}
 }
 
-bool SceneGame::IsNarrowStage(void)
+const bool SceneGame::IsNarrowStage(void)
 {
 	return rule_->GetIsNarrowStage();
 }
 
-int SceneGame::Pos2TileAddX(float _posX)
+const int SceneGame::Pos2TileAddX(const float _posX)
 {
 	return static_cast<int>((Stage::STAGE_HSIZE_X + _posX) / Stage::TILE_SIZE_X);
 }
 
-int SceneGame::Pos2TileAddZ(float _posZ)
+const int SceneGame::Pos2TileAddZ(const float _posZ)
 {
 	return static_cast<int>((Stage::STAGE_HSIZE_Z + _posZ) / Stage::TILE_SIZE_Z);
 }
 
-float SceneGame::TileAdd2PosX(int _tileAddX)
+const float SceneGame::TileAdd2PosX(const int _tileAddX)
 {
 	return static_cast<float>((_tileAddX * Stage::TILE_SIZE_X + Stage::TILE_HSIZE_X) - Stage::STAGE_HSIZE_X);
 }
 
-float SceneGame::TileAdd2PosZ(int _tileAddZ)
+const float SceneGame::TileAdd2PosZ(const int _tileAddZ)
 {
 	return static_cast<float>((_tileAddZ * Stage::TILE_SIZE_Z + Stage::TILE_HSIZE_Z) - Stage::STAGE_HSIZE_Z);
 }

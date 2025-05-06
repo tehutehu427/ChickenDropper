@@ -138,7 +138,7 @@ void SceneManager::Draw(void)
 
 //シーン切り替えを依頼する関数
 //isToFadeがtrueならばフェードアウト
-void SceneManager::ChangeScene(SCENE_ID nextID, bool isToFade)
+void SceneManager::ChangeScene(const SCENE_ID nextID, const bool isToFade)
 {
 	//フェードの処理が終わってからもシーンを変える必要があるため
 	//遷移先シーンをメンバ変数に保持する
@@ -163,8 +163,8 @@ void SceneManager::DoChangeScene(void)
 	//リソースマネージャ取得
 	ResourceManager& res = ResourceManager::GetInstance();
 
-	//現在のシーン(sceneID_)を解放する
-	ReleaseScene(sceneID_);
+	//現在のシーン()を解放する
+	ReleaseScene();
 
 	//次に移動するシーン(waitSceneID_)を生成する
 	//---------------------------------------------------
@@ -263,7 +263,7 @@ void SceneManager::Fade(void)
 }
 
 //指定したシーンの解放用
-void SceneManager::ReleaseScene(SCENE_ID iSceneID)
+void SceneManager::ReleaseScene(void)
 {
 	//各シーンの解放処理
 	if (scene_ != nullptr)
@@ -299,7 +299,7 @@ SceneManager& SceneManager::GetInstance(void)
 void SceneManager::Destroy(void)
 {
 	//シーンの解放
-	ReleaseScene(sceneID_);
+	ReleaseScene();
 
 	//カメラの解放
 	camera_->Release();

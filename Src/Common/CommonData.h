@@ -68,52 +68,52 @@ public:
 	void Destroy(void);
 
 	//プレイヤーの数を返す
-	TYPE GetPlayerNum(void);						
+	const TYPE GetPlayerNum(void)const;
 
 	/// <summary>
 	/// プレイヤーの数を決める
 	/// </summary>
 	/// <param name="_pNum">プレイヤーの数</param>
-	void SetPlayerNum(TYPE _pNum);					
+	void SetPlayerNum(const TYPE _pNum);
 
 	//CPUの数を返す
-	CPU_NUM GetCPUNum(void);						
+	const CPU_NUM GetCPUNum(void)const;
 
 	/// <summary>
 	/// CPUの数を決める
 	/// </summary>
 	/// <param name="_cNum">CPUの数</param>
-	void SetCPUNum(CPU_NUM _cNum);					
+	void SetCPUNum(const CPU_NUM _cNum);
 
 	//対戦人数を返す
-	BATTLE_PATTERN GetBattlePattern(void);			
+	const BATTLE_PATTERN GetBattlePattern(void)const;
 
 	/// <summary>
 	/// 対戦人数を決める
 	/// </summary>
 	/// <param name="_pattern">対戦人数</param>
-	void SetBattlePattern(BATTLE_PATTERN _pattern);	
+	void SetBattlePattern(const BATTLE_PATTERN _pattern);
 
 	//ルールの情報を返す
-	RULE GetRule(void);								
+	const RULE GetRule(void)const;
 
 	/// <summary>
 	/// ルールを決める
 	/// </summary>
 	/// <param name="_ruleType">ルール</param>
-	void SetRule(RULE _ruleType);		
+	void SetRule(const RULE _ruleType);
 
 	//順位を決めれるプレイヤーの数を返す
-	std::vector<int> GetRank(void);
+	const std::vector<int> GetRank(void)const;
 
 	//順位を返す
-	int GetRank(int size);
+	const int GetRank(const int size)const;
 
 	/// <summary>
 	/// 順位を決める(P1から順番に)
 	/// </summary>
 	/// <param name="_rank">順位</param>
-	void SetRank(int _rank);
+	void SetRank(const int _rank);
 
 	//配列を削除
 	void DeleteArray(void);
@@ -123,35 +123,26 @@ public:
 	/// </summary>
 	/// <param name="size">ほしいCPUの配列番号</param>
 	/// <returns>難易度</returns>
-	DIFFICULTY GetDifficulty(int size);
+	const DIFFICULTY GetDifficulty(const int size)const;
 
 	//難易度配列のサイズを返す
-	size_t GetDifficultySize(void);
+	const size_t GetDifficultySize(void)const;
 
 	/// <summary>
 	/// 難易度を配列の最後から抜き出す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>難易度</returns>
-	DIFFICULTY PopDifficulty(void);
+	const DIFFICULTY PopDifficulty(void);
 
 	//難易度を決める(CPUの番号が早い順に)
-	void SetDifficulty(DIFFICULTY _difficulty);
+	void SetDifficulty(const DIFFICULTY _difficulty);
 
 	//難易度の配列を一つ削除
 	void DeleteDiff(void);
 
 	//難易度の配列を全て削除
 	void DeleteDiffAll(void);
-
-	//チュートリアルの有無を返す
-	bool GetIsTutorial(void);
-
-	/// <summary>
-	/// チュートリアルの有無を設定
-	/// </summary>
-	/// <param name="_isTutorial">チュートリアルの有無(true:チュートリアルをする)</param>
-	void SetIsTutorial(bool _isTutorial);
 
 	//シングルトン化
 	//--------------------------
@@ -177,8 +168,6 @@ private:
 	std::vector<int> rank_;			//順位
 
 	std::vector<DIFFICULTY> difficulty_;			//難易度
-
-	bool isTutorial_;				//チュートリアルの有無
 
 	//シングルトン化
 	//---------------------------

@@ -93,17 +93,17 @@ void Fader::Draw(void)
 
 }
 
-Fader::STATE Fader::GetState(void)
+const Fader::STATE Fader::GetState(void)
 {
 	return state_;
 }
 
-bool Fader::IsEnd(void)
+const bool Fader::IsEnd(void)
 {
 	return isEnd_;
 }
 
-void Fader::SetFade(STATE state)
+void Fader::SetFade(const STATE state)
 {
 	state_ = state;
 	if (state_ != STATE::NONE)

@@ -28,6 +28,10 @@ public:
 		,MAX
 	};
 
+	//音量
+	static constexpr int MAX_PERCENT = 100;		//最大％
+	static constexpr int MAX_VOLUME = 255;		//最大音量
+
 	//メンバー関数
 	//-------------------------
 
@@ -41,7 +45,7 @@ public:
 	/// BGMのロード
 	/// </summary>
 	/// <param name="_bgm">BGMの種類</param>
-	void BGMLoad(BGM_TYPE _bgm);
+	void BGMLoad(const BGM_TYPE _bgm);
 
 	//SEのパスの初期化
 	void SEInit(void);
@@ -50,7 +54,7 @@ public:
 	/// SEのロード	
 	/// </summary>
 	/// <param name="_bgm">SEの種類</param>
-	void SELoad(SE_TYPE _se);
+	void SELoad(const SE_TYPE _se);
 
 	/// <summary>
 	/// BGMの再生
@@ -59,7 +63,7 @@ public:
 	/// <param name="_playType">再生形式</param>
 	/// <param name="_volumePar">音量(%表記)</param>
 	/// <param name="_topPositionFlag">最初から再生を始めるか (true:最初から)</param>
-	void PlayBGM(BGM_TYPE _bgm, int _playType, int _volumePar = 100, bool _topPositionFlag = true);
+	void PlayBGM(const BGM_TYPE _bgm, const int _playType, const int _volumePar = MAX_PERCENT, const bool _topPositionFlag = true);
 
 	/// <summary>
 	/// SEの再生
@@ -68,33 +72,33 @@ public:
 	/// <param name="_playType">再生形式</param>
 	/// <param name="_volumePar">音量(%表記)</param>
 	/// <param name="_topPositionFlag">最初から再生を始めるか (true:最初から)</param>
-	void PlaySE(SE_TYPE _se, int _playType, int _volumePar = 100, bool _topPositionFlag = true);
+	void PlaySE(const SE_TYPE _se, const int _playType, const int _volumePar = MAX_PERCENT, const bool _topPositionFlag = true);
 
 	/// <summary>
 	/// BGMが再生中かどうかを返す
 	/// </summary>
 	/// <param name="_bgm">BGMの種類</param>
 	/// <returns>true:再生中</returns>
-	bool CheckBGMPlay(BGM_TYPE _bgm);
+	bool CheckBGMPlay(const BGM_TYPE _bgm);
 
 	/// <summary>
 	/// SEが再生中かどうかを返す
 	/// </summary>
 	/// <param name="_se">SEの種類</param>
 	/// <returns>true:再生中</returns>
-	bool CheckSEPlay(SE_TYPE _se);
+	bool CheckSEPlay(const SE_TYPE _se);
 
 	/// <summary>
 	/// BGMを止める
 	/// </summary>
 	/// <param name="_bgm">止めるBGM</param>
-	void StopBGM(BGM_TYPE _bgm);
+	void StopBGM(const BGM_TYPE _bgm);
 
 	/// <summary>
 	/// SEを止める
 	/// </summary>
 	/// <param name="_se">止めるSE</param>
-	void StopSE(SE_TYPE _se);
+	void StopSE(const SE_TYPE _se);
 
 	//サウンドの解放
 	void SoundRelease(void);

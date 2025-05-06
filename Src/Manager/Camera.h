@@ -29,7 +29,7 @@ public:
 	/// </summary>
 	/// <param name="_pos">カメラ位置</param>
 	/// <param name="_angles">カメラ角度(ラジアン変換不要)</param>
-	void SetCamerawork(VECTOR _pos,VECTOR _angles);
+	void SetCamerawork(const VECTOR _pos, const VECTOR _angles);
 
 private:
 	//カメラの位置

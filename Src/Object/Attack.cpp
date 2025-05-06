@@ -25,7 +25,7 @@ Attack::~Attack(void)
 }
 
 //‰Šú‰»ˆ—
-bool Attack::Init(SceneGame* parent, Player* parPlayer, VECTOR _pos, Utility::DIR_3D _dir, CommonData::TYPE _charaNum)
+bool Attack::Init(SceneGame* parent, Player* parPlayer, const VECTOR _pos, const Utility::DIR_3D _dir, const CommonData::TYPE _charaNum)
 {
 	sceneGame_ = parent;
 	player_ = parPlayer;
@@ -159,49 +159,49 @@ bool Attack::Release(void)
 }
 
 //UŒ‚‚ÌŒ»İÀ•W‚ğ•Ô‚·
-VECTOR Attack::GetPos(void)
+const VECTOR Attack::GetPos(void)
 {
 	return pos_;
 }
 
 //UŒ‚‚ÌÀ•W‚ğŒˆ‚ß‚é
-void Attack::SetPos(VECTOR _setPos)
+void Attack::SetPos(const VECTOR _setPos)
 {
 	pos_.x = _setPos.x;
 	pos_.z = _setPos.z;
 }
 
 //UŒ‚‚Ì¶‘¶”»’è‚ğ•Ô‚·
-bool Attack::GetIsAlive(void)
+const bool Attack::GetIsAlive(void)
 {
 	return isAlive_;
 }
 
 //UŒ‚‚Ì¶‘¶”»’è‚ğİ’è
-void Attack::SetIsAlive(bool _isAlive)
+void Attack::SetIsAlive(const bool _isAlive)
 {
 	isAlive_ = _isAlive;
 }
 
 //UŒ‚‚Ì•ûŒü‚ğ•Ô‚·
-Utility::DIR_3D Attack::GetAttackDir(void)
+const Utility::DIR_3D Attack::GetAttackDir(void)
 {
 	return dir_;
 }
 
 //UŒ‚‚Ì•ûŒüİ’è
-void Attack::SetAttackDir(Utility::DIR_3D _setDir)
+void Attack::SetAttackDir(const Utility::DIR_3D _setDir)
 {
 	dir_ = _setDir;
 }
 
-CommonData::TYPE Attack::GetCharaNum(void)
+const CommonData::TYPE Attack::GetCharaNum(void)
 {
 	return charaNum_;
 }
 
 //UŒ‚Å’†‚ÌŒo‰ßŠÔ‚ğ•Ô‚·
-float Attack::GetAtkCnt(void)
+const float Attack::GetAtkCnt(void)
 {
 	return atkCnt_;
 }

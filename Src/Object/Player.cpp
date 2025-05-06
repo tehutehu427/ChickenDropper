@@ -59,7 +59,7 @@ Player::~Player(void)
 }
 
 //初期化処理
-bool Player::Init(SceneGame* parent, VECTOR _pos, CommonData::TYPE _charaNum)
+bool Player::Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _charaNum)
 {
 	sceneGame_ = parent;
 
@@ -597,7 +597,7 @@ void Player::ProcessRot(void)
 	}
 }
 
-void Player::PreDamage(CommonData::TYPE _charaNum)
+void Player::PreDamage(const CommonData::TYPE _charaNum)
 {
 	//攻撃してきたプレイヤーを保存
 	attackedPlayer_ = _charaNum;
@@ -606,7 +606,7 @@ void Player::PreDamage(CommonData::TYPE _charaNum)
 	ChangeAnim(ANIM_NUM::FALL);
 }
 
-void Player::Damage(int _damage)
+void Player::Damage(const int _damage)
 {
 	//ルール
 	auto rule = CommonData::GetInstance().GetRule();
@@ -652,12 +652,12 @@ void Player::Damage(int _damage)
 	numViewTime_ = 0.0f;
 }
 
-void Player::TakeScore(int _score)
+void Player::TakeScore(const int _score)
 {
 	killScore_ += _score;
 }
 
-int Player::GetScore(void)
+const int Player::GetScore(void)
 {
 	return killScore_;
 }
@@ -803,46 +803,46 @@ Attack* Player::GetValidAttack(void)
 }
 
 //プレイヤーの状態を返す
-Player::STATE Player::GetState(void)
+const Player::STATE Player::GetState(void)
 {
 	return state_;
 }
 
 //プレイヤーの状態変更(_state:変更したい状態)
-void Player::ChangeState(STATE _state)
+void Player::ChangeState(const STATE _state)
 {
 	state_ = _state;
 }
 
 //プレイヤーの現在座標を返す
-VECTOR Player::GetPos(void)
+const VECTOR Player::GetPos(void)
 {
 	return pos_;
 }
 
 //プレイヤーの座標を与える
-void Player::SetPos(VECTOR _setPos)
+void Player::SetPos(const VECTOR _setPos)
 {
 	pos_ = _setPos;
 }
 
 //プレイヤーの方向を返す
-Utility::DIR_3D Player::GetDir(void)
+const Utility::DIR_3D Player::GetDir(void)
 {
 	return dir_;
 }
 
-bool Player::GetIsWalk(void)
+const bool Player::GetIsWalk(void)
 {
 	return isWalk_;
 }
 
-int Player::GetLife(void)
+const int Player::GetLife(void)
 {
 	return life_;
 }
 
-int Player::GetDeadTime(void)
+const int Player::GetDeadTime(void)
 {
 	return deadTime_;
 }
@@ -852,7 +852,7 @@ void Player::SetDeadTime(void)
 	deadTime_ = GetNowCount();
 }
 
-int Player::GetBrokeTileNum(void)
+const int Player::GetBrokeTileNum(void)
 {
 	return brokeTileNum_;
 }
@@ -862,22 +862,22 @@ void Player::IncreaseBrokeTileNum(void)
 	brokeTileNum_++;
 }
 
-int Player::GetRank(void)
+const int Player::GetRank(void)
 {
 	return rank_;
 }
 
-void Player::SetRank(int _rank)
+void Player::SetRank(const int _rank)
 {
 	rank_ = _rank;
 }
 
-Player::ANIM_NUM Player::GetAnimNum(void)
+const Player::ANIM_NUM Player::GetAnimNum(void)
 {
 	return animNum_;
 }
 
-void Player::ChangeAnim(ANIM_NUM _animNo)
+void Player::ChangeAnim(const ANIM_NUM _animNo)
 {
 	animNum_ = _animNo;
 
@@ -914,23 +914,23 @@ void Player::ChangeAnim(ANIM_NUM _animNo)
 }
 
 //プレイヤーの無敵時間を返す
-float Player::GetInvincible(void)
+const float Player::GetInvincible(void)
 {
 	return invincible_;
 }
 
-Player::CHARA_JUDGE Player::GetCharaJudge(void)
+const Player::CHARA_JUDGE Player::GetCharaJudge(void)
 {
 	return charaJudge_;
 }
 
 //プレイヤーか敵かを与える(_type:プレイヤーか敵かの判断)
-void Player::SetCharaJudge(CHARA_JUDGE _type)
+void Player::SetCharaJudge(const CHARA_JUDGE _type)
 {
 	charaJudge_ = _type;
 }
 
-CommonData::TYPE Player::GetCharaNum(void)
+const CommonData::TYPE Player::GetCharaNum(void)
 {
 	return charaNum_;
 }
@@ -941,7 +941,7 @@ std::vector<Attack*> Player::GetAttack(void)
 	return attack_;
 }
 
-void Player::SetDifficulty(CommonData::DIFFICULTY _diff)
+void Player::SetDifficulty(const CommonData::DIFFICULTY _diff)
 {
 	if (charaJudge_ == CHARA_JUDGE::CPU)
 	{
@@ -949,7 +949,7 @@ void Player::SetDifficulty(CommonData::DIFFICULTY _diff)
 	}
 }
 
-void Player::SetSpeed(float _speed)
+void Player::SetSpeed(const float _speed)
 {
 	speed_ = _speed;
 }
@@ -987,7 +987,7 @@ void Player::RunMoveInterval(void)
 }
 
 //CPUの移動判断
-Utility::DIR_3D Player::CPUMoveChack(Utility::DIR_3D _dir)
+const Utility::DIR_3D Player::CPUMoveChack(const Utility::DIR_3D _dir)
 {
 	//ランダムで方向を決める
 	Utility::DIR_3D dir = _dir;

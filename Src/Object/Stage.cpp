@@ -347,7 +347,7 @@ bool Stage::Release(void)
 }
 
 //タイルの状態遷移処理(ix:Xのタイル番号, iz:Zのタイル番号, stateSwap:変化させる状態)
-void Stage::TileSwap(int ix, int iz, Stage::TILE_STATE _stateSwap)		
+void Stage::TileSwap(const int ix, const int iz, const Stage::TILE_STATE _stateSwap)
 {
 	//状態遷移
 	tileState_[iz][ix] = _stateSwap;
@@ -359,24 +359,24 @@ void Stage::TileSwap(int ix, int iz, Stage::TILE_STATE _stateSwap)
 	atkCnt_[iz][ix] = 0.0f;
 }
 
-void Stage::TileAttackPlayer(int ix, int iz, CommonData::TYPE _charaNum)
+void Stage::TileAttackPlayer(const int ix, const int iz, const CommonData::TYPE _charaNum)
 {
 	attackPlayer_[iz][ix] = _charaNum;
 }
 
-CommonData::TYPE Stage::GetTileAttackPlayer(int ix, int iz)
+const CommonData::TYPE Stage::GetTileAttackPlayer(const int ix, const int iz)
 {
 	return attackPlayer_[iz][ix];
 }
 
 //攻撃時間を返す(ix:Xのタイル番号, iz:Zのタイル番号)
-float Stage::GetAtkCnt(int ix, int iz)
+const float Stage::GetAtkCnt(const int ix, const int iz)
 {
 	return atkCnt_[iz][ix];
 }
 
 //攻撃時間を与える
-void Stage::SetAtkCnt(int ix, int iz, float _cnt)
+void Stage::SetAtkCnt(const int ix, const int iz, const float _cnt)
 {
 	//タイルが攻撃状態のときのみ
 	if (tileState_[iz][ix] == TILE_STATE::ATTACK)
@@ -386,24 +386,24 @@ void Stage::SetAtkCnt(int ix, int iz, float _cnt)
 }
 
 //1ラインのタイル数を返す関数
-int Stage::GetTileHNum(void)
+const int Stage::GetTileHNum(void)
 {
 	return TILE_HNUM;
 }
 
 //タイルの座標を返す関数(ix:Xのタイル番号, iz:Zのタイル番号)
-VECTOR Stage::GetPos(int ix, int iz)
+const VECTOR Stage::GetPos(const int ix, const int iz)
 {
 	return pos_[iz][ix];
 }
 
 //タイルの状態を返す関数
-Stage::TILE_STATE Stage::GetTileState(int ix, int iz)
+const Stage::TILE_STATE Stage::GetTileState(const int ix, const int iz)
 {
 	return tileState_[iz][ix];
 }
 
-bool Stage::GetTileAdd(int ix, int iz)
+const bool Stage::GetTileAdd(const int ix, const int iz)
 {
 	bool tileAdd[TILE_NUM][TILE_NUM];
 	

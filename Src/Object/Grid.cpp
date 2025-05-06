@@ -37,7 +37,7 @@ void Grid::Draw(void)
 		sPos.z = gx * TERM;
 		ePos.z = gx * TERM;
 		DrawLine3D(sPos, ePos, Utility::COLOR_RED);
-		DrawSphere3D(ePos, 15.0f, 10, Utility::COLOR_RED, Utility::COLOR_RED, true);
+		DrawSphere3D(ePos, RADIUS, DIV_NUM, Utility::COLOR_RED, Utility::COLOR_RED, true);
 	}
 
 	//ZÉOÉäÉbÉhê¸
@@ -48,7 +48,7 @@ void Grid::Draw(void)
 		sPos.x = gz * TERM;
 		ePos.x = gz * TERM;
 		DrawLine3D(sPos, ePos, Utility::COLOR_BLUE);
-		DrawSphere3D(ePos, 15.0f, 10, Utility::COLOR_BLUE, Utility::COLOR_BLUE, true);
+		DrawSphere3D(ePos, RADIUS, DIV_NUM, Utility::COLOR_BLUE, Utility::COLOR_BLUE, true);
 	}
 }
 

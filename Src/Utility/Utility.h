@@ -57,17 +57,17 @@ public:
 	//----------------------------------------------------
 
 	//文字列分割の機能
-	static std::vector <std::string> Split(std::string& line, char delimiter);
+	static std::vector <std::string> Split(const std::string& line, const char delimiter);
 
 	//四捨五入用の関数(float)
-	static int Round(float value);
+	static const int Round(const float value);
 
 	//オーバーロード関数
-	static Vector2 Round(Vector2F value);
+	static const Vector2 Round(const Vector2F value);
 
 	//DegreeのRadian変換
-	static float Deg2RadF(const float _deg);
+	static const float Deg2RadF(const float _deg);
 
 	//RadianのDegree変換
-	static float Rad2DegF(const float _rad);
+	static const float Rad2DegF(const float _rad);
 };

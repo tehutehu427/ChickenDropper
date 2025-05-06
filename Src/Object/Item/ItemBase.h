@@ -53,22 +53,22 @@ public:
 	virtual void EffectEnd(void);
 
 	//アイテムの位置を返す
-	VECTOR GetPos(void);
+	const VECTOR GetPos(void);
 
 	//アイテムの生存判定
-	bool GetIsAlive(void);
+	const bool GetIsAlive(void);
 
 	//アイテムの効果の有効判定
-	bool GetIsEffective(void);
+	const bool GetIsEffective(void);
 
 	//アイテムの効果の有効判定を決める
-	void SetIsEffective(bool _isEffective);
+	void SetIsEffective(const bool _isEffective);
 
 	//アイテムの種類を返す
-	ITEM_TYPE GetItemType(void);
+	const ITEM_TYPE GetItemType(void);
 
 	//追従プレイヤーを返す
-	Player* GetFollow(void);
+	const Player* GetFollow(void);
 
 	//追従するプレイヤーを決める
 	void SetFollow(Player* _followPlayer);

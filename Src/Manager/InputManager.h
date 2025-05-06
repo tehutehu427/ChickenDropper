@@ -29,16 +29,16 @@ public:
 	void StepInput(void);
 
 	//単純に押されているか
-	bool IsKeyDown(int _keyCode);
+	const bool IsKeyDown(const int _keyCode);
 
 	//たった今押されたか
-	bool IsKeyPush(int _keyCode);
+	const bool IsKeyPush(const int _keyCode);
 
 	//押し続けられているか
-	bool IsKeyKeep(int _keyCode);
+	const bool IsKeyKeep(const int _keyCode);
 
 	//たった今離されたか
-	bool IsKeyRelease(int _keyCode);
+	const bool IsKeyRelease(const int _keyCode);
 
 	//コントローラー
 	//---------------------------
@@ -47,19 +47,19 @@ public:
 	void StepPadInput(void);
 
 	//単純に押されているか(コントローラー)
-	bool IsJoypadKeyDown(int _padNum, int _keyCode);
+	const bool IsJoypadKeyDown(const int _padNum, const int _keyCode);
 
 	//たった今押されたか(コントローラー)
-	bool IsJoypadKeyPush(int _padNum, int _keyCode);
+	const bool IsJoypadKeyPush(const int _padNum, const int _keyCode);
 
 	//押し続けられているか(コントローラー)
-	bool IsJoypadKeyKeep(int _padNum, int _keyCode);
+	const bool IsJoypadKeyKeep(const int _padNum, const int _keyCode);
 
 	//たった今離されたか(コントローラー)
-	bool IsJoypadKeyRelease(int _padNum, int _keyCode);
+	const bool IsJoypadKeyRelease(const int _padNum, const int _keyCode);
 
 	//何フレーム押し続けられたか(コントローラー)
-	KEEP_FUNCTION HowLongJoypadKeyKeep(int _padNum, int _keyCode, int _keepTime);
+	const KEEP_FUNCTION HowLongJoypadKeyKeep(const int _padNum, const int _keyCode, const int _keepTime);
 
 	//インスタンスの削除
 	void Destroy(void);

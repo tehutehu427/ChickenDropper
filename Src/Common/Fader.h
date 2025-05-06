@@ -30,13 +30,13 @@ public:
 	void Draw(void);
 
 	// 状態の取得
-	STATE GetState(void);
+	const STATE GetState(void);
 
 	// フェード処理が終了しているか
-	bool IsEnd(void);
+	const bool IsEnd(void);
 
 	// 指定フェードを開始する
-	void SetFade(STATE state);
+	void SetFade(const STATE state);
 
 private:
 

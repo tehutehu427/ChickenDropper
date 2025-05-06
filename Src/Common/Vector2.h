@@ -19,7 +19,7 @@ public:
 	~Vector2(void);
 
 	//Vector2‚ğVector2FŒ^‚É•ÏŠ·
-	Vector2F ToVector2F(void);
+	Vector2F ToVector2F(void)const;
 
 	//ƒƒ“ƒo[•Ï”
 	int x;

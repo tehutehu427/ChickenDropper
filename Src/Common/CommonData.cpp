@@ -20,35 +20,35 @@ bool CommonData::Init(void)
 }
 
 //プレイヤーの数を返す
-CommonData::TYPE CommonData::GetPlayerNum(void)
+const CommonData::TYPE CommonData::GetPlayerNum(void)const
 {
 	return playerNum_;
 }
 
 //プレイヤーの数を決める
-void CommonData::SetPlayerNum(TYPE _pNum)
+void CommonData::SetPlayerNum(const TYPE _pNum)
 {
 	playerNum_ = _pNum;
 }
 
 //CPUの数を返す
-CommonData::CPU_NUM CommonData::GetCPUNum(void)
+const CommonData::CPU_NUM CommonData::GetCPUNum(void)const
 {
 	return cpuNum_;
 }
 
 //CPUの数を決める
-void CommonData::SetCPUNum(CPU_NUM _cNum)
+void CommonData::SetCPUNum(const CPU_NUM _cNum)
 {
 	cpuNum_ = _cNum;
 }
 
-CommonData::BATTLE_PATTERN CommonData::GetBattlePattern(void)
+const CommonData::BATTLE_PATTERN CommonData::GetBattlePattern(void)const
 {
 	return battlePattern_;
 }
 
-void CommonData::SetBattlePattern(BATTLE_PATTERN _pattern)
+void CommonData::SetBattlePattern(const BATTLE_PATTERN _pattern)
 {
 	battlePattern_ = _pattern;
 
@@ -102,23 +102,23 @@ void CommonData::SetBattlePattern(BATTLE_PATTERN _pattern)
 }
 
 //ルールの情報を返す
-CommonData::RULE CommonData::GetRule(void)
+const CommonData::RULE CommonData::GetRule(void)const
 {
 	return rule_;
 }
 
 //ルールを決める
-void CommonData::SetRule(RULE _ruleType)
+void CommonData::SetRule(const RULE _ruleType)
 {
 	rule_ = _ruleType;
 }
 
-std::vector<int> CommonData::GetRank(void)
+const std::vector<int> CommonData::GetRank(void)const
 {
 	return rank_;
 }
 
-int CommonData::GetRank(int size)
+const int CommonData::GetRank(const int size)const
 {
 	return rank_[size];
 }
@@ -147,17 +147,17 @@ void CommonData::DeleteArray(void)
 	}
 }
 
-CommonData::DIFFICULTY CommonData::GetDifficulty(int size)
+const CommonData::DIFFICULTY CommonData::GetDifficulty(const int size)const
 {
 	return difficulty_[size];
 }
 
-size_t CommonData::GetDifficultySize(void)
+const size_t CommonData::GetDifficultySize(void)const
 {
 	return difficulty_.size();
 }
 
-CommonData::DIFFICULTY CommonData::PopDifficulty(void)
+const CommonData::DIFFICULTY CommonData::PopDifficulty(void)
 {
 	//配列のサイズ
 	size_t size = difficulty_.size();
@@ -186,7 +186,7 @@ CommonData::DIFFICULTY CommonData::PopDifficulty(void)
 
 }
 
-void CommonData::SetDifficulty(DIFFICULTY _difficulty)
+void CommonData::SetDifficulty(const DIFFICULTY _difficulty)
 {
 	difficulty_.push_back(_difficulty);
 }
@@ -206,16 +206,6 @@ void CommonData::DeleteDiffAll(void)
 
 		size = difficulty_.size();
 	}
-}
-
-bool CommonData::GetIsTutorial(void)
-{
-	return isTutorial_;
-}
-
-void CommonData::SetIsTutorial(bool _isTutorial)
-{
-	isTutorial_ = _isTutorial;
 }
 
 //シングルトン化

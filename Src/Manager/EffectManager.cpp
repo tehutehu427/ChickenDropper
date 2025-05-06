@@ -39,7 +39,7 @@ void EffectManager::EffectLoad(void)
 	effDatas_.emplace(EFF_TYPE::ATTACK,data);
 }
 
-void EffectManager::EffectPlay(EFF_TYPE _effect, VECTOR _pos, VECTOR _scale, VECTOR _rot)
+void EffectManager::EffectPlay(const EFF_TYPE _effect, const VECTOR _pos, const VECTOR _scale, const VECTOR _rot)
 {
 	//エフェクトハンドル
 	int effHandle = PlayEffekseer3DEffect(effDatas_[_effect].effectResId_);
@@ -58,7 +58,7 @@ void EffectManager::EffectPlay(EFF_TYPE _effect, VECTOR _pos, VECTOR _scale, VEC
 	SetPosPlayingEffekseer3DEffect(effHandle, _pos.x, _pos.y, _pos.z);
 }
 
-void EffectManager::EffectStop(EFF_TYPE _effect)
+void EffectManager::EffectStop(const EFF_TYPE _effect)
 {
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
@@ -66,7 +66,7 @@ void EffectManager::EffectStop(EFF_TYPE _effect)
 	}
 }
 
-void EffectManager::EffectChangePos(EFF_TYPE _effect, VECTOR _pos)
+void EffectManager::EffectChangePos(const EFF_TYPE _effect, const VECTOR _pos)
 {
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
@@ -77,7 +77,7 @@ void EffectManager::EffectChangePos(EFF_TYPE _effect, VECTOR _pos)
 	}
 }
 
-void EffectManager::EffectChangeScl(EFF_TYPE _effect, VECTOR _scl)
+void EffectManager::EffectChangeScl(const EFF_TYPE _effect, const VECTOR _scl)
 {
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
@@ -88,7 +88,7 @@ void EffectManager::EffectChangeScl(EFF_TYPE _effect, VECTOR _scl)
 	}
 }
 
-void EffectManager::EffectChangeRot(EFF_TYPE _effect, VECTOR _rot)
+void EffectManager::EffectChangeRot(const EFF_TYPE _effect, const VECTOR _rot)
 {
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
