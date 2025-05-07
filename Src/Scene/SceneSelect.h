@@ -126,6 +126,10 @@ private:
 	static constexpr int RULE_SIZE_Y = 200;	//ルール画像の縦の大きさ
 	static constexpr int RULE_DIS_X = 40;	//ルールの項目の横の間
 	static constexpr int RULE_DIS_Y = 80;	//ルールの項目の縦の間
+	
+	//フォント
+	static constexpr int PAD_FONT_SIZE = 30;		//パッド数用フォントの大きさ
+	static constexpr int PAD_FONT_TICKNESS = 10;	//パッド数用フォントの太さ
 
 	//音
 	static constexpr int CLICK_VOLUME = 70;		//決定音

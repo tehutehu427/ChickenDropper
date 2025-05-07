@@ -1,6 +1,8 @@
 #include<DxLib.h>
 #include"../Application.h"
 #include"../Utility/Utility.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Manager/InputManager.h"
 #include"../Manager/EffectManager.h"
 #include"../Manager/SoundManager.h"
@@ -61,8 +63,13 @@ Player::~Player(void)
 //初期化処理
 bool Player::Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _charaNum)
 {
+	//インスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//ペアレント
 	sceneGame_ = parent;
 
+	//エフェクト
 	effect_ = new EffectManager();
 	effect_->EffectInit();
 
@@ -76,7 +83,6 @@ bool Player::Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _
 
 	//変数の初期化	
 	//------------------------------------------	
-	
 	pos_ = _pos;
 	scale_ = Utility::VECTOR_ONE;
 	rot_ = Utility::VECTOR_ZERO;
@@ -100,7 +106,6 @@ bool Player::Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _
 	isMoveBack_ = true;
 	isMoveLeft_ = true;
 
-	auto &ins = CommonData::GetInstance();
 
 	//キャラ番号判断
 	switch (charaNum_)
@@ -290,7 +295,7 @@ bool Player::Release(void)
 //移動制御
 void Player::MovePlayer(void)
 {
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//移動処理
 	//----------------------------------------

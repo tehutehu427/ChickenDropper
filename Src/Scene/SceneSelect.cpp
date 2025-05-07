@@ -112,8 +112,7 @@ bool SceneSelect::Init(void)
 	
 	distance_ = Application::SCREEN_SIZE_X / static_cast<int>(CommonData::TYPE::P4);
 
-	int padFontSize = 30;
-	padFont_ = CreateFontToHandle(NULL, padFontSize, 10);
+	padFont_ = CreateFontToHandle(NULL, PAD_FONT_SIZE, PAD_FONT_TICKNESS);
 
 	//フォントデータ用
 	int fontSize = 300;
@@ -147,7 +146,7 @@ bool SceneSelect::Init(void)
 void SceneSelect::Update(void)
 {
 	//入力マネージャーのインスタンス
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//現在のパッド接続数
 	int padNum = GetJoypadNum();
@@ -174,15 +173,6 @@ void SceneSelect::Update(void)
 
 void SceneSelect::Draw(void)
 {
-	//現在のパッド接続数
-	int padNum = GetJoypadNum();
-
-	//フォントデータ用
-	int fontSize = 0;
-
-	//色
-	unsigned int color;
-
 	//背景画像
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1.0, 0.0, bgImages_[BACKGROUND_TYPE::SKY], true, false);
 	DrawRotaGraph(cloudPos_.x, Application::SCREEN_SIZE_Y / 2, 1.0, 0.0, bgImages_[BACKGROUND_TYPE::CLOUD], true, false);
@@ -213,20 +203,20 @@ bool SceneSelect::Release(void)
 
 void SceneSelect::CursorDraw(const int _sizeX, const int _sizeY)
 {
-	if (static_cast<int>(step_ * Utility::DEFAULT_FPS / 20) % 2 == 0)
+	if (static_cast<int>(step_ * Utility::DEFAULT_FPS / CURSOR_BLINKING_INTERVAL) % 2 == 0)
 	{
 		DrawBox(cursorPos_.x - CURSOR_SIZE - _sizeX / 2
 			, cursorPos_.y - CURSOR_SIZE - _sizeY / 2
 			, cursorPos_.x + CURSOR_SIZE + _sizeX / 2
 			, cursorPos_.y + CURSOR_SIZE + _sizeY / 2
-			, 0x44ff44, true);
+			, Utility::COLOR_GREEN, true);
 	}
 }
 
 void SceneSelect::BattlePatternUpdate(void)
 {
 	//入力マネージャーのインスタンス
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//現在のパッド接続数
 	int padNum = GetJoypadNum();
@@ -240,28 +230,34 @@ void SceneSelect::BattlePatternUpdate(void)
 	//カーソル位置
 	cursorPos_ = imgsPos_;
 
+	//右操作
 	if (ins.IsJoypadKeyPush(DX_INPUT_KEY_PAD1, PAD_INPUT_RIGHT))
 	{
 		//次の対戦人数を選択
 		selectPattern_ = static_cast<CommonData::BATTLE_PATTERN>(static_cast<int>(selectPattern_) + 1);
 
+		//最大まで行ったら
 		if (selectPattern_ > CommonData::BATTLE_PATTERN::P4)
 		{
+			//最初に戻る
 			selectPattern_ = CommonData::BATTLE_PATTERN::P1C1;
 		}
 	}
+	//左操作
 	else if (ins.IsJoypadKeyPush(DX_INPUT_KEY_PAD1, PAD_INPUT_LEFT))
 	{
 		//前の対戦人数を選択
 		selectPattern_ = static_cast<CommonData::BATTLE_PATTERN>(static_cast<int>(selectPattern_) - 1);
 
+		//最小まで行ったら
 		if (selectPattern_ < CommonData::BATTLE_PATTERN::P1C1)
 		{
+			//最初に移行
 			selectPattern_ = CommonData::BATTLE_PATTERN::P4;
 		}
 	}
 
-	//決定
+	//パッド数で次の項目に進めるか管理
 	switch (selectPattern_)
 	{
 	case CommonData::BATTLE_PATTERN::P1C1:
@@ -294,6 +290,7 @@ void SceneSelect::BattlePatternUpdate(void)
 		break;
 	}
 
+	//決定
 	if (ins.IsJoypadKeyPush(DX_INPUT_KEY_PAD1, PAD_INPUT_1) && isNextSelect)
 	{
 		//決定音
@@ -311,6 +308,7 @@ void SceneSelect::BattlePatternUpdate(void)
 		//パッドの確認に移行
 		selectItem_ = static_cast<SELECT_ITEM>(static_cast<int>(selectItem_) + 1);
 	}
+	//キャンセル
 	else if (ins.IsJoypadKeyPush(DX_INPUT_KEY_PAD1, PAD_INPUT_2))
 	{
 		//キャンセル音
@@ -320,7 +318,7 @@ void SceneSelect::BattlePatternUpdate(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE, true);
 	}
 
-	//決定
+	//プレイヤーの数
 	switch (selectPattern_)
 	{
 	case CommonData::BATTLE_PATTERN::P1C1:
@@ -345,6 +343,7 @@ void SceneSelect::BattlePatternUpdate(void)
 		break;
 	}
 
+	//CPUの数
 	switch (selectPattern_)
 	{
 	case CommonData::BATTLE_PATTERN::P2:
@@ -377,7 +376,7 @@ void SceneSelect::BattlePatternUpdate(void)
 void SceneSelect::CheckPadUpdate(void)
 {
 	//入力マネージャーのインスタンス
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//現在のパッド接続数
 	int padNum = GetJoypadNum();
@@ -491,7 +490,7 @@ void SceneSelect::CheckPadUpdate(void)
 void SceneSelect::DifficultyUpdate(void)
 {
 	//入力マネージャーのインスタンス
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//画像の位置
 	imgsPos_ = { Application::SCREEN_SIZE_X / 2 , Application::SCREEN_SIZE_Y - BOARD_SIZE_Y / 2 - BOARD_HEIGHT };
@@ -612,7 +611,7 @@ void SceneSelect::DifficultyUpdate(void)
 void SceneSelect::RuleUpdate(void)
 {
 	//入力マネージャーのインスタンス
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 
 	//画像の位置
 	imgsPos_ = { (Application::SCREEN_SIZE_X - BOARD_SIZE_X) +

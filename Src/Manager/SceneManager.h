@@ -1,5 +1,6 @@
 //#pragma once
 
+#include<memory>
 #include<DxLib.h>
 
 //クラスの前方宣言
@@ -55,7 +56,11 @@ public:
 	//インスタンスの破棄
 	void Destroy(void);
 
-	//シーン切り替えを依頼する関数
+	/// <summary>
+	/// シーン切り替えを依頼する関数
+	/// </summary>
+	/// <param name="nextID">次のシーン</param>
+	/// <param name="isToFade">フェードの有無</param>
 	void ChangeScene(const SCENE_ID nextID, const bool isToFade);
 
 	//シングルトン化
@@ -79,13 +84,13 @@ private:
 	bool isSceneChanging_;			//シーン遷移のフラグ(true:遷移中)
 
 	//カメラ
-	Camera* camera_;				//カメラのインスタンス用
+	Camera* camera_;		//カメラのインスタンス用
 
 	//フェード
-	Fader* fader_;					//フェードのインスタンス用
+	Fader* fader_;			//フェードのインスタンス用
 
 	//シーン管理
-	SceneBase* scene_;				//シーンのインスタンス管理用
+	SceneBase* scene_;		//シーンのインスタンス管理用
 
 	//静的なインスタンス格納領域
 	static SceneManager* instance_;

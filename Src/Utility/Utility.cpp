@@ -4,31 +4,6 @@
 #include"../Common/Vector2F.h"
 #include"Utility.h"
 
-//文字列分割の機能
-std::vector <std::string> Utility::Split(const std::string& line, const char delimiter)
-{
-	//動的配列の戻り値格納領域の確保
-	std::vector<std::string> result;
-
-	//文字列操作用のクラスに置き換え
-	std::istringstream lineStream(line);
-
-	//データの格納領域
-	std::string field;
-
-	//streamを順番に読み込み
-	//getlineを使い
-	//第3引数で指定したデリミタ記号までのデータを
-	//第2引数の変数に格納する
-	while (getline(lineStream, field, delimiter))
-	{
-		//動的配列に追加する
-		result.push_back(field);
-	}
-
-	return result;
-}
-
 //四捨五入用の関数(float)
 const int Utility::Round(const float value)
 {

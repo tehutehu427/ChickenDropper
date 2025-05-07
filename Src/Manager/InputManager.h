@@ -28,16 +28,32 @@ public:
 	//制御処理
 	void StepInput(void);
 
-	//単純に押されているか
+	/// <summary>
+	/// 単純に押されているか
+	/// </summary>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押されている</returns>
 	const bool IsKeyDown(const int _keyCode);
 
-	//たった今押されたか
+	/// <summary>
+	/// たった今押されたか
+	/// </summary>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押された</returns>
 	const bool IsKeyPush(const int _keyCode);
 
-	//押し続けられているか
+	/// <summary>
+	/// 押し続けられているか
+	/// </summary>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押し続けられている</returns>
 	const bool IsKeyKeep(const int _keyCode);
 
-	//たった今離されたか
+	/// <summary>
+	/// たった今離されたか
+	/// </summary>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:離された</returns>
 	const bool IsKeyRelease(const int _keyCode);
 
 	//コントローラー
@@ -46,19 +62,45 @@ public:
 	//制御処理(コントローラー)
 	void StepPadInput(void);
 
-	//単純に押されているか(コントローラー)
+	/// <summary>
+	/// 単純に押されているか(コントローラー)
+	/// </summary>
+	/// <param name="_padNum">パッド番号</param>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押されている</returns>
 	const bool IsJoypadKeyDown(const int _padNum, const int _keyCode);
 
-	//たった今押されたか(コントローラー)
+	/// <summary>
+	/// たった今押されたか(コントローラー)
+	/// </summary>
+	/// <param name="_padNum">パッド番号</param>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押された</returns>
 	const bool IsJoypadKeyPush(const int _padNum, const int _keyCode);
 
-	//押し続けられているか(コントローラー)
+	/// <summary>
+	/// 押し続けられているか(コントローラー)
+	/// </summary>
+	/// <param name="_padNum">パッド番号</param>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns>true:押し続けられている</returns>
 	const bool IsJoypadKeyKeep(const int _padNum, const int _keyCode);
 
-	//たった今離されたか(コントローラー)
+	/// <summary>
+	/// たった今離されたか(コントローラー)
+	/// </summary>
+	/// <param name="_padNum">パッド番号</param>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <returns></returns>
 	const bool IsJoypadKeyRelease(const int _padNum, const int _keyCode);
 
-	//何フレーム押し続けられたか(コントローラー)
+	/// <summary>
+	/// 指定フレーム押し続けられたか(コントローラー)
+	/// </summary>
+	/// <param name="_padNum">パッド番号</param>
+	/// <param name="_keyCode">確認するキーコード</param>
+	/// <param name="_keepTime">指定するフレーム</param>
+	/// <returns>true:離された</returns>
 	const KEEP_FUNCTION HowLongJoypadKeyKeep(const int _padNum, const int _keyCode, const int _keepTime);
 
 	//インスタンスの削除

@@ -56,13 +56,10 @@ public:
 	//関数
 	//----------------------------------------------------
 
-	//文字列分割の機能
-	static std::vector <std::string> Split(const std::string& line, const char delimiter);
-
 	//四捨五入用の関数(float)
 	static const int Round(const float value);
 
-	//オーバーロード関数
+	//四捨五入用の関数(Vector2F)
 	static const Vector2 Round(const Vector2F value);
 
 	//DegreeのRadian変換

@@ -1,6 +1,8 @@
 #include"../Application.h"
 #include"../Utility/Utility.h"
 #include"..//Common/Easing.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Manager/InputManager.h"
 #include"../Manager/SoundManager.h"
 #include"../Manager/SceneManager.h"
@@ -8,6 +10,9 @@
 
 bool SceneResult::Init(void)
 {
+	//インスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//サウンドのインスタンス
 	sound_ = new SoundManager();
 
@@ -96,7 +101,7 @@ bool SceneResult::Init(void)
 
 void SceneResult::Update(void)
 {
-	auto ins = InputManager::GetInstance();
+	auto& ins = InputManager::GetInstance();
 	auto& cIns = CommonData::GetInstance();
 
 	//人数

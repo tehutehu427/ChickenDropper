@@ -55,12 +55,6 @@ void Camera::Draw(void)
 
 }
 
-//‰ğ•úˆ—(Šî–{“I‚ÉÅŒã‚Ì‚P‰ñ‚¾‚¯Às)
-bool Camera::Release(void)
-{
-	return true;
-}
-
 void Camera::SetCamerawork(const VECTOR _pos, const VECTOR _angles)
 {
 	pos_ = _pos;

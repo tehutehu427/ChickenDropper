@@ -46,7 +46,7 @@ bool SceneManager::Init(void)
 
 	//ƒJƒƒ‰‚ÌÝ’è
 	camera_ = new Camera();
-	if (camera_->Init() == false)
+	if (!camera_->Init())
 	{
 		OutputDebugString("Camera.cpp‚Ì‰Šú‰»Ž¸”s");
 		return false;
@@ -302,7 +302,6 @@ void SceneManager::Destroy(void)
 	ReleaseScene();
 
 	//ƒJƒƒ‰‚Ì‰ð•ú
-	camera_->Release();
 	delete camera_;
 	camera_ = nullptr;
 

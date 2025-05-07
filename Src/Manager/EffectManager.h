@@ -41,16 +41,31 @@ public:
 	/// <param name="_rot">再生する時の回転</param>
 	void EffectPlay(const EFF_TYPE _effect, const VECTOR _pos, const VECTOR _scale, const VECTOR _rot);
 
-	//エフェクトの停止
+	/// <summary>
+	/// エフェクトの停止
+	/// </summary>
+	/// <param name="_effect">止めたいエフェクト</param>
 	void EffectStop(const EFF_TYPE _effect);
 
-	//エフェクトの座標変化
+	/// <summary>
+	/// エフェクトの座標変化
+	/// </summary>
+	/// <param name="_effect">エフェクト</param>
+	/// <param name="_pos">変化後の座標</param>
 	void EffectChangePos(const EFF_TYPE _effect, const VECTOR _pos);
 
-	//エフェクトの大きさ変化
+	/// <summary>
+	/// エフェクトの大きさ変化
+	/// </summary>
+	/// <param name="_effect">エフェクト</param>
+	/// <param name="_scl">変化後の大きさ</param>
 	void EffectChangeScl(const EFF_TYPE _effect, const VECTOR _scl);
 	
-	//エフェクトの回転変化
+	/// <summary>
+	/// エフェクトの回転変化
+	/// </summary>
+	/// <param name="_effect">エフェクト</param>
+	/// <param name="_rot">変化後の回転</param>
 	void EffectChangeRot(const EFF_TYPE _effect, const VECTOR _rot);
 
 private:

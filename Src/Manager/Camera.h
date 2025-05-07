@@ -21,8 +21,6 @@ public:
 	void SetBeforeDraw(void);			
 	//描画処理
 	void Draw(void);					
-	//解放処理(基本的に最後の１回だけ実行)
-	bool Release(void);					
 
 	/// <summary>
 	/// カメラワークの設定
