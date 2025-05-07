@@ -115,7 +115,7 @@ public:
 	/// </summary>
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
-	/// <returns></returns>
+	/// <returns>攻撃時間</returns>
 	const float GetAtkCnt(const int ix, const int iz);
 
 	/// <summary>
@@ -134,7 +134,7 @@ public:
 	/// </summary>
 	/// <param name="ix">Xのタイル番号</param>
 	/// <param name="iz">Zのタイル番号</param>
-	/// <returns></returns>
+	/// <returns>タイル座標</returns>
 	const VECTOR GetPos(const int ix, const int iz);
 	
 	/// <summary>

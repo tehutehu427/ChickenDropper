@@ -251,7 +251,7 @@ private:
 	VECTOR scale_;						//プレイヤーの大きさ
 	VECTOR rot_;						//プレイヤーの回転
 
-	Utility::DIR_3D dir_;			//プレイヤーの向き
+	Utility::DIR_3D dir_;				//プレイヤーの向き
 
 	STATE state_;						//プレイヤーの状態
 
