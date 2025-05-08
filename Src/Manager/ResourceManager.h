@@ -45,6 +45,29 @@ public:
 		LIFE_EXPLAIN,		//ライフ制説明
 		TILE_EXPLAIN,		//タイル破壊制説明
 
+		//ルール共通
+		STATE_BLUE,			//ステータス欄青
+		STATE_RED,			//ステータス欄赤
+		STATE_GREEN,		//ステータス欄緑
+		STATE_YELLOW,		//ステータス欄黄
+
+		//スコアルール
+		KILL_SCORE,			//撃墜数
+
+		//体力ルール
+
+
+		//床破壊数ルール
+
+		//リザルト
+		RESULT_BACK,		//リザルト背景
+		CURTAIN_BACK,		//舞台幕背景
+		CURTAIN,			//舞台幕
+		RANK_1ST,			//1位
+		RANK_2ND,			//2位
+		RANK_3RD,			//3位
+		RANK_4TH,			//4位
+
 		//プレイヤー
 		CHICKEN_BLUE,		//ニワトリ青
 		CHICKEN_RED,		//ニワトリ赤
@@ -71,6 +94,21 @@ public:
 
 	//プレイヤーが使うリソース
 	void ResourcePlayer(void);
+
+	//ステージが使うリソース
+	void ResourceStage(void);
+
+	//ルール共通で使うリソース
+	void ResourceRule(void);
+
+	//スコアルールで使うリソース
+	void ResourceScore(void);
+
+	//体力ルールで使うリソース
+	void ResourceLife(void);
+
+	//床破壊数ルールで使うリソース
+	void ResourceTileBraek(void);
 
 	// 解放(シーン切替時に一旦解放)
 	void Release(void);

@@ -52,6 +52,12 @@ private:
 	//プレイヤー同士の距離
 	static constexpr float PL_DIS = 60.0f;
 
+	//ビルボード関係
+	static constexpr float BILLBOURD_POS = 0.5f;	//ビルボード画像の位置調整用
+
+	//舞台幕画像
+	static constexpr float CURTAIN_SIZE = 100.0f;	//舞台幕画像の大きさ
+
 	//順位画像関係
 	static constexpr int RANK_SIZE = 45;				//番号の大きさ
 	static constexpr int RANK_DIS_Y = 20;				//番号とプレイヤーのY距離

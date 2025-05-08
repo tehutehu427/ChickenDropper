@@ -27,20 +27,20 @@ bool SceneResult::Init(void)
 	sound_->PlayBGM(SoundManager::BGM_TYPE::RESULT, DX_PLAYTYPE_LOOP);
 
 	//îwåiâÊëúÇÃì«Ç›çûÇ›
-	bgImage_ = LoadGraph((Application::PATH_IMAGE + "ResultBack.png").c_str());
+	bgImage_ = res.Load(ResourceManager::SRC::RESULT_BACK).handleId_;
 
 	//îwåiÇÃïëë‰ñãâÊëúÇÃì«Ç›çûÇ›
-	bgCurtainImage_ = LoadGraph((Application::PATH_IMAGE + "ResultBackCurtain.png").c_str());
+	bgCurtainImage_ = res.Load(ResourceManager::SRC::CURTAIN_BACK).handleId_;
 	
 	//ïëë‰ñãâÊëú
-	curtainImage_ = LoadGraph((Application::PATH_IMAGE + "Curtain.png").c_str());
+	curtainImage_ = res.Load(ResourceManager::SRC::CURTAIN).handleId_;
 	curtainPos_ = VSub(CURTAIN_INIT_POS, VGet(CURTAIN_SHIFT_POS, 0.0f, 0.0f));
 
 	//ÉÇÉfÉãÇÃì«Ç›çûÇ›
-	pModel_[static_cast<int>(CommonData::TYPE::P1) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenBlue.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P2) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenRed.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P3) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenGreen.mv1").c_str());
-	pModel_[static_cast<int>(CommonData::TYPE::P4) - 1] = MV1LoadModel((Application::PATH_MODEL + "chickenYellow.mv1").c_str());
+	pModel_[static_cast<int>(CommonData::TYPE::P1) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_BLUE);
+	pModel_[static_cast<int>(CommonData::TYPE::P2) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_RED);
+	pModel_[static_cast<int>(CommonData::TYPE::P3) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_GREEN);
+	pModel_[static_cast<int>(CommonData::TYPE::P4) - 1] = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_YELLOW);
 
 	pScl_ = VScale(Utility::VECTOR_ONE, P_SCALE);
 	pRot_ = Utility::VECTOR_ZERO;
@@ -71,22 +71,22 @@ bool SceneResult::Init(void)
 		{
 		case 1:
 			animAttachNo_[p] = MV1AttachAnim(pModel_[p], static_cast<int>(ANIM_NUM::RANK1ST));
-			rankImage_[p] = LoadGraph((Application::PATH_IMAGE + "1stImage.png").c_str());
+			rankImage_[p] = res.Load(ResourceManager::SRC::RANK_1ST).handleId_;
 			break;
 	
 		case 2:
 			animAttachNo_[p] = MV1AttachAnim(pModel_[p], static_cast<int>(ANIM_NUM::RANK2ND));
-			rankImage_[p] = LoadGraph((Application::PATH_IMAGE + "2ndImage.png").c_str());
+			rankImage_[p] = res.Load(ResourceManager::SRC::RANK_2ND).handleId_;
 			break;
 		
 		case 3:
 			animAttachNo_[p] = MV1AttachAnim(pModel_[p], static_cast<int>(ANIM_NUM::RANK3RD));
-			rankImage_[p] = LoadGraph((Application::PATH_IMAGE + "3rdImage.png").c_str());
+			rankImage_[p] = res.Load(ResourceManager::SRC::RANK_3RD).handleId_;
 			break;
 		
 		case 4:
 			animAttachNo_[p] = MV1AttachAnim(pModel_[p], static_cast<int>(ANIM_NUM::RANK4TH));
-			rankImage_[p] = LoadGraph((Application::PATH_IMAGE + "4thImage.png").c_str());
+			rankImage_[p] = res.Load(ResourceManager::SRC::RANK_4TH).handleId_;
 			break;
 		}
 		
@@ -173,11 +173,11 @@ void SceneResult::Draw(void)
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1.0, 0.0, bgImage_, true);
 
 	//ïëë‰ñãÇÃâÊëú
-	DrawBillboard3D(curtainPos_, 0.5f, 0.5f, 100.0f, 0.0f, curtainImage_, true);
-	DrawBillboard3D(VGet(-curtainPos_.x, curtainPos_.y, curtainPos_.z), 0.5f, 0.5f, 100.0f, 0.0f, curtainImage_, true);
+	DrawBillboard3D(curtainPos_, BILLBOURD_POS, BILLBOURD_POS, CURTAIN_SIZE, 0.0f, curtainImage_, true);
+	DrawBillboard3D(VGet(-curtainPos_.x, curtainPos_.y, curtainPos_.z), BILLBOURD_POS, BILLBOURD_POS, CURTAIN_SIZE, 0.0f, curtainImage_, true);
 
 	//îwåiïëë‰ñãÇÃâÊëú
-	DrawBillboard3D(CURTAIN_INIT_POS, 0.5f, 0.5f, 100.0f, 0.0f, bgCurtainImage_, true);
+	DrawBillboard3D(CURTAIN_INIT_POS, BILLBOURD_POS, BILLBOURD_POS, CURTAIN_SIZE, 0.0f, bgCurtainImage_, true);
 
 	for (int p = 0; p < size; p++)
 	{
@@ -185,7 +185,7 @@ void SceneResult::Draw(void)
 		MV1DrawModel(pModel_[p]);
 		
 		//èáà 
-		DrawBillboard3D({ pPos_[p].x,pPos_[p].y - RANK_DIS_Y ,pPos_[p].z - RANK_DIS_Z }, 0.5f, 0.5f, RANK_SIZE, 0.0f, rankImage_[p], true);
+		DrawBillboard3D({ pPos_[p].x,pPos_[p].y - RANK_DIS_Y ,pPos_[p].z - RANK_DIS_Z }, BILLBOURD_POS, BILLBOURD_POS, RANK_SIZE, 0.0f, rankImage_[p], true);
 	}
 }
 

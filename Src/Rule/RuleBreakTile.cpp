@@ -5,6 +5,7 @@
 RuleBreakTile::RuleBreakTile(SceneGame* parent) : RuleBase(parent)
 {
 	sceneGame_ = parent;
+	tileNumImage_ = -1;
 }
 
 bool RuleBreakTile::Init(void)

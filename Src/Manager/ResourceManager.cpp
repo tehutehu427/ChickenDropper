@@ -160,7 +160,11 @@ void ResourceManager::InitGame(void)
 	//リソース書き込み用
 	Resource res;
 
+	//プレイヤー
 	ResourcePlayer();
+
+	//ステージ
+	ResourceStage();
 }
 
 void ResourceManager::InitResult(void)
@@ -171,6 +175,37 @@ void ResourceManager::InitResult(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//リザルト背景
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "ResultBack.png");
+	resourcesMap_.emplace(SRC::RESULT_BACK, res);
+
+	//舞台幕背景
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "ResultBackCurtain.png");
+	resourcesMap_.emplace(SRC::CURTAIN_BACK, res);
+	
+	//舞台幕
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Curtain.png");
+	resourcesMap_.emplace(SRC::CURTAIN, res);
+
+	//1位
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "1stImage.png");
+	resourcesMap_.emplace(SRC::RANK_1ST, res);
+
+	//2位
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "2ndImage.png");
+	resourcesMap_.emplace(SRC::RANK_2ND, res);
+
+	//3位
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "3rdImage.png");
+	resourcesMap_.emplace(SRC::RANK_3RD, res);
+
+	//4位
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "4thImage.png");
+	resourcesMap_.emplace(SRC::RANK_4TH, res);
+
+	//プレイヤー
+	ResourcePlayer();
 }
 
 void ResourceManager::ResourcePlayer(void)
@@ -179,6 +214,7 @@ void ResourceManager::ResourcePlayer(void)
 	// プレイヤーが使うリソース
 	//*********************************************
 
+	//リソース書き込み用
 	Resource res;
 
 	//ニワトリ青
@@ -196,6 +232,56 @@ void ResourceManager::ResourcePlayer(void)
 	//ニワトリ黄
 	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "ChickenYellow.mv1");
 	resourcesMap_.emplace(SRC::CHICKEN_YELLOW, res);
+}
+
+void ResourceManager::ResourceStage(void)
+{
+	//*********************************************
+	// ステージが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+}
+
+void ResourceManager::ResourceRule(void)
+{
+	//*********************************************
+	// ルール共通で使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+}
+
+void ResourceManager::ResourceScore(void)
+{
+	//*********************************************
+	// スコアルールが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+}
+
+void ResourceManager::ResourceLife(void)
+{
+	//*********************************************
+	// 体力ルールが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+}
+
+void ResourceManager::ResourceTileBraek(void)
+{
+	//*********************************************
+	// 床破壊ルールが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
 }
 
 void ResourceManager::Release(void)

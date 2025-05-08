@@ -6,6 +6,7 @@
 RuleTime::RuleTime(SceneGame* parent) : RuleBase(parent)
 {
 	sceneGame_ = parent;
+	killScoreImage_ = -1;
 }
 
 bool RuleTime::Init(void)
