@@ -22,7 +22,7 @@ bool Camera::Init(void)
 	pos_ = Utility::VECTOR_ZERO;
 
 	//ƒJƒƒ‰‚ÌŠp“x
-	angles_ = { Utility::Deg2RadF(60.0f), 0.0f,0.0f};
+	angles_ = Utility::VECTOR_ZERO;
 
 	return true;
 }
