@@ -1,4 +1,6 @@
 #include"../Application.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Object/Player.h"
 #include "RuleBreakTile.h"
 
@@ -10,8 +12,11 @@ RuleBreakTile::RuleBreakTile(SceneGame* parent) : RuleBase(parent)
 
 bool RuleBreakTile::Init(void)
 {
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//タイル数画像
-	tileNumImage_ = LoadGraph((Application::PATH_IMAGE + "TileNum.png").c_str());
+	tileNumImage_ = res.Load(ResourceManager::SRC::TILE_NUM).handleId_;
 
 	RuleBase::Init();
 

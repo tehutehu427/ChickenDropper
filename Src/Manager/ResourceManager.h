@@ -50,14 +50,19 @@ public:
 		STATE_RED,			//ステータス欄赤
 		STATE_GREEN,		//ステータス欄緑
 		STATE_YELLOW,		//ステータス欄黄
+		NARROW_INFO,		//縮小警告
 
 		//スコアルール
 		KILL_SCORE,			//撃墜数
 
 		//体力ルール
-
+		LIFE_BLUE,			//体力青
+		LIFE_RED,			//体力赤
+		LIFE_GREEN,			//体力緑
+		LIFE_YELLOW,		//体力黄
 
 		//床破壊数ルール
+		TILE_NUM,			//床数
 
 		//リザルト
 		RESULT_BACK,		//リザルト背景
@@ -132,6 +137,8 @@ private:
 
 	// 読み込み済みリソース
 	std::map<SRC, Resource*> loadedMap_;
+
+	//
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

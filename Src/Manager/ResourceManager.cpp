@@ -252,6 +252,26 @@ void ResourceManager::ResourceRule(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//ステータス欄青
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "State Blue.png");
+	resourcesMap_.emplace(SRC::STATE_BLUE, res);
+
+	//ステータス欄赤
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "State Red.png");
+	resourcesMap_.emplace(SRC::STATE_RED, res);
+
+	//ステータス欄緑
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "State Green.png");
+	resourcesMap_.emplace(SRC::STATE_GREEN, res);
+
+	//ステータス欄黄
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "State Yellow.png");
+	resourcesMap_.emplace(SRC::STATE_YELLOW, res);
+
+	//縮小警告
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "NarrowInfo.png");
+	resourcesMap_.emplace(SRC::NARROW_INFO, res);
 }
 
 void ResourceManager::ResourceScore(void)
@@ -262,6 +282,13 @@ void ResourceManager::ResourceScore(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//撃墜数
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "killScore.png");
+	resourcesMap_.emplace(SRC::KILL_SCORE, res);
+
+	//ルール共通
+	ResourceRule();
 }
 
 void ResourceManager::ResourceLife(void)
@@ -272,6 +299,25 @@ void ResourceManager::ResourceLife(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//体力青
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Life Blue.png");
+	resourcesMap_.emplace(SRC::LIFE_BLUE, res);
+
+	//体力赤
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Life Red.png");
+	resourcesMap_.emplace(SRC::LIFE_RED, res);
+
+	//体力緑
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Life Green.png");
+	resourcesMap_.emplace(SRC::LIFE_GREEN, res);
+
+	//体力黄
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "Life Yellow.png");
+	resourcesMap_.emplace(SRC::LIFE_YELLOW, res);
+
+	//ルール共通
+	ResourceRule();
 }
 
 void ResourceManager::ResourceTileBraek(void)
@@ -282,6 +328,13 @@ void ResourceManager::ResourceTileBraek(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//床数
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "TileNum.png");
+	resourcesMap_.emplace(SRC::TILE_NUM, res);
+
+	//ルール共通
+	ResourceRule();
 }
 
 void ResourceManager::Release(void)

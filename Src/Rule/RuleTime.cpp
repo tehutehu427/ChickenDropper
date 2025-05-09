@@ -1,4 +1,6 @@
 #include"../Application.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Manager/SceneManager.h"
 #include"../Object/Player.h"
 #include "RuleTime.h"
@@ -11,8 +13,11 @@ RuleTime::RuleTime(SceneGame* parent) : RuleBase(parent)
 
 bool RuleTime::Init(void)
 {
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//キルスコア画像
-	killScoreImage_ = LoadGraph((Application::PATH_IMAGE + "killScore.png").c_str());
+	killScoreImage_ = res.Load(ResourceManager::SRC::KILL_SCORE).handleId_;
 
 	RuleBase::Init();
 

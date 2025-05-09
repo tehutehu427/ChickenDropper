@@ -61,6 +61,11 @@ bool SceneManager::Init(void)
 	fader_->SetFade(Fader::STATE::FADE_IN);
 	isSceneChanging_ = true;
 
+	//ルールごとのリソース
+	resourceRule_.emplace(CommonData::RULE::TIME, std::bind(&SceneManager::ResourceScore, this));
+	resourceRule_.emplace(CommonData::RULE::LIFE, std::bind(&SceneManager::ResourceLife, this));
+	resourceRule_.emplace(CommonData::RULE::BREAK_TILE, std::bind(&SceneManager::ResourceTileBreak, this));
+
 	return true;
 }
 
@@ -162,6 +167,8 @@ void SceneManager::DoChangeScene(void)
 {
 	//リソースマネージャ取得
 	ResourceManager& res = ResourceManager::GetInstance();
+	//コモンデータ取得
+	CommonData& common = CommonData::GetInstance();
 
 	//現在のシーン()を解放する
 	ReleaseScene();
@@ -196,6 +203,9 @@ void SceneManager::DoChangeScene(void)
 	case SceneManager::SCENE_ID::GAME:
 		//ゲームシーン用リソース取得
 		res.InitGame();
+
+		//ルールごとのリソース取得
+		resourceRule_[common.GetRule()]();
 
 		//ゲームシーンのインスタンス
 		scene_ = new SceneGame();
@@ -272,6 +282,33 @@ void SceneManager::ReleaseScene(void)
 		delete scene_;
 		scene_ = nullptr;
 	}
+}
+
+void SceneManager::ResourceScore(void)
+{
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//スコアルールのリソース
+	res.ResourceScore();
+}
+
+void SceneManager::ResourceLife(void)
+{
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//体力ルールのリソース
+	res.ResourceLife();
+}
+
+void SceneManager::ResourceTileBreak(void)
+{
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//床破壊数ルールのリソース
+	res.ResourceTileBraek();
 }
 
 //シングルトン化

@@ -1,7 +1,9 @@
 //#pragma once
 
 #include<memory>
+#include<functional>
 #include<DxLib.h>
+#include"../Common/CommonData.h"
 
 //クラスの前方宣言
 class Camera;
@@ -83,6 +85,9 @@ private:
 	//シーン遷移
 	bool isSceneChanging_;			//シーン遷移のフラグ(true:遷移中)
 
+	//ルールごとのリソース
+	std::map<CommonData::RULE, std::function<void(void)>>resourceRule_;
+
 	//カメラ
 	Camera* camera_;		//カメラのインスタンス用
 
@@ -103,6 +108,11 @@ private:
 	void Fade(void);						
 	//指定したシーンの解放用
 	void ReleaseScene(void);
+
+	//ルールごとのリソース代入
+	void ResourceScore(void);
+	void ResourceLife(void);
+	void ResourceTileBreak(void);
 
 	//シングルトン化
 	//----------------------------

@@ -1,19 +1,30 @@
 #include"../Application.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Object/Player.h"
 #include"RuleLife.h"
 
 RuleLife::RuleLife(SceneGame* parent) : RuleBase(parent)
 {
 	sceneGame_ = parent;
+
+	timeCnt_ = { 0,0,0,0,0,0 };
+	for (int i = 0; i < static_cast<int>(CommonData::TYPE::P4); i++)
+	{
+		lifeImages_[i] = -1;
+	}
 }
 
 bool RuleLife::Init(void)
 {
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+	
 	//体力画像
-	lifeImages_[static_cast<int>(CommonData::TYPE::P1) - 1] = LoadGraph((Application::PATH_IMAGE + "Life Blue.png").c_str());
-	lifeImages_[static_cast<int>(CommonData::TYPE::P2) - 1] = LoadGraph((Application::PATH_IMAGE + "Life Red.png").c_str());
-	lifeImages_[static_cast<int>(CommonData::TYPE::P3) - 1] = LoadGraph((Application::PATH_IMAGE + "Life Green.png").c_str());
-	lifeImages_[static_cast<int>(CommonData::TYPE::P4) - 1] = LoadGraph((Application::PATH_IMAGE + "Life Yellow.png").c_str());
+	lifeImages_[static_cast<int>(CommonData::TYPE::P1) - 1] = res.Load(ResourceManager::SRC::LIFE_BLUE).handleId_;
+	lifeImages_[static_cast<int>(CommonData::TYPE::P2) - 1] = res.Load(ResourceManager::SRC::LIFE_RED).handleId_;
+	lifeImages_[static_cast<int>(CommonData::TYPE::P3) - 1] = res.Load(ResourceManager::SRC::LIFE_GREEN).handleId_;
+	lifeImages_[static_cast<int>(CommonData::TYPE::P4) - 1] = res.Load(ResourceManager::SRC::LIFE_YELLOW).handleId_;
 	
 	//基本初期化
 	RuleBase::Init();

@@ -1,5 +1,7 @@
 #include"../Application.h"
 #include"../Common/Easing.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Object/Player.h"
 #include "RuleBase.h"
 
@@ -14,14 +16,17 @@ RuleBase::~RuleBase(void)
 
 bool RuleBase::Init(void)
 {
+	//リソースマネージャ取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//ステータス欄の読み込み
-	stateImages_[static_cast<int>(CommonData::TYPE::P1) - 1] = LoadGraph((Application::PATH_IMAGE + "State Blue.png").c_str());
-	stateImages_[static_cast<int>(CommonData::TYPE::P2) - 1] = LoadGraph((Application::PATH_IMAGE + "State Red.png").c_str());
-	stateImages_[static_cast<int>(CommonData::TYPE::P3) - 1] = LoadGraph((Application::PATH_IMAGE + "State Green.png").c_str());
-	stateImages_[static_cast<int>(CommonData::TYPE::P4) - 1] = LoadGraph((Application::PATH_IMAGE + "State Yellow.png").c_str());
+	stateImages_[static_cast<int>(CommonData::TYPE::P1) - 1] = res.Load(ResourceManager::SRC::STATE_BLUE).handleId_;
+	stateImages_[static_cast<int>(CommonData::TYPE::P2) - 1] = res.Load(ResourceManager::SRC::STATE_RED).handleId_;
+	stateImages_[static_cast<int>(CommonData::TYPE::P3) - 1] = res.Load(ResourceManager::SRC::STATE_GREEN).handleId_;
+	stateImages_[static_cast<int>(CommonData::TYPE::P4) - 1] = res.Load(ResourceManager::SRC::STATE_YELLOW).handleId_;
 
 	//範囲縮小警告の画像読み込み
-	narrowInfoImage_ = LoadGraph((Application::PATH_IMAGE + "NarrowInfo.png").c_str());
+	narrowInfoImage_ = res.Load(ResourceManager::SRC::NARROW_INFO).handleId_;
 
 	//時間カウント
 	secCount_ = GetNowCount();
