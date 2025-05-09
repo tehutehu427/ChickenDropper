@@ -73,11 +73,26 @@ public:
 		RANK_3RD,			//3位
 		RANK_4TH,			//4位
 
-		//プレイヤー
+		//プレイヤーモデル
 		CHICKEN_BLUE,		//ニワトリ青
 		CHICKEN_RED,		//ニワトリ赤
 		CHICKEN_GREEN,		//ニワトリ緑
 		CHICKEN_YELLOW,		//ニワトリ黄
+
+		//BGM
+		TITLE_BGM,					//タイトルBGM
+		SELECT_BGM,					//セレクトBGM
+		BATTLE_FIRST_HALF_BGM,		//バトル前半BGM
+		BATTLE_SECOND_HALF_BGM,		//バトル後半BGM
+		RESULT_BGM,					//リザルトBGM
+
+		//SE
+		CLICK_SE,			//決定
+		CANCEL_SE,			//キャンセル
+		FALL_SE,			//落下
+		ATTACK_SE,			//攻撃
+		TILEBREAK_SE,		//床破壊
+		CURTAIN_SE,			//舞台幕
 	};
 
 	// 明示的にインステンスを生成する

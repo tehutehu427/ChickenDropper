@@ -9,23 +9,21 @@ public:
 
 	enum class BGM_TYPE
 	{
-		TITLE					//タイトル
-		,SELECT					//セレクト
-		,BATTLE_FIRST_HALF		//バトル前半
-		,BATTLE_SECOND_HALF		//バトル後半
-		,RESULT					//リザルト
-		,MAX
+		TITLE,					//タイトル
+		SELECT,					//セレクト
+		BATTLE_FIRST_HALF,		//バトル前半
+		BATTLE_SECOND_HALF,		//バトル後半
+		RESULT,					//リザルト
 	};
 
 	enum class SE_TYPE
 	{
-		CLICK		//決定
-		,CANCEL		//キャンセル
-		,FALL		//落下
-		,ATTACK		//攻撃
-		,TILEBREAK	//床破壊
-		,CURTAIN	//舞台幕
-		,MAX
+		CLICK,		//決定
+		CANCEL,		//キャンセル
+		FALL,		//落下
+		ATTACK,		//攻撃
+		TILEBREAK,	//床破壊
+		CURTAIN,	//舞台幕
 	};
 
 	//音量
@@ -99,9 +97,6 @@ public:
 	/// </summary>
 	/// <param name="_se">止めるSE</param>
 	void StopSE(const SE_TYPE _se);
-
-	//サウンドの解放
-	void SoundRelease(void);
 
 private:
 
