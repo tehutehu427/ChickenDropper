@@ -337,6 +337,77 @@ void ResourceManager::ResourceTileBraek(void)
 	ResourceRule();
 }
 
+void ResourceManager::ResourceBGM(void)
+{
+	//*********************************************
+	// BGMが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+
+	//タイトルBGM
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_BGM + "title.mp3");
+	resourcesMap_.emplace(SRC::TITLE_BGM, res);
+
+	//セレクトBGM
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_BGM + "Select.wav");
+	resourcesMap_.emplace(SRC::SELECT_BGM, res);
+
+	//バトル前半BGM
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_BGM + "BattleFirstHalf.mp3");
+	resourcesMap_.emplace(SRC::BATTLE_FIRST_HALF_BGM, res);
+
+	//バトル後半BGM
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_BGM + "BattleSecondHalf.mp3");
+	resourcesMap_.emplace(SRC::BATTLE_SECOND_HALF_BGM, res);
+
+	//リザルトBGM
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_BGM + "Result.mp3");
+	resourcesMap_.emplace(SRC::RESULT_BGM, res);
+}
+
+void ResourceManager::ResourceSE(void)
+{
+	//*********************************************
+	// SEが使うリソース
+	//*********************************************
+
+	//リソース書き込み用
+	Resource res;
+
+	//決定SE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "Click.mp3");
+	resourcesMap_.emplace(SRC::CLICK_SE, res);
+
+	//キャンセルSE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "Cancel.mp3");
+	resourcesMap_.emplace(SRC::CANCEL_SE, res);
+
+	//落下SE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "Fall.mp3");
+	resourcesMap_.emplace(SRC::FALL_SE, res);
+
+	//攻撃SE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "Attack.mp3");
+	resourcesMap_.emplace(SRC::ATTACK_SE, res);
+
+	//床破壊SE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "TileBreak.mp3");
+	resourcesMap_.emplace(SRC::TILEBREAK_SE, res);
+
+	//舞台幕SE
+	res = Resource(Resource::TYPE::SOUND, Application::PATH_SE + "CurtainOpen.mp3");
+	resourcesMap_.emplace(SRC::CURTAIN_SE, res);
+}
+
+void ResourceManager::ResourceSound(void)
+{
+	//サウンド系リソース
+	ResourceBGM();
+	ResourceSE();
+}
+
 void ResourceManager::Release(void)
 {
 	for (auto& p : loadedMap_)

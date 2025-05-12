@@ -1,5 +1,7 @@
 #include<DxLib.h>
 #include"../Application.h"
+#include "Resource.h"
+#include "ResourceManager.h"
 #include "SoundManager.h"
 
 void SoundManager::SoundInit(void)
@@ -10,35 +12,47 @@ void SoundManager::SoundInit(void)
 
 void SoundManager::BGMInit(void)
 {
+	//リソースマネージャーのインスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//BGMのリソース
+	res.ResourceBGM();
+
 	//BGMのパス
-	bgmPass_[BGM_TYPE::TITLE] = "title.mp3";
-	bgmPass_[BGM_TYPE::SELECT] = "Select.wav";
-	bgmPass_[BGM_TYPE::BATTLE_FIRST_HALF] = "BattleFirstHalf.mp3";
-	bgmPass_[BGM_TYPE::BATTLE_SECOND_HALF] = "BattleSecondHalf.mp3";
-	bgmPass_[BGM_TYPE::RESULT] = "Result2.mp3";
+	bgmPass_[BGM_TYPE::TITLE] = res.Load(ResourceManager::SRC::TITLE_BGM).path_;
+	bgmPass_[BGM_TYPE::SELECT] = res.Load(ResourceManager::SRC::SELECT_BGM).path_;
+	bgmPass_[BGM_TYPE::BATTLE_FIRST_HALF] = res.Load(ResourceManager::SRC::BATTLE_FIRST_HALF_BGM).path_;
+	bgmPass_[BGM_TYPE::BATTLE_SECOND_HALF] = res.Load(ResourceManager::SRC::BATTLE_SECOND_HALF_BGM).path_;
+	bgmPass_[BGM_TYPE::RESULT] = res.Load(ResourceManager::SRC::RESULT_BGM).path_;
 }
 
 void SoundManager::BGMLoad(const BGM_TYPE _bgm)
 {
 	//指定したBGMをロード
-	bgm_[_bgm] = LoadSoundMem((Application::PATH_BGM + bgmPass_[_bgm]).c_str());
+	bgm_[_bgm] = LoadSoundMem(bgmPass_[_bgm].c_str());
 }
 
 void SoundManager::SEInit(void)
 {
+	//リソースマネージャーのインスタンス取得
+	ResourceManager& res = ResourceManager::GetInstance();
+
+	//SEのリソース
+	res.ResourceSE();
+
 	//SEのパス
-	sePass_[SE_TYPE::CLICK] = "Click.mp3";
-	sePass_[SE_TYPE::CANCEL] = "Cancel.mp3";
-	sePass_[SE_TYPE::FALL ] = "Fall.mp3";
-	sePass_[SE_TYPE::ATTACK ] = "Attack.mp3";
-	sePass_[SE_TYPE::TILEBREAK] = "TileBreak.mp3";
-	sePass_[SE_TYPE::CURTAIN] = "CurtainOpen.mp3";
+	sePass_[SE_TYPE::CLICK] = res.Load(ResourceManager::SRC::CLICK_SE).path_;
+	sePass_[SE_TYPE::CANCEL] = res.Load(ResourceManager::SRC::CANCEL_SE).path_;
+	sePass_[SE_TYPE::FALL ] = res.Load(ResourceManager::SRC::FALL_SE).path_;
+	sePass_[SE_TYPE::ATTACK ] = res.Load(ResourceManager::SRC::ATTACK_SE).path_;
+	sePass_[SE_TYPE::TILEBREAK] = res.Load(ResourceManager::SRC::TILEBREAK_SE).path_;
+	sePass_[SE_TYPE::CURTAIN] = res.Load(ResourceManager::SRC::CURTAIN_SE).path_;
 }
 
 void SoundManager::SELoad(const SE_TYPE _se)
 {
 	////指定したSEをロード
-	se_[_se] = LoadSoundMem((Application::PATH_SE + sePass_[_se]).c_str());
+	se_[_se] = LoadSoundMem(sePass_[_se].c_str());
 }
 
 void SoundManager::PlayBGM(const BGM_TYPE _bgm, const int _playType, const int _volumePar, const bool _topPositionFlag)
@@ -71,4 +85,19 @@ void SoundManager::StopBGM(const BGM_TYPE _bgm)
 void SoundManager::StopSE(const SE_TYPE _se)
 {
 	StopSoundMem(se_[_se]);
+}
+
+void SoundManager::SoundRelease(void)
+{
+	for (auto& bgm : bgm_)
+	{
+		if (bgm.second == -1)continue;
+		DeleteSoundMem(bgm.second);
+	}
+
+	for (auto& se : se_)
+	{
+		if (se.second == -1)continue;
+		DeleteSoundMem(se.second);
+	}
 }

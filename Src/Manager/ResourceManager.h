@@ -87,12 +87,12 @@ public:
 		RESULT_BGM,					//リザルトBGM
 
 		//SE
-		CLICK_SE,			//決定
-		CANCEL_SE,			//キャンセル
-		FALL_SE,			//落下
-		ATTACK_SE,			//攻撃
-		TILEBREAK_SE,		//床破壊
-		CURTAIN_SE,			//舞台幕
+		CLICK_SE,			//決定SE
+		CANCEL_SE,			//キャンセルSE
+		FALL_SE,			//落下SE
+		ATTACK_SE,			//攻撃SE
+		TILEBREAK_SE,		//床破壊SE
+		CURTAIN_SE,			//舞台幕SE
 	};
 
 	// 明示的にインステンスを生成する
@@ -103,13 +103,13 @@ public:
 
 	// 初期化
 	void Init(void);
-	//タイトルで使うリソース初期化
+	//タイトルで使うリソース
 	void InitTitle(void);
-	//ゲームオーバーで使うリソース初期化
+	//ゲームオーバーで使うリソース
 	void InitSelect(void);
-	//ゲームで使うリソース初期化
+	//ゲームで使うリソース
 	void InitGame(void);
-	//ゲームクリアで使うリソース初期化
+	//ゲームクリアで使うリソース
 	void InitResult(void);
 
 	//プレイヤーが使うリソース
@@ -129,6 +129,15 @@ public:
 
 	//床破壊数ルールで使うリソース
 	void ResourceTileBraek(void);
+
+	//BGMリソース
+	void ResourceBGM(void);
+
+	//SEリソース
+	void ResourceSE(void);
+
+	//サウンド全体リソース
+	void ResourceSound(void);
 
 	// 解放(シーン切替時に一旦解放)
 	void Release(void);
