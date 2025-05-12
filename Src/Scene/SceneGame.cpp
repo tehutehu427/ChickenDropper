@@ -36,7 +36,7 @@ bool SceneGame::Init(void)
 	sound_->BGMLoad(SoundManager::BGM_TYPE::BATTLE_SECOND_HALF);
 
 	//バトルBGM
-	sound_->PlayBGM(SoundManager::BGM_TYPE::BATTLE_FIRST_HALF, DX_PLAYTYPE_LOOP,60,false);
+	sound_->PlayBGM(SoundManager::BGM_TYPE::BATTLE_FIRST_HALF, DX_PLAYTYPE_LOOP, BATTLE_FIRST_BGM_VOLUME, false);
 
 	//ステージのインスタンス生成
 	stage_ = new Stage;
@@ -63,6 +63,8 @@ bool SceneGame::Init(void)
 
 void SceneGame::Update(void)
 {
+	SceneManager& scnMng = SceneManager::GetInstance();
+
 	switch (gameState_)
 	{
 	case SceneGame::GAME_STATE::PRE_START:
@@ -77,16 +79,16 @@ void SceneGame::Update(void)
 		for (auto player : player_)
 		{
 			effect_->EffectPlay(EffectManager::EFF_TYPE::START
-				, VSub(player->GetPos()
-				, { 0.0f,Player::RADIUS,0.0f })
-				, VScale(Utility::VECTOR_ONE, 35.0f), Utility::VECTOR_ZERO);
+				, VSub(player->GetPos(), { 0.0f,Player::RADIUS,0.0f })
+				, START_EFFECT_SCALE
+				, Utility::VECTOR_ZERO);
 		}
 
 		break;
 
 	case SceneGame::GAME_STATE::END:
 		//ゲームの処理を止める
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT, true);
+		scnMng.ChangeScene(SceneManager::SCENE_ID::RESULT, true);
 		return;
 	}
 
@@ -98,7 +100,7 @@ void SceneGame::Update(void)
 		sound_->StopBGM(SoundManager::BGM_TYPE::BATTLE_FIRST_HALF);
 
 		//後半戦BGMを流し始める
-		sound_->PlayBGM(SoundManager::BGM_TYPE::BATTLE_SECOND_HALF, DX_PLAYTYPE_LOOP,80,false);
+		sound_->PlayBGM(SoundManager::BGM_TYPE::BATTLE_SECOND_HALF, DX_PLAYTYPE_LOOP, BATTLE_SECOND_BGM_VOLUME,false);
 	}
 
 	//ステージの更新
@@ -156,9 +158,6 @@ void SceneGame::Update(void)
 
 							//攻撃したプレイヤーを保存
 							stage_->TileAttackPlayer(tx, tz, attack->GetCharaNum());
-
-							//攻撃エフェクト
-							//effect_->EffectPlay(EffectManager::EFF_TYPE::ATTACK, stage_->GetPos(tx, tz), VGet(10.0f, 10.0f, 10.0f), NodyUtility::VECTOR_ZERO);
 						}
 					}
 					//すでに攻撃状態だった場合
@@ -278,7 +277,6 @@ bool SceneGame::Release(void)
 	rule_ = nullptr;
 
 	//ステージの解放
-	stage_->Release();
 	delete stage_;
 	stage_ = nullptr;
 
@@ -862,16 +860,15 @@ void SceneGame::ProcessPlayer(void)
 
 void SceneGame::ReviavalPlayer(Player* _player)
 {
+	//床
 	bool tileNum[Stage::TILE_NUM][Stage::TILE_NUM];
 
 	for (int tz = 0; tz < Stage::TILE_NUM; tz++)
 	{
 		for (int tx = 0; tx < Stage::TILE_NUM; tx++)
 		{
-			if (stage_->GetTileState(tx, tz) == Stage::TILE_STATE::BROKEN 
-				|| stage_->GetTileState(tx, tz) == Stage::TILE_STATE::ATTACK
-				|| stage_->GetTileState(tx, tz) == Stage::TILE_STATE::PREEND
-				|| stage_->GetTileState(tx, tz) == Stage::TILE_STATE::END)
+			//床がない場所は復活不可
+			if (stage_->GetTileState(tx, tz) != Stage::TILE_STATE::NORMAL)
 			{
 				tileNum[tz][tx] = false;
 			}
@@ -897,52 +894,64 @@ void SceneGame::ReviavalPlayer(Player* _player)
 					switch (player->GetDir())
 					{
 					case Utility::DIR_3D::FRONT:
+						//移動後かどうか
 						if (static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1 >= Stage::TILE_NUM)
 						{
+							//立っている位置を移動不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						else
 						{
+							//移動先を出現不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						break;
 
 					case Utility::DIR_3D::RIGHT:
+						//移動後かどうか
 						if (static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) + 1 >= Stage::TILE_NUM)
 						{
+							//立っている位置を移動不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						else
 						{
+							//移動先を出現不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) + 1] = false;
 						}
 						break;
 
 					case Utility::DIR_3D::BACK:
-						if (static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1 <= -1)
+						//移動後かどうか
+						if (static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1 < 0)
 						{
+							//立っている位置を移動不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						else
 						{
+							//移動先を出現不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						break;
 
 					case Utility::DIR_3D::LEFT:
-						if (static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) - 1 <= -1)
+						//移動後かどうか
+						if (static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) - 1 < 0)
 						{
+							//立っている位置を移動不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 						}
 						else
 						{
+							//移動先を出現不可に
 							tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 								[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X) - 1] = false;
 						}
@@ -953,23 +962,28 @@ void SceneGame::ReviavalPlayer(Player* _player)
 				//端なら現在座標をfalseにする
 				else
 				{
+					//立っている位置を移動不可に
 					tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 						[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 				}
 			}
 			else
 			{
+				//立っている位置を移動不可に
 				tileNum[static_cast<int>((player->GetPos().z + Stage::STAGE_HSIZE_Z - Stage::TILE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
 					[static_cast<int>((player->GetPos().x + Stage::STAGE_HSIZE_X - Stage::TILE_HSIZE_X) / Stage::TILE_SIZE_X)] = false;
 			}
 		}
 	}
 
+	//ランダムの場所
 	int randZ = GetRand(Stage::TILE_NUM - 1);
 	int randX = GetRand(Stage::TILE_NUM - 1);
 
+	//出現可能か
 	if (tileNum[randZ][randX])
 	{
+		//座標セット
 		_player->SetPos(
 			{ Stage::TILE_SIZE_X * (randX - Stage::TILE_HNUM)
 				,Player::RADIUS
@@ -992,10 +1006,10 @@ const bool SceneGame::HitP2P(const VECTOR _pos, const Utility::DIR_3D _dir, cons
 	//参照プレイヤーのプレイヤー番号
 	auto myNum = _num;
 	//参照プレイヤーの動きたいタイル
-	int myTileNum[Stage::TILE_NUM][Stage::TILE_NUM];
+	bool myTileNum[Stage::TILE_NUM][Stage::TILE_NUM];
 
 	//相手プレイヤーごとのタイル判定
-	int oppTileNum[Stage::TILE_NUM][Stage::TILE_NUM];
+	bool oppTileNum[Stage::TILE_NUM][Stage::TILE_NUM];
 
 	//初期化
 	for (int tz = 0; tz < Stage::TILE_NUM; tz++)
@@ -1112,36 +1126,36 @@ const bool SceneGame::HitP2P(const VECTOR _pos, const Utility::DIR_3D _dir, cons
 		//参照プレイヤーの動きたい位置を求める
 		switch (myDir)
 		{
-		case Utility::DIR_3D::FRONT:			
-			
-				myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1.0f)]
-					[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
-				= true;
-			
+		case Utility::DIR_3D::FRONT:
+			//移動先が当たった
+			myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) + 1.0f)]
+				[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
+			= true;
+
 			break;
 
-		case Utility::DIR_3D::RIGHT:	
-			
-				myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
-					[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) + 1.0f)]
-				= true;
-			
+		case Utility::DIR_3D::RIGHT:
+			//移動先が当たった
+			myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
+				[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) + 1.0f)]
+			= true;
+
 			break;
 
 		case Utility::DIR_3D::BACK:
-			
-				myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1.0f)]
-					[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
-				= true;
-			
+			//移動先が当たった
+			myTileNum[static_cast<int>(((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z) - 1.0f)]
+				[static_cast<int>((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X)]
+			= true;
+
 			break;
 
 		case Utility::DIR_3D::LEFT:
-			
-				myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
-					[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) - 1.0f)]
-				= true;
-			
+			//移動先が当たった
+			myTileNum[static_cast<int>((myPos.z + Stage::STAGE_HSIZE_Z) / Stage::TILE_SIZE_Z)]
+				[static_cast<int>(((myPos.x + Stage::STAGE_HSIZE_X) / Stage::TILE_SIZE_X) - 1.0f)]
+			= true;
+
 			break;
 		}
 	}
@@ -1155,16 +1169,18 @@ const bool SceneGame::HitP2P(const VECTOR _pos, const Utility::DIR_3D _dir, cons
 				//自分とやられたプレイヤーとは比較しない
 				if (myNum != player->GetCharaNum() && player->GetState() != Player::STATE::DEAD)
 				{
-					if (myTileNum[tz][tx] == 1 && oppTileNum[tz][tx] == 1)
+					if (myTileNum[tz][tx] && oppTileNum[tz][tx])
 					{
+						//衝突した
 						return true;
 					}
 				}
 			}
 		}
 	}
-	return false;
 
+	//衝突しなかった
+	return false;
 }
 
 const Utility::DIR_3D SceneGame::AimPlayer(const VECTOR _pos, const CommonData::TYPE _num)
@@ -1173,12 +1189,12 @@ const Utility::DIR_3D SceneGame::AimPlayer(const VECTOR _pos, const CommonData::
 	Utility::DIR_3D dir;
 
 	//自分の位置
-	auto myPos = _pos;
+	VECTOR myPos = _pos;
 	//自分のプレイヤー番号
-	auto num = _num;
+	CommonData::TYPE num = _num;
 
 	//対象プレイヤーへの方向ベクトル
-	VECTOR dirVector = { 0.0f,0.0f,0.0f };
+	VECTOR dirVector = Utility::VECTOR_ZERO;
 
 	for (auto player : player_)
 	{
@@ -1426,19 +1442,23 @@ const float SceneGame::TileAdd2PosZ(const int _tileAddZ)
 
 void SceneGame::EndGame(void)
 {
+	//順位
 	int rank = 0;
 
 	for (auto player : player_)
 	{
+		//プレイヤーごとの順位を参照
 		rank = player->GetRank();
 
 		//一位が決まってるなら
 		if (rank == 1)
 		{
+			//終了
 			break;
 		}
 	}
 	
+	//1位が決まったなら終了
 	if (rank == 1)
 	{
 		for (auto p : player_)
@@ -1482,10 +1502,13 @@ void SceneGame::AppearItem(void)
 		return;
 	}
 
+	//アイテムの出現カウントが終わるまで
 	if (itemInterval_ < ItemBase::APPEAR_INTERVAL)
 	{
+		//アイテムの出現間隔カウントを進める
 		itemInterval_++;
 
+		//処理を終える
 		return;
 	}
 
@@ -1510,15 +1533,20 @@ ItemBase* SceneGame::GetValidItem(void)
 		//もう使っていない配列があるなら
 		if (!item_[i]->GetIsAlive() && !item_[i]->GetIsEffective())
 		{
+			//解放してから
+			item_[i]->Release();
+			delete item_[i];
 			item_[i] = nullptr;
 
 			//上書きして再利用
 			switch (itemType)
 			{
+				//ハンマー
 			case ItemBase::ITEM_TYPE::HAMMER:
 				item_[i] = new ItemHammer(this);
 				break;
 
+				//ブーツ
 			case ItemBase::ITEM_TYPE::BOOTS:
 				item_[i] = new ItemBoots(this);
 				break;
@@ -1533,10 +1561,12 @@ ItemBase* SceneGame::GetValidItem(void)
 
 	switch (itemType)
 	{
+		//ハンマー
 	case ItemBase::ITEM_TYPE::HAMMER:
 		item = new ItemHammer(this);
 		break;
 
+		//ブーツ
 	case ItemBase::ITEM_TYPE::BOOTS:
 		item = new ItemBoots(this);
 		break;

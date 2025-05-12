@@ -17,7 +17,7 @@ public:
 		
 		//タイトル
 		TITLE_BACK,		//タイトル背景
-		CLOUD,			//タイトル雲
+		TITLE_CLOUD,	//タイトル雲
 		TITLE_LOGO,		//タイトルロゴ
 
 		//セレクト
@@ -44,6 +44,28 @@ public:
 		SCORE_EXPLAIN,		//スコア制説明
 		LIFE_EXPLAIN,		//ライフ制説明
 		TILE_EXPLAIN,		//タイル破壊制説明
+
+		//ゲームシーン
+		P1_INDICATION,		//P1の表示
+		P2_INDICATION,		//P2の表示
+		P3_INDICATION,		//P3の表示
+		P4_INDICATION,		//P4の表示
+
+		//ステージ
+		GAME_BACK,			//ゲーム背景
+		GAME_CLOUD,			//ゲーム雲
+		TILE_PAT_1,			//タイルパターン1
+		TILE_PAT_2,			//タイルパターン2
+		TILE_PAT_1_BLUE,	//タイルパターン1青 
+		TILE_PAT_2_BLUE,	//タイルパターン2青
+		TILE_PAT_1_RED,		//タイルパターン1赤 
+		TILE_PAT_2_RED,		//タイルパターン2赤
+		TILE_PAT_1_GREEN,	//タイルパターン1緑 
+		TILE_PAT_2_GREEN,	//タイルパターン2緑
+		TILE_PAT_1_YELLOW,	//タイルパターン1黄 
+		TILE_PAT_2_YELLOW,	//タイルパターン2黄
+		TILE_PAT_1_END,		//タイルパターン1終 
+		TILE_PAT_2_END,		//タイルパターン2終
 
 		//ルール共通
 		STATE_BLUE,			//ステータス欄青
@@ -73,7 +95,7 @@ public:
 		RANK_3RD,			//3位
 		RANK_4TH,			//4位
 
-		//プレイヤーモデル
+		//プレイヤー
 		CHICKEN_BLUE,		//ニワトリ青
 		CHICKEN_RED,		//ニワトリ赤
 		CHICKEN_GREEN,		//ニワトリ緑

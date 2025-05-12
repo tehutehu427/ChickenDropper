@@ -83,8 +83,6 @@ public:
 	void Update(void);					
 	//•`‰æˆ—
 	void Draw(void);					
-	//‰ğ•úˆ—
-	bool Release(void);					
 
 	/// <summary>
 	/// ƒ^ƒCƒ‹‚Ìó‘Ô‘JˆÚˆ—

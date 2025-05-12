@@ -82,6 +82,11 @@ public:
 	static constexpr int NUM_DIS = 35;				//番号とプレイヤーの距離
 
 	static constexpr float NUM_VIEW_TIME = 180.0f;	//番号の表示時間
+
+	static constexpr int ATTACK_VOLUME = 70;		//攻撃SEの音量
+
+	static constexpr int VIB_STR = 100;				//バイブレーションの強さ
+	static constexpr int VIB_TIME = 1 * 250;		//バイブレーションの時間(ミリ秒)
 	
 	//メンバー関数
 	//-------------------

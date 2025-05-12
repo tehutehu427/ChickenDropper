@@ -1,6 +1,8 @@
 #include<DxLib.h>
 #include"../Application.h"
 #include"../Utility/Utility.h"
+#include"../Manager/Resource.h"
+#include"../Manager/ResourceManager.h"
 #include"../Manager/SoundManager.h"
 #include"../Common/CommonData.h"
 #include"../Scene/SceneGame.h"
@@ -32,6 +34,8 @@ Stage::~Stage(void)
 //初期化処理
 bool Stage::Init(SceneGame* parent)
 {
+	ResourceManager& res = ResourceManager::GetInstance();
+
 	//親
 	sceneGame_ = parent;
 
@@ -82,22 +86,22 @@ bool Stage::Init(SceneGame* parent)
 	}
 
 	//背景画像の読み込み
-	backImage_ = LoadGraph((Application::PATH_IMAGE + "TitleBack.png").c_str());
-	cloudImage_ = LoadGraph((Application::PATH_IMAGE + "cloud.png").c_str());
+	backImage_ = res.Load(ResourceManager::SRC::GAME_BACK).handleId_;
+	cloudImage_ = res.Load(ResourceManager::SRC::GAME_CLOUD).handleId_;
 
 	//ステージのモデル読み込み
-	model_[static_cast<int>(TILE_TYPE::PAT_1_1)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::PAT_1_2)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P1_PAT_1_1)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1-Blue.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P1_PAT_1_2)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2-Blue.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P2_PAT_1_1)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1-Red.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P2_PAT_1_2)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2-Red.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P3_PAT_1_1)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1-Green.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P3_PAT_1_2)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2-Green.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P4_PAT_1_1)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1-Yellow.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::P4_PAT_1_2)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2-Yellow.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::PAT_1_1_END)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-1-END.mv1").c_str());
-	model_[static_cast<int>(TILE_TYPE::PAT_1_2_END)] = MV1LoadModel((Application::PATH_MODEL + "TilePat1-2-END.mv1").c_str());
+	model_[static_cast<int>(TILE_TYPE::PAT_1_1)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1);
+	model_[static_cast<int>(TILE_TYPE::PAT_1_2)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2);
+	model_[static_cast<int>(TILE_TYPE::P1_PAT_1_1)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1_BLUE);
+	model_[static_cast<int>(TILE_TYPE::P1_PAT_1_2)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2_BLUE);
+	model_[static_cast<int>(TILE_TYPE::P2_PAT_1_1)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1_RED);
+	model_[static_cast<int>(TILE_TYPE::P2_PAT_1_2)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2_RED);
+	model_[static_cast<int>(TILE_TYPE::P3_PAT_1_1)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1_GREEN);
+	model_[static_cast<int>(TILE_TYPE::P3_PAT_1_2)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2_GREEN);
+	model_[static_cast<int>(TILE_TYPE::P4_PAT_1_1)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1_YELLOW);
+	model_[static_cast<int>(TILE_TYPE::P4_PAT_1_2)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2_YELLOW);
+	model_[static_cast<int>(TILE_TYPE::PAT_1_1_END)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_1_END);
+	model_[static_cast<int>(TILE_TYPE::PAT_1_2_END)] = res.LoadModelDuplicate(ResourceManager::SRC::TILE_PAT_2_END);
 
 	for (int m = 0; m < static_cast<int>(TILE_TYPE::MAX); m++)
 	{
@@ -245,12 +249,14 @@ void Stage::Draw(void)
 			{
 			case Stage::TILE_STATE::NORMAL:
 				//パターンを交互に置く
-				if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+				if ((tz + tx) % 2 == 0)
 				{
+					//パターン1
 					MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::PAT_1_1)]);
 				}
 				else
 				{
+					//パターン2
 					MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::PAT_1_2)]);
 				}
 
@@ -261,48 +267,56 @@ void Stage::Draw(void)
 				{
 				case CommonData::TYPE::P1:
 					//パターンを交互に置く
-					if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+					if ((tz + tx) % 2 == 0)
 					{
+						//P1パターン1
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P1_PAT_1_1)]);
 					}
 					else
 					{
+						//P1パターン2
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P1_PAT_1_2)]);
 					}
 					break;
 
 				case CommonData::TYPE::P2:
 					//パターンを交互に置く
-					if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+					if ((tz + tx) % 2 == 0)
 					{
+						//P2パターン1
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P2_PAT_1_1)]);
 					}
 					else
 					{
+						//P2パターン2
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P2_PAT_1_2)]);
 					}
 					break;
 
 				case CommonData::TYPE::P3:
 					//パターンを交互に置く
-					if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+					if ((tz + tx) % 2 == 0)
 					{
+						//P3パターン1
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P3_PAT_1_1)]);
 					}
 					else
 					{
+						//P3パターン2
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P3_PAT_1_2)]);
 					}
 					break;
 
 				case CommonData::TYPE::P4:
 					//パターンを交互に置く
-					if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+					if ((tz + tx) % 2 == 0)
 					{
+						//P4パターン1
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P4_PAT_1_1)]);
 					}
 					else
 					{
+						//P4パターン2
 						MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::P4_PAT_1_2)]);
 					}
 					break;
@@ -311,39 +325,20 @@ void Stage::Draw(void)
 
 			case TILE_STATE::PREEND:
 				//パターンを交互に置く
-				if (tz % 2 == 0 && tx % 2 == 0 || tz % 2 == 1 && tx % 2 == 1)
+				if ((tz + tx) % 2 == 0)
 				{
+					//ENDパターン1
 					MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::PAT_1_1_END)]);
 				}
 				else
 				{
+					//ENDパターン1
 					MV1DrawModel(map_[tz][tx][static_cast<int>(TILE_TYPE::PAT_1_2_END)]);
 				}
 				break;
 			}
 		}
 	}
-}
-
-//解放処理
-bool Stage::Release(void)
-{
-	DeleteGraph(backImage_);
-	DeleteGraph(cloudImage_);
-
-	for (int m = 0; m < static_cast<int>(TILE_TYPE::MAX); m++)
-	{
-		for (int tz = 0; tz < TILE_NUM; tz++)
-		{
-			for (int tx = 0; tx < TILE_NUM; tx++)
-			{
-
-				MV1DeleteModel(map_[tz][tx][m]);
-			}
-		}
-	}
-
-	return true;
 }
 
 //タイルの状態遷移処理(ix:Xのタイル番号, iz:Zのタイル番号, stateSwap:変化させる状態)
@@ -414,6 +409,7 @@ const bool Stage::GetTileAdd(const int ix, const int iz)
 
 void Stage::NarrowStage(void)
 {
+	//タイルが消えるまでの時間
 	if (endCnt_ < TILE_PREEND_TIME)
 	{
 		endCnt_++;
@@ -424,11 +420,13 @@ void Stage::NarrowStage(void)
 		endCnt_ = 0;
 	}
 
+	//ステージ縮小限界
 	if (stageNarrowRange_ >= STAGE_NARROW_RANGE)
 	{
 		return;
 	}
 
+	//タイルの終了処理
 	if (tileState_[endTileNumZ_][endTileNumX_] != TILE_STATE::PREEND
 		&& tileState_[endTileNumZ_][endTileNumX_] != TILE_STATE::END)
 	{
@@ -436,6 +434,7 @@ void Stage::NarrowStage(void)
 		TileSwap(endTileNumX_, endTileNumZ_, TILE_STATE::PREEND);
 	}
 
+	//ステージの縮小方向
 	if (sceneGame_->IsCollisionStageEnd(VGet(sceneGame_->TileAdd2PosX(endTileNumX_), 0.0f, sceneGame_->TileAdd2PosZ(endTileNumZ_)), endMoveDir_)
 		|| sceneGame_->IsNextTileEnd(VGet(sceneGame_->TileAdd2PosX(endTileNumX_), 0.0f, sceneGame_->TileAdd2PosZ(endTileNumZ_)), endMoveDir_)
 		)
@@ -459,12 +458,14 @@ void Stage::NarrowStage(void)
 			break;
 		}
 
+		//縮小範囲
 		if (endMoveDir_ == STAGE_NARROW_DIR)
 		{
 			stageNarrowRange_++;
 		}
 	}
 
+	//縮小方向への処理
 	switch (endMoveDir_)
 	{
 	case Utility::DIR_3D::FRONT:

@@ -48,7 +48,7 @@ bool SceneTitle::Init(void)
 
 	//背景のグラフィック登録
 	bgImage_ = res.Load(ResourceManager::SRC::TITLE_BACK).handleId_;
-	cloudImage_ = res.Load(ResourceManager::SRC::CLOUD).handleId_;
+	cloudImage_ = res.Load(ResourceManager::SRC::TITLE_CLOUD).handleId_;
 
 	//タイトルロゴのグラフィック登録
 	logoImage_ = res.Load(ResourceManager::SRC::TITLE_LOGO).handleId_;

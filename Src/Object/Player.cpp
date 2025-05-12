@@ -111,44 +111,56 @@ bool Player::Init(SceneGame* parent, const VECTOR _pos, const CommonData::TYPE _
 	switch (charaNum_)
 	{
 	case CommonData::TYPE::P1:
+		//パッド番号
 		padNum_ = DX_INPUT_PAD1;
 
-		numImage_ = LoadGraph((Application::PATH_IMAGE + "P1.png").c_str());
+		//P1の表示
+		numImage_ = res.Load(ResourceManager::SRC::P1_INDICATION).handleId_;
 		
-		model_ = MV1DuplicateModel(MV1LoadModel((Application::PATH_MODEL + "chickenBlue.mv1").c_str()));
+		//モデル
+		model_ = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_BLUE);
 		break;
 
 	case CommonData::TYPE::P2:
+		//パッド番号
 		if (charaJudge_ == CHARA_JUDGE::PLAYER)
 		{
 			padNum_ = DX_INPUT_PAD2;
 		}
 
-		numImage_ = LoadGraph((Application::PATH_IMAGE + "P2.png").c_str());
+		//P2の表示
+		numImage_ = res.Load(ResourceManager::SRC::P2_INDICATION).handleId_;
 
-		model_ = MV1DuplicateModel(MV1LoadModel((Application::PATH_MODEL + "chickenRed.mv1").c_str()));
+		//モデル
+		model_ = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_RED);
 		break;
 
 	case CommonData::TYPE::P3:
+		//パッド番号
 		if (charaJudge_ == CHARA_JUDGE::PLAYER)
 		{
 			padNum_ = DX_INPUT_PAD3;
 		}
 
-		numImage_ = LoadGraph((Application::PATH_IMAGE + "P3.png").c_str());
+		//P3の表示
+		numImage_ = res.Load(ResourceManager::SRC::P3_INDICATION).handleId_;
 
-		model_ = MV1DuplicateModel(MV1LoadModel((Application::PATH_MODEL + "chickenGreen.mv1").c_str()));
+		//モデル
+		model_ = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_GREEN);
 		break;
 
 	case CommonData::TYPE::P4:
+		//パッド番号
 		if (charaJudge_ == CHARA_JUDGE::PLAYER)
 		{
 			padNum_ = DX_INPUT_PAD4;
 		}
 
-		numImage_ = LoadGraph((Application::PATH_IMAGE + "P4.png").c_str());
+		//P4の表示
+		numImage_ = res.Load(ResourceManager::SRC::P4_INDICATION).handleId_;
 
-		model_ = MV1DuplicateModel(MV1LoadModel((Application::PATH_MODEL + "chickenYellow.mv1").c_str()));
+		//モデル
+		model_ = res.LoadModelDuplicate(ResourceManager::SRC::CHICKEN_YELLOW);
 		break;
 	}
 
@@ -269,8 +281,6 @@ void Player::Draw(void)
 //解放処理
 bool Player::Release(void)
 {
-	MV1DeleteModel(model_);
-
 	//攻撃の解放
 	for (auto attack : attack_)
 	{
@@ -305,8 +315,8 @@ void Player::MovePlayer(void)
 		//移動方向設定
 		//-------------------------------------------------
 		//方向転換用キー
-		auto keepButtonType = PAD_INPUT_6;	//Rキー
-		auto keepKeyType = KEY_INPUT_X;		//Xキー
+		int keepButtonType = PAD_INPUT_6;	//Rキー
+		int keepKeyType = KEY_INPUT_X;		//Xキー
 
 		//キーボードの時の入力合わせ
 		bool keyboardKeep = (GetJoypadNum() <= 0 && (charaNum_ == CommonData::TYPE::P1 && ins.IsKeyDown(keepKeyType)));
@@ -679,7 +689,8 @@ void Player::ProcessAttackPlayer(void)
 		//攻撃の生成
 		GenerateAttack();
 
-		StartJoypadVibration(padNum_, 100, 250);
+		//パッドのバイブレーション
+		StartJoypadVibration(padNum_, VIB_STR, VIB_TIME);
 	}
 
 	//プレイヤーが生きている　かつ　プレイヤーが歩いていない　かつ　攻撃中ではない
@@ -690,7 +701,8 @@ void Player::ProcessAttackPlayer(void)
 		&& animNum_ != ANIM_NUM::FALL
 		)
 	{
-		if (InputManager::GetInstance().IsJoypadKeyPush(padNum_, PAD_INPUT_A) == true)
+		//決定
+		if (InputManager::GetInstance().IsJoypadKeyPush(padNum_, PAD_INPUT_A))
 		{
 			//攻撃モーション開始
 			ChangeAnim(ANIM_NUM::ATTACK);
@@ -783,7 +795,7 @@ void Player::GenerateAttack(void)
 		}
 
 		//攻撃SE
-		se_->PlaySE(SoundManager::SE_TYPE::ATTACK, DX_PLAYTYPE_BACK, 70);
+		se_->PlaySE(SoundManager::SE_TYPE::ATTACK, DX_PLAYTYPE_BACK, ATTACK_VOLUME);
 	}
 }
 
@@ -1003,21 +1015,26 @@ const Utility::DIR_3D Player::CPUMoveChack(const Utility::DIR_3D _dir)
 		//隣のタイルが攻撃状態ならそっちに動く
 		if (sceneGame_->IsNextTileAttack(pos_, dir))
 		{
+			//初期化
 			switch (dir)
 			{
 			case Utility::DIR_3D::FRONT:
+				//動ける
 				isMoveFront_ = true;
 				break;
 
 			case Utility::DIR_3D::RIGHT:
+				//動ける
 				isMoveRight_ = true;
 				break;
 			
 			case Utility::DIR_3D::BACK:
+				//動ける
 				isMoveBack_ = true;
 				break;
 			
 			case Utility::DIR_3D::LEFT:
+				//動ける
 				isMoveLeft_ = true;
 				break;
 			}
@@ -1029,18 +1046,22 @@ const Utility::DIR_3D Player::CPUMoveChack(const Utility::DIR_3D _dir)
 			switch (dir)
 			{
 			case Utility::DIR_3D::FRONT:
+				//動けない
 				isMoveFront_ = false;
 				break;
 
 			case Utility::DIR_3D::RIGHT:
+				//動けない
 				isMoveRight_ = false;
 				break;
 
 			case Utility::DIR_3D::BACK:
+				//動けない
 				isMoveBack_ = false;
 				break;
 
 			case Utility::DIR_3D::LEFT:
+				//動けない
 				isMoveLeft_ = false;
 				break;
 			}
@@ -1053,18 +1074,22 @@ const Utility::DIR_3D Player::CPUMoveChack(const Utility::DIR_3D _dir)
 			switch (dir)
 			{
 			case Utility::DIR_3D::FRONT:
+				//動けない
 				isMoveFront_ = false;
 
 				break;
 			case Utility::DIR_3D::RIGHT:
+				//動けない
 				isMoveRight_ = false;
 
 				break;
 			case Utility::DIR_3D::BACK:
+				//動けない
 				isMoveBack_ = false;
 
 				break;
 			case Utility::DIR_3D::LEFT:
+				//動けない
 				isMoveLeft_ = false;
 
 				break;
@@ -1111,29 +1136,28 @@ const Utility::DIR_3D Player::CPUMoveChack(const Utility::DIR_3D _dir)
 		switch (dir)
 		{
 		case Utility::DIR_3D::FRONT:
+			//動けない
 			isMoveFront_ = false;
-			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
-
 			break;
 
 		case Utility::DIR_3D::RIGHT:
+			//動けない
 			isMoveRight_ = false;
-			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
-
 			break;
 
 		case Utility::DIR_3D::BACK:
+			//動けない
 			isMoveBack_ = false;
-			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
-
 			break;
 
 		case Utility::DIR_3D::LEFT:
+			//動けない
 			isMoveLeft_ = false;
-			return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
-
 			break;
 		}
+
+		//やり直し
+		return CPUMoveChack(static_cast<Utility::DIR_3D>(GetRand(static_cast<int>(Utility::DIR_3D::LEFT))));
 	}
 
 	//初期化

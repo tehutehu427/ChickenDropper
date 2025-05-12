@@ -37,11 +37,11 @@ void ResourceManager::InitTitle(void)
 	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "TitleBack.png");
 	resourcesMap_.emplace(SRC::TITLE_BACK, res);
 
-	//タイトル背景
+	//雲
 	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "cloud.png");
-	resourcesMap_.emplace(SRC::CLOUD, res);
+	resourcesMap_.emplace(SRC::TITLE_CLOUD, res);
 
-	//タイトル背景
+	//タイトルロゴ
 	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "TitleLogo.png");
 	resourcesMap_.emplace(SRC::TITLE_LOGO, res);
 }
@@ -63,7 +63,7 @@ void ResourceManager::InitSelect(void)
 	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "SelectBackSky.png");
 	resourcesMap_.emplace(SRC::SELECT_SKY, res);
 
-	//セレクト用雲
+	//セレクト雲
 	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "SelectBackCloud.png");
 	resourcesMap_.emplace(SRC::SELECT_CLOUD, res);
 	
@@ -160,6 +160,22 @@ void ResourceManager::InitGame(void)
 	//リソース書き込み用
 	Resource res;
 
+	//P1の表示
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "P1.png");
+	resourcesMap_.emplace(SRC::P1_INDICATION, res);
+
+	//P2の表示
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "P2.png");
+	resourcesMap_.emplace(SRC::P2_INDICATION, res);
+
+	//P3の表示
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "P3.png");
+	resourcesMap_.emplace(SRC::P3_INDICATION, res);
+
+	//P4の表示
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "P4.png");
+	resourcesMap_.emplace(SRC::P4_INDICATION, res);
+
 	//プレイヤー
 	ResourcePlayer();
 
@@ -242,6 +258,62 @@ void ResourceManager::ResourceStage(void)
 
 	//リソース書き込み用
 	Resource res;
+
+	//ゲーム背景
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "TitleBack.png");
+	resourcesMap_.emplace(SRC::GAME_BACK, res);
+
+	//雲
+	res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "cloud.png");
+	resourcesMap_.emplace(SRC::GAME_CLOUD, res);
+
+	//タイルパターン1
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1, res);
+
+	//タイルパターン2
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2, res);
+
+	//タイルパターン1青
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1-Blue.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1_BLUE, res);
+
+	//タイルパターン2青
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2-Blue.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2_BLUE, res);
+
+	//タイルパターン1赤
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1-Red.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1_RED, res);
+
+	//タイルパターン2赤
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2-Red.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2_RED, res);
+
+	//タイルパターン1緑
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1-Green.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1_GREEN, res);
+
+	//タイルパターン2緑
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2-Green.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2_GREEN, res);
+
+	//タイルパターン1黄
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1-Yellow.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1_YELLOW, res);
+
+	//タイルパターン2黄
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2-Yellow.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2_YELLOW, res);
+
+	//タイルパターン1終
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-1-END.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_1_END, res);
+
+	//タイルパターン2終
+	res = Resource(Resource::TYPE::MODEL, Application::PATH_MODEL + "TilePat1-2-END.mv1");
+	resourcesMap_.emplace(SRC::TILE_PAT_2_END, res);
 }
 
 void ResourceManager::ResourceRule(void)

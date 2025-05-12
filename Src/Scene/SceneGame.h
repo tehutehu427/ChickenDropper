@@ -28,6 +28,14 @@ public:
 		,END		//ゲーム終了
 	};
 
+	//定数
+	//-------------------
+
+	static constexpr int BATTLE_FIRST_BGM_VOLUME = 60;	//バトル前半BGMの音量
+	static constexpr int BATTLE_SECOND_BGM_VOLUME = 80;	//バトル後半BGMの音量
+
+	static constexpr VECTOR START_EFFECT_SCALE = {35.0f,35.0f,35.0f};	//バトル後半BGMの音量
+
 	//メンバー関数
 	//-------------------
 
