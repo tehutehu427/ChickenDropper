@@ -98,6 +98,7 @@ public:
 	/// <param name="_se">Ž~‚ß‚éSE</param>
 	void StopSE(const SE_TYPE _se);
 
+	//ƒTƒEƒ“ƒh‚Ì‰ð•ú
 	void SoundRelease(void);
 
 private:
