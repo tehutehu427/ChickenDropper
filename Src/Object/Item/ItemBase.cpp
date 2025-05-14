@@ -77,7 +77,7 @@ void ItemBase::Draw(void)
 	//ƒvƒŒƒCƒ„[‚Éæ“¾‚³‚ê‚Ä‚¢‚é
 	else if (isEffective_)
 	{
-		DrawSphere3D(pos_, PLAYER_FOLLOW, DIV_NUM, color_, color_, false);
+		DrawSphere3D(pos_, PLAYER_FOLLOW, PLAYER_GOT_DIV_NUM, color_, color_, false);
 	}
 }
 
