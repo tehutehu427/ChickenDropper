@@ -19,10 +19,16 @@ void SoundManager::BGMInit(void)
 	res.ResourceBGM();
 
 	//BGMのパス
+
+	//タイトルBGM
 	bgmPass_[BGM_TYPE::TITLE] = res.Load(ResourceManager::SRC::TITLE_BGM).path_;
+	//セレクトBGM
 	bgmPass_[BGM_TYPE::SELECT] = res.Load(ResourceManager::SRC::SELECT_BGM).path_;
+	//バトル前半BGM
 	bgmPass_[BGM_TYPE::BATTLE_FIRST_HALF] = res.Load(ResourceManager::SRC::BATTLE_FIRST_HALF_BGM).path_;
+	//バトル後半BGM
 	bgmPass_[BGM_TYPE::BATTLE_SECOND_HALF] = res.Load(ResourceManager::SRC::BATTLE_SECOND_HALF_BGM).path_;
+	//リザルトBGM
 	bgmPass_[BGM_TYPE::RESULT] = res.Load(ResourceManager::SRC::RESULT_BGM).path_;
 }
 
@@ -51,19 +57,25 @@ void SoundManager::SEInit(void)
 
 void SoundManager::SELoad(const SE_TYPE _se)
 {
-	////指定したSEをロード
+	//指定したSEをロード
 	se_[_se] = LoadSoundMem(sePass_[_se].c_str());
 }
 
 void SoundManager::PlayBGM(const BGM_TYPE _bgm, const int _playType, const int _volumePar, const bool _topPositionFlag)
 {
+	//音量設定
 	ChangeVolumeSoundMem((MAX_VOLUME * _volumePar / MAX_PERCENT), bgm_[_bgm]);
+	
+	//BGM再生
 	PlaySoundMem(bgm_[_bgm], _playType, _topPositionFlag);
 }
 
 void SoundManager::PlaySE(const SE_TYPE _se, const int _playType, const int _volumePar, const bool _topPositionFlag)
 {
+	//音量設定
 	ChangeVolumeSoundMem((MAX_VOLUME * _volumePar / MAX_PERCENT), se_[_se]);
+	
+	//SE再生
 	PlaySoundMem(se_[_se], _playType, _topPositionFlag);
 }
 
@@ -89,6 +101,7 @@ void SoundManager::StopSE(const SE_TYPE _se)
 
 void SoundManager::SoundRelease(void)
 {
+	//サウンド解放
 	for (auto& bgm : bgm_)
 	{
 		if (bgm.second == -1)continue;

@@ -29,14 +29,14 @@ void EffectManager::EffectLoad(void)
 	EFFDATA data;
 
 	//エフェクトのロード
+
+	//開始エフェクト
 	data.effectResId_ = LoadEffekseerEffect((Application::PATH_EFFECT + "Basic/Start.efkefc").c_str());
 	effDatas_.emplace(EFF_TYPE::START, data);
 
+	//復活エフェクト
 	data.effectResId_ = LoadEffekseerEffect((Application::PATH_EFFECT + "Basic/Revival.efkefc").c_str());
 	effDatas_.emplace(EFF_TYPE::REVIVAL,data);
-
-	data.effectResId_ = LoadEffekseerEffect((Application::PATH_EFFECT + "Pierre/Attack2.efkefc").c_str());
-	effDatas_.emplace(EFF_TYPE::ATTACK,data);
 }
 
 void EffectManager::EffectPlay(const EFF_TYPE _effect, const VECTOR _pos, const VECTOR _scale, const VECTOR _rot)
@@ -60,6 +60,7 @@ void EffectManager::EffectPlay(const EFF_TYPE _effect, const VECTOR _pos, const 
 
 void EffectManager::EffectStop(const EFF_TYPE _effect)
 {
+	//指定タイプのエフェクトを止める
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
 		StopEffekseer3DEffect(playId);
@@ -68,10 +69,13 @@ void EffectManager::EffectStop(const EFF_TYPE _effect)
 
 void EffectManager::EffectChangePos(const EFF_TYPE _effect, const VECTOR _pos)
 {
+	//指定タイプの座標変更
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
+		//プレイ中のエフェクトか調べる
 		if (IsEffekseer3DEffectPlaying(playId))
 		{
+			//指定座標に変更
 			SetPosPlayingEffekseer3DEffect(playId, _pos.x, _pos.y, _pos.z);
 		}
 	}
@@ -79,10 +83,13 @@ void EffectManager::EffectChangePos(const EFF_TYPE _effect, const VECTOR _pos)
 
 void EffectManager::EffectChangeScl(const EFF_TYPE _effect, const VECTOR _scl)
 {
+	//指定タイプの大きさ変更
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
+		//プレイ中のエフェクトか調べる
 		if (IsEffekseer3DEffectPlaying(playId))
 		{
+			//指定した大きさに変更
 			SetScalePlayingEffekseer3DEffect(playId, _scl.x, _scl.y, _scl.z);
 		}
 	}
@@ -90,10 +97,13 @@ void EffectManager::EffectChangeScl(const EFF_TYPE _effect, const VECTOR _scl)
 
 void EffectManager::EffectChangeRot(const EFF_TYPE _effect, const VECTOR _rot)
 {
+	//指定タイプの回転変更
 	for (auto playId : effDatas_[_effect].effectPlayId_)
 	{
+		//プレイ中のエフェクトか調べる
 		if (IsEffekseer3DEffectPlaying(playId))
 		{
+			//指定した回転にする
 			SetRotationPlayingEffekseer3DEffect(playId, _rot.x, _rot.y, _rot.z);
 		}
 	}

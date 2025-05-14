@@ -7,6 +7,7 @@ class SoundManager
 {
 public:
 
+	//BGMの種類
 	enum class BGM_TYPE
 	{
 		TITLE,					//タイトル
@@ -16,6 +17,7 @@ public:
 		RESULT,					//リザルト
 	};
 
+	//SEの種類
 	enum class SE_TYPE
 	{
 		CLICK,		//決定

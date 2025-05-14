@@ -10,14 +10,13 @@ public:
 	// リソースタイプ
 	enum class TYPE
 	{
-		NONE,
-		IMG,
-		IMGS,
-		MASK,
-		MODEL,
-		ANIM,
-		EFFEKSEER,
-		SOUND
+		NONE,			
+		IMG,			//画像
+		IMGS,			//分割画像
+		MASK,			//マスク画像
+		MODEL,			//モデル
+		EFFEKSEER,		//エフェクト
+		SOUND			//サウンド
 	};
 
 	// コンストラクタ
@@ -49,11 +48,11 @@ public:
 	int handleId_;
 
 	// IMGS::LoadDivGraph用
-	int* handleIds_;
-	int numX_;
-	int numY_;
-	int sizeX_;
-	int sizeY_;
+	int* handleIds_;	//ハンドルの先頭アドレス
+	int numX_;			//横分割数
+	int numY_;			//縦分割数
+	int sizeX_;			//画像一つの横の大きさ
+	int sizeY_;			//画像一つの縦の大きさ
 
 	// モデル複製用
 	std::vector<int> duplicateModelIds_;

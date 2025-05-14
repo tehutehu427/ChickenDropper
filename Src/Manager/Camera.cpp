@@ -2,20 +2,17 @@
 #include"../Utility/Utility.h"
 #include"Camera.h"
 
-//デフォルトコンストラクタ
 Camera::Camera(void)
 {
 	pos_ = Utility::VECTOR_ZERO;
 	angles_ = Utility::VECTOR_ZERO;
 }
 
-//デストラクタ
 Camera::~Camera(void)
 {
 
 }
 
-//初期化処理
 bool Camera::Init(void)
 {
 	//カメラの位置
@@ -27,13 +24,11 @@ bool Camera::Init(void)
 	return true;
 }
 
-//更新処理
 void Camera::Update(void)
 {
 
 }
 
-//カメラ設定(毎フレーム実行)
 void Camera::SetBeforeDraw(void)
 {
 	//クリップ距離を設定する(SetDrawScreenでリセットされる)
@@ -49,7 +44,6 @@ void Camera::SetBeforeDraw(void)
 
 }
 
-//描画処理
 void Camera::Draw(void)
 {
 
@@ -57,7 +51,10 @@ void Camera::Draw(void)
 
 void Camera::SetCamerawork(const VECTOR _pos, const VECTOR _angles)
 {
+	//座標の設定
 	pos_ = _pos;
+
+	//角度の設定
 	angles_ = { Utility::Deg2RadF(_angles.x) ,Utility::Deg2RadF(_angles.y)  ,Utility::Deg2RadF(_angles.z) };
 }
 

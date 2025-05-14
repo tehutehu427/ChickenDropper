@@ -12,14 +12,13 @@ public:
 	{
 		START
 		,REVIVAL
-		,ATTACK
 	};
 
 	//エフェクトの固有のデータ
 	struct EFFDATA
 	{
 		//エフェクトのリソースハンドルID
-		int effectResId_;
+		int effectResId_ = -1;
 
 		//エフェクトの再生ハンドルID
 		std::vector<int> effectPlayId_;

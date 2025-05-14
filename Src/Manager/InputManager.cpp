@@ -118,28 +118,6 @@ void InputManager::StepPadInput(void)
 			currentPadKeyBuf_[n] = GetJoypadInputState(n + 1);
 		}
 	}
-
-	for (int k = 0; k < PAD_KEY_BUF_LEN; k++)
-	{
-		for (int n = 0; n < PAD_NUM; n++)
-		{
-			if (!IsJoypadKeyKeep(n + 1, pow(2,k)))
-			{
-				pushPadKeyTime_[n][k] = 0;
-
-				pushPadKeyTrg_[n][k] = false;
-			}
-			else
-			{
-				pushPadKeyTrg_[n][k] = true;
-			}
-
-			if (pushPadKeyTrg_[n][k])
-			{
-				pushPadKeyTime_[n][k]++;
-			}
-		}
-	}
 }
 
 //単純に押されているか(コントローラー)
@@ -259,8 +237,10 @@ const InputManager::KEEP_FUNCTION InputManager::HowLongJoypadKeyKeep(const int _
 	//コントローラーの番号合わせ用
 	int padNumber;
 
+	//コード数
 	int codeArray = 0;
 
+	//キー
 	int keyCode = _keyCode;
 
 	while (keyCode / 2 != 0)

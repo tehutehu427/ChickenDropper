@@ -25,7 +25,7 @@ void Fader::Init(void)
 
 void Fader::Update(void)
 {
-
+	//フェードの終了判定
 	if (isEnd_)
 	{
 		// フェード処理が終了していたら何もしない
@@ -39,13 +39,15 @@ void Fader::Update(void)
 		return;
 	}
 
+	//フェードの状態
 	switch (state_)
 	{
-
 	case STATE::NONE:
+		//何もしない
 		return;
 
 	case STATE::FADE_OUT:
+		//フェードアウト
 		alpha_ += SPEED_ALPHA;
 		if (alpha_ > ALPHA_MAX)
 		{
@@ -56,6 +58,7 @@ void Fader::Update(void)
 		break;
 
 	case STATE::FADE_IN:
+		//フェードイン
 		alpha_ -= SPEED_ALPHA;
 		if (alpha_ < 0)
 		{
@@ -78,9 +81,11 @@ void Fader::Draw(void)
 	switch (state_)
 	{
 	case STATE::NONE:
+		//何もしない
 		break;
-	case STATE::FADE_OUT:		//スイッチ文はbreakをしないと処理が流れる
+	case STATE::FADE_OUT:		
 	case STATE::FADE_IN:
+		//アルファブレンド
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(alpha_));
 		DrawBox(
 			0, 0,
@@ -105,20 +110,26 @@ const bool Fader::IsEnd(void)
 
 void Fader::SetFade(const STATE state)
 {
+	//状態
 	state_ = state;
+	
+	//通常状態
 	if (state_ != STATE::NONE)
 	{
+		//何もしない
 		isPreEnd_ = false;
 		isEnd_ = false;
 	}
 	//フェードインの前処理
 	if (state_ == STATE::FADE_IN)
 	{
+		//真っ暗にするためアルファ値を最大に
 		alpha_ = ALPHA_MAX;
 	}
 	//フェードアウトの前処理
 	else if (state_ == STATE::FADE_OUT)
 	{
+		//真っ暗からだんだん明るくするためにアルファ値を0にする
 		alpha_ = 0.0f;
 	}
 }

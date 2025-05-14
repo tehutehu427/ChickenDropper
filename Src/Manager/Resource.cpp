@@ -53,12 +53,12 @@ void Resource::Load(void)
 	switch (resType_)
 	{
 	case Resource::TYPE::IMG:
-		// 画像
+		// 画像読み込み
 		handleId_ = LoadGraph(path_.c_str());
 		break;
 
 	case Resource::TYPE::IMGS:
-		// 複数画像
+		// 分割画像読み込み
 		handleIds_ = new int[numX_ * numY_];
 		LoadDivGraph(
 			path_.c_str(),
@@ -69,22 +69,22 @@ void Resource::Load(void)
 		break;
 
 	case Resource::TYPE::MASK:
-		//マスク画像
+		//マスク画像読み込み
 		handleId_ = LoadMask(path_.c_str());
 		break;
 
 	case Resource::TYPE::MODEL:
-		// モデル
+		// モデル読み込み
 		handleId_ = MV1LoadModel(path_.c_str());
 		break;
 
 	case Resource::TYPE::EFFEKSEER:
-		//エフェクト
+		//エフェクト読み込み
 		handleId_ = LoadEffekseerEffect(path_.c_str());
 		break;
 
 	case Resource::TYPE::SOUND:
-		//サウンド
+		//サウンド読み込み
 		handleId_ = LoadSoundMem(path_.c_str());
 		break;
 	}
@@ -97,11 +97,13 @@ void Resource::Release(void)
 	switch (resType_)
 	{
 	case Resource::TYPE::IMG:
+		//画像削除
 		DeleteGraph(handleId_);
 		break;
 
 	case Resource::TYPE::IMGS:
 	{
+		//分割画像削除
 		int num = numX_ * numY_;
 		for (int i = 0; i < num; i++)
 		{
@@ -112,11 +114,13 @@ void Resource::Release(void)
 		break;
 
 	case Resource::TYPE::MASK:
+		//マスク削除
 		DeleteMask(handleId_);
 		break;
 
 	case Resource::TYPE::MODEL:
 	{
+		//モデル削除
 		MV1DeleteModel(handleId_);
 		auto ids = duplicateModelIds_;
 		for (auto id : ids)
@@ -127,10 +131,12 @@ void Resource::Release(void)
 		break;
 
 	case Resource::TYPE::EFFEKSEER:
+		//エフェクト削除
 		DeleteEffekseerEffect(handleId_);
 		break;
 
 	case Resource::TYPE::SOUND:
+		//サウンド削除
 		DeleteSoundMem(handleId_);
 		break;
 	}
@@ -139,15 +145,17 @@ void Resource::Release(void)
 
 void Resource::CopyHandle(int* imgs)
 {
-
+	//ハンドルがないなら
 	if (handleIds_ == nullptr)
 	{
+		//何もしない
 		return;
 	}
 
 	int num = numX_ * numY_;
 	for (int i = 0; i < num; i++)
 	{
+		//ハンドルコピー
 		imgs[i] = handleIds_[i];
 	}
 

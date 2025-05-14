@@ -8,6 +8,10 @@ CommonData* CommonData::instance_ = nullptr;
 
 CommonData::CommonData(void)
 {
+	playerNum_ = TYPE::NONE;
+	cpuNum_ = CPU_NUM::NONE;
+	battlePattern_ = BATTLE_PATTERN::MAX;
+	rule_ = RULE::NONE;
 }
 
 CommonData::~CommonData(void)
@@ -19,25 +23,21 @@ bool CommonData::Init(void)
 	return true;
 }
 
-//プレイヤーの数を返す
 const CommonData::TYPE CommonData::GetPlayerNum(void)const
 {
 	return playerNum_;
 }
 
-//プレイヤーの数を決める
 void CommonData::SetPlayerNum(const TYPE _pNum)
 {
 	playerNum_ = _pNum;
 }
 
-//CPUの数を返す
 const CommonData::CPU_NUM CommonData::GetCPUNum(void)const
 {
 	return cpuNum_;
 }
 
-//CPUの数を決める
 void CommonData::SetCPUNum(const CPU_NUM _cNum)
 {
 	cpuNum_ = _cNum;
@@ -50,6 +50,7 @@ const CommonData::BATTLE_PATTERN CommonData::GetBattlePattern(void)const
 
 void CommonData::SetBattlePattern(const BATTLE_PATTERN _pattern)
 {
+	//対戦人数
 	battlePattern_ = _pattern;
 
 	switch (battlePattern_)
@@ -101,13 +102,11 @@ void CommonData::SetBattlePattern(const BATTLE_PATTERN _pattern)
 	}
 }
 
-//ルールの情報を返す
 const CommonData::RULE CommonData::GetRule(void)const
 {
 	return rule_;
 }
 
-//ルールを決める
 void CommonData::SetRule(const RULE _ruleType)
 {
 	rule_ = _ruleType;

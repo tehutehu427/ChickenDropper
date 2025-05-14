@@ -31,6 +31,9 @@ public:
 	//最初のシーン
 	static constexpr SCENE_ID FIRST_SCENE = SCENE_ID::TITLE;	
 
+	//ディレクショナルライトの向き
+	static constexpr VECTOR LIGHT_DIR = { 0.00f,-1.00f,1.00f };
+
 	//セレクトシーンのカメラワーク
 	static constexpr VECTOR SELECT_CAMERA_POS = { 0.0f, 0.0f, -300.0f };
 	static constexpr VECTOR SELECT_CAMERA_ANGLE = { 0.0f, 0.0f, 0.0f };
@@ -86,7 +89,7 @@ private:
 	bool isSceneChanging_;			//シーン遷移のフラグ(true:遷移中)
 
 	//ルールごとのリソース
-	std::map<CommonData::RULE, std::function<void(void)>>resourceRule_;
+	std::map<CommonData::RULE, std::function<void(void)>>resourceRule_;	//リソース用関数ポインタ
 
 	//カメラ
 	Camera* camera_;		//カメラのインスタンス用
