@@ -13,6 +13,7 @@ Attack::Attack(void)
 	images_ = 0;
 	pos_ = Utility::VECTOR_ZERO;
 	dir_ = Utility::DIR_3D::FRONT;
+	charaNum_ = CommonData::TYPE::NONE;
 	isAlive_ = false;
 	speed_ = 0.0f;
 	atkCnt_ = 0.0f;

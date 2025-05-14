@@ -6,6 +6,8 @@ class ItemBoots : public ItemBase
 {
 public:
 
+	static constexpr float SPEED_MULTI = 2.0f;	//移動速度の倍率
+
 	//コンストラクタ
 	ItemBoots(SceneGame* parent);
 

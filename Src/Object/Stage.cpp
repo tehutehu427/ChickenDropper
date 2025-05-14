@@ -34,6 +34,7 @@ Stage::~Stage(void)
 //初期化処理
 bool Stage::Init(SceneGame* parent)
 {
+	//リソースマネージャー
 	ResourceManager& res = ResourceManager::GetInstance();
 
 	//親

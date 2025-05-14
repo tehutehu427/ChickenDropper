@@ -83,31 +83,27 @@ protected:
 	//ゲームシーンのポインタ
 	SceneGame* sceneGame_;
 
+	//タイマー関係
 	DATEDATA timeLimit_;		//制限時間カウント
+	int timeFont_;				//タイマーのフォント
+	int timeFontSize_;			//タイマーのフォントの大きさ
+	int timeFontThickness_;		//タイマーのフォントの太さ
+	int secCount_;				//秒数数え用
 
-	int timeFont_;				//時間のフォント
-	int timeFontSize_;			//時間のフォントの大きさ
-	int timeFontThickness_;		//時間のフォントの太さ
-
+	//スコア
 	int scoreFont_;				//スコアのフォント
 	int scoreFontSize_;			//スコアのフォントの大きさ
 	int scoreFontThickness_;	//スコアのフォントの太さ
 
-	int secCount_;				//秒数数え用
+	//ステータス
+	int stateImages_[static_cast<int>(CommonData::TYPE::P4)];	//ステータス欄
+	Vector2F statePos_;											//ステータスの座標
 
-	//ステータス欄
-	int stateImages_[static_cast<int>(CommonData::TYPE::P4)];
-
-	//ステータスの座標
-	Vector2F statePos_;
-
-	//ステージ縮小のフラグ(true:縮小する)
-	bool isNarrowStage_;
-
-	//縮小警告用
-	int narrowInfoImage_;
-	float narrowInfoPos_;
-	float narrowInfoTime_;
+	//ステージ縮小関係
+	bool isNarrowStage_;		//ステージ縮小のフラグ(true:縮小する)
+	int narrowInfoImage_;		//縮小警告画像
+	float narrowInfoPos_;		//縮小警告の座標
+	float narrowInfoTime_;		//縮小警告の表示時間
 
 	//順位の初期化
 	void InitRank(void);

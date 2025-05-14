@@ -6,7 +6,7 @@ ItemHammer::ItemHammer(SceneGame* parent) : ItemBase(parent)
 {
 	sceneGame_ = parent;
 
-	model_ = 0;
+	model_ = -1;
 	pos_ = Utility::VECTOR_ZERO;
 	rot_ = Utility::VECTOR_ZERO;
 	scale_ = Utility::VECTOR_ONE;

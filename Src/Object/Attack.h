@@ -83,7 +83,7 @@ private:
 	
 	VECTOR pos_;				//攻撃の座標
 
-	Utility::DIR_3D dir_;	//攻撃の向き
+	Utility::DIR_3D dir_;		//攻撃の向き
 
 	CommonData::TYPE charaNum_;	//親プレイヤー番号
 

@@ -6,7 +6,7 @@ ItemBoots::ItemBoots(SceneGame* parent) : ItemBase(parent)
 {
 	sceneGame_ = parent;
 
-	model_ = 0;
+	model_ = -1;
 	pos_ = Utility::VECTOR_ZERO;
 	rot_ = Utility::VECTOR_ZERO;
 	scale_ = Utility::VECTOR_ONE;
@@ -27,7 +27,7 @@ void ItemBoots::SetParam(void)
 
 void ItemBoots::EffectUpdate(void)
 {
-	follow_->SetSpeed(Player::SPEED_NORMAL * 2.0f);
+	follow_->SetSpeed(Player::SPEED_NORMAL * SPEED_MULTI);
 
 	follow_->RunMoveInterval();
 }

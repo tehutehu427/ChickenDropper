@@ -72,12 +72,12 @@ void ItemBase::Draw(void)
 	//フィールドにある
 	else if (isAlive_)
 	{
-		DrawSphere3D(pos_, RADIUS, 20, color_, color_, true);
+		DrawSphere3D(pos_, RADIUS, DIV_NUM, color_, color_, true);
 	}
 	//プレイヤーに取得されている
 	else if (isEffective_)
 	{
-		DrawSphere3D(pos_, RADIUS * 1.5f , 2, color_, color_, false);
+		DrawSphere3D(pos_, PLAYER_FOLLOW, DIV_NUM, color_, color_, false);
 	}
 }
 

@@ -21,10 +21,13 @@ public:
 	//----------------------------
 
 	static constexpr float RADIUS = 24.0f;					//半径
+	static constexpr int DIV_NUM = 20;						//球の分割
+	static constexpr float PLAYER_FOLLOW = RADIUS * 1.5f;	//プレイヤーを囲う用
+	static constexpr int PLAYER_GOT_DIV_NUM = 2;			//プレイヤー取得時の球の分割
 
-	static constexpr int MAX_NUM = 3;						//アイテムの出現最大数
+	static constexpr int MAX_NUM = 3;			//アイテムの出現最大数
 
-	static constexpr int APPEAR_INTERVAL_SEC = 20;												//出現間隔(秒)
+	static constexpr int APPEAR_INTERVAL_SEC = 20;											//出現間隔(秒)
 	static constexpr float APPEAR_INTERVAL = APPEAR_INTERVAL_SEC * Utility::DEFAULT_FPS;	//出現間隔
 
 	static constexpr float EFFECT_TIME = 5.0f * Utility::DEFAULT_FPS;				//効果時間
@@ -82,39 +85,23 @@ public:
 protected:
 
 	//インスタンス
+	SceneGame* sceneGame_;	//シーンゲーム
+	Player* follow_;		//追従対象
 
-	//シーンゲーム
-	SceneGame* sceneGame_;
-	
-	//追従
-	Player* follow_;
+	//モデル関係
+	int model_;		//モデル
+	VECTOR pos_;	//座標
+	VECTOR rot_;	//回転
+	VECTOR scale_;	//大きさ
 
+	ITEM_TYPE itemType_;	//アイテムの種類
 
-	//モデル
-	int model_;
+	bool isAlive_;			//生存判定
 
-	//座標
-	VECTOR pos_;
+	bool isEffective_;		//効果の有効判定
 
-	//回転
-	VECTOR rot_;
+	float effectTime_;		//効果時間カウンタ
 
-	//大きさ
-	VECTOR scale_;
-
-	//アイテムの種類
-	ITEM_TYPE itemType_;
-
-	//生存判定
-	bool isAlive_;
-
-	//効果の有効判定
-	bool isEffective_;
-
-	//効果時間カウンタ
-	float effectTime_;	
-
-	//色（仮）
-	unsigned int color_;
+	unsigned int color_;	//色
 };
 

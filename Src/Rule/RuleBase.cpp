@@ -53,14 +53,20 @@ bool RuleBase::Init(void)
 
 void RuleBase::Update(void)
 {
+	//ÉXÉeÅ[ÉWèkè¨îªíË
 	if (!isNarrowStage_)
 	{
+		//âΩÇ‡ÇµÇ»Ç¢
 		return;
 	}
 
+	//èkè¨åxçê
 	if (narrowInfoTime_ < NARROW_INFO_TIME)
 	{
+		//èkè¨åxçêÇÃï\é¶éûä‘
 		narrowInfoTime_++;
+		
+		//èkè¨åxçêÇÃç¿ïW
 		narrowInfoPos_ = SineOut(narrowInfoTime_
 			, NARROW_INFO_TIME
 			, Application::SCREEN_SIZE_X + NARROW_INFO_SIZE_X / 2
@@ -70,6 +76,7 @@ void RuleBase::Update(void)
 
 void RuleBase::Draw(void)
 {
+	//ÉXÉeÅ[ÉWèkè¨îªíË
 	if (!isNarrowStage_)
 	{
 		return;
