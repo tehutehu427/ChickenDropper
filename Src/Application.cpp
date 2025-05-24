@@ -41,7 +41,7 @@ bool Application::Init(void)
 	//------------------------
 	SetWindowText("チキンドロッパー");					//ゲームウィンドウのタイトル
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);		//ゲームウィンドウのサイズと色モード
-	ChangeWindowMode(true);								//ゲームウィンドウの表示設定(false:フルスクリーン)
+	ChangeWindowMode(false);								//ゲームウィンドウの表示設定(false:フルスクリーン)
 	
 	//DxLibの初期化
 	if (DxLib_Init() == 1)								
